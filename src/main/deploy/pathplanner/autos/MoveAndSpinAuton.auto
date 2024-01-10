@@ -1,0 +1,30 @@
+{
+  "version": 1.0,
+  "startingPose": null,
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "MoveAndSpin"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "MoveAndSpin2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "MoveAndSpin3"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null
+}
