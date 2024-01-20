@@ -6,6 +6,9 @@ package frc.robot.subsystems;
 
 import java.util.ArrayList;
 
+import com.ctre.phoenix6.StatusSignal;
+import com.ctre.phoenix6.configs.Pigeon2Configuration;
+import com.ctre.phoenix6.hardware.Pigeon2;
 import com.kauailabs.navx.frc.AHRS;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
@@ -62,6 +65,7 @@ public class SwerveSubsystem extends SubsystemBase{
         false,
         false,
         Constants.RoboRioPortConfig.ABSOLUTE_ENCODER_FRONT_LEFT,
+        Constants.RoboRioPortConfig.FRONT_LEFT_CANCODER,
         Constants.RoboRioPortConfig.kFrontLeftDriveAbsoluteEncoderOffsetRad,
         true,
         IdleMode.kBrake,
@@ -75,6 +79,7 @@ public class SwerveSubsystem extends SubsystemBase{
         false,
         false,
         Constants.RoboRioPortConfig.ABSOLUTE_ENCODER_FRONT_RIGHT,
+        Constants.RoboRioPortConfig.FRONT_RIGHT_CANCODER,
         Constants.RoboRioPortConfig.kFrontRightDriveAbsoluteEncoderOffsetRad,
         true,
         IdleMode.kBrake,
@@ -88,6 +93,7 @@ public class SwerveSubsystem extends SubsystemBase{
         false,
         false,
         Constants.RoboRioPortConfig.ABSOLUTE_ENCODER_BACK_LEFT,
+        Constants.RoboRioPortConfig.BACK_LEFT_CANCODER,
         Constants.RoboRioPortConfig.kBackLeftDriveAbsoluteEncoderOffsetRad,
         true,
         IdleMode.kBrake,
@@ -101,6 +107,7 @@ public class SwerveSubsystem extends SubsystemBase{
         false,
         false,
         Constants.RoboRioPortConfig.ABSOLUTE_ENCODER_BACK_RIGHT,
+        Constants.RoboRioPortConfig.BACK_RIGHT_CANCODER,
         Constants.RoboRioPortConfig.kBackRightDriveAbsoluteEncoderOffsetRad,
         true,
         IdleMode.kBrake,
@@ -116,6 +123,8 @@ public class SwerveSubsystem extends SubsystemBase{
 
     //idk if this is the gyro we have 
     private final AHRS gyro = new AHRS(SPI.Port.kMXP);
+    private final Pigeon2 pidgey = new Pigeon2(Constants.RoboRioPortConfig.PIGEON2);
+    private StatusSignal<Double> yaw;
     private final SwerveDriveOdometry odometry = new SwerveDriveOdometry(
         DriveConstants.kDriveKinematics,
         new Rotation2d(0),
@@ -139,7 +148,15 @@ public class SwerveSubsystem extends SubsystemBase{
             } catch (Exception e) {
             }
         }).start(); 
+        var toApply = new Pigeon2Configuration();
+        pidgey.getConfigurator().apply(toApply);
+        pidgey.setYaw(0, 0.1); // Set our yaw to 144 degrees and wait up to 100 ms for the setter to take affect
+        pidgey.getYaw().waitForUpdate(0.1); // And wait up to 100 ms for the position to take affect
+        
 
+        /* Speed up signals to an appropriate rate */
+        pidgey.getYaw().setUpdateFrequency(100);
+        pidgey.getGravityVectorZ().setUpdateFrequency(100);
         // Initialize the moduleStates array
         moduleStates.add(new SwerveModuleState());
         moduleStates.add(new SwerveModuleState());
@@ -173,8 +190,10 @@ public double getPitchDegrees(){
     return gyro.getPitch();
 }
 public double getHeading(){
-    return Math.IEEEremainder(-(gyro.getAngle()), 360);
+    //return Math.IEEEremainder(-(gyro.getAngle()), 360);
+    return Math.IEEEremainder(-(yaw.getValueAsDouble()), 360);
 }
+
 
 public void zeroTurningEncoders(){
     for(int x=0; x<4; x++){
@@ -358,7 +377,13 @@ public ChassisSpeeds getRobotRelativeSpeeds(){
 @Override
 public void periodic() {
     odometry.update(getRotation2d(), getModulePositions());
+     yaw = pidgey.getYaw();
+   
 
+   // System.out.println("Yaw is " + yaw.getValueAsDouble() + " with " + yaw.getTimestamp().getLatency());
+
+    SmartDashboard.putNumber("PigeonYaw",yaw.getValueAsDouble());
+    SmartDashboard.putNumber("PigeonYawRemainder",Math.IEEEremainder(-(yaw.getValueAsDouble()), 360));
     // SmartDashboard.putString("Robot Location", getPose().getTranslation().toString());
     // SmartDashboard.putNumber("Robot Location x:", getPose().getX());
     // SmartDashboard.putNumber("Robot Location Y", getPose().getY());

@@ -41,7 +41,12 @@ public final class Constants {
         public static final int FRONT_RIGHT_TURN = 6;
         public static final int BACK_LEFT_TURN = 7;
         public static final int BACK_RIGHT_TURN = 8;
+        public static final int PIGEON2 = 9;
         public static final int INTAKE_MOTOR = 11;
+        public static final int FRONT_LEFT_CANCODER = 15;
+        public static final int FRONT_RIGHT_CANCODER = 16;
+        public static final int BACK_LEFT_CANCODER = 17;
+        public static final int BACK_RIGHT_CANCODER = 18;
         public static final int ARM_MOTOR = 21;        
         public static final int CLAW_MOTOR = 31;
         public static final int ORIENT_MOTOR = 42;

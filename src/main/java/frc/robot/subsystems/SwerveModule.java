@@ -8,6 +8,8 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.ModuleConstants;
 import frc.robot.enums.WheelPosition;
 
+import com.ctre.phoenix6.hardware.CANcoder;
+import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkBase.IdleMode;
@@ -25,7 +27,7 @@ import edu.wpi.first.wpilibj.AnalogInput;
 public class SwerveModule implements Sendable{
 
   private final CANSparkMax driveMotor;
-  private final CANSparkMax turningMotor;
+  private final CANSparkFlex turningMotor;
 
   private final RelativeEncoder driveEncoder;
   private final RelativeEncoder turningEncoder;
@@ -33,6 +35,7 @@ public class SwerveModule implements Sendable{
   private final PIDController turningPidController;
 
   private final AnalogInput absoluteEncoder;
+  private final CANcoder cancoder;
   private final boolean absoluteEncoderReversed;
   private final double absoluteEncoderOffsetRad;
 
@@ -42,15 +45,15 @@ public class SwerveModule implements Sendable{
 
   /** Creates a new SwerveModule. */
   public SwerveModule(WheelPosition wheelPosition, int driveMotorId, int turningMotorId, boolean driveMotorReversed, boolean turningMotorReversed,
-   int absoluteEncoderId, double absoluteEncoderOffset, boolean absoluteEncoderReversed, IdleMode driveMode, IdleMode turningMode) {
+   int absoluteEncoderId, int cancoderId, double absoluteEncoderOffset, boolean absoluteEncoderReversed, IdleMode driveMode, IdleMode turningMode) {
 
     this.wheelPosition = wheelPosition;
     this.absoluteEncoderOffsetRad = absoluteEncoderOffset;
     this.absoluteEncoderReversed = absoluteEncoderReversed;
     absoluteEncoder = new AnalogInput(absoluteEncoderId);
-
+    cancoder = new CANcoder(cancoderId);
     driveMotor = new CANSparkMax(driveMotorId, MotorType.kBrushless);
-    turningMotor = new CANSparkMax(turningMotorId, MotorType.kBrushless);
+    turningMotor = new CANSparkFlex(turningMotorId, MotorType.kBrushless);
 
     driveMotor.clearFaults();
     turningMotor.clearFaults();
@@ -214,6 +217,7 @@ public class SwerveModule implements Sendable{
   public void initSendable(SendableBuilder builder) {
     // TODO Auto-generated method stub
     builder.addDoubleProperty("Power From Module", () -> this.getDriveVelocity(), null);
+    builder.addDoubleProperty("CANCoder Absolute", () -> cancoder.getAbsolutePosition().getValueAsDouble(),null);
     // builder.addDoubleProperty("Physical Restraints", () -> DriveConstants.kPhysicalMaxAngularSpeedRadiansPerSecond, null);
   }
 
