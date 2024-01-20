@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ArmGoToHighMotionMagic;
 import frc.robot.commands.AbsoluteEncoderCalibration;
 import frc.robot.commands.ArmGoToMid;
+import frc.robot.commands.ClimberDefaultCommand;
 import frc.robot.commands.ExtenderRetractToZero;
 import frc.robot.commands.ManualEncoderCalibration;
 import frc.robot.commands.MoveToFulcrum;
@@ -21,6 +22,7 @@ import frc.robot.commands.SeekFulcrum;
 import frc.robot.commands.SwerveJoystickCmd;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Claw;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Extender;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LimeLight;
@@ -58,7 +60,10 @@ public class RobotContainer {
 
     private final SendableChooser<Command> autonChooser;
 
-  
+    private final Climber climber = new Climber();
+
+
+
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
         
@@ -76,7 +81,7 @@ public class RobotContainer {
         () -> primaryController.getLeftTriggerAxis(),
         () -> primaryController.getRightTriggerAxis(),
         limeLightGrid));
-
+        climber.setDefaultCommand(new ClimberDefaultCommand(climber, ()->secondaryController.getLeftY(), ()->secondaryController.getRightY()));
       // Configure the button bindings
       ManualEncoderCalibration manualEncoderCalibration = new ManualEncoderCalibration(swerveSubsystem);  
       AbsoluteEncoderCalibration absoluteEncoderCalibration = new AbsoluteEncoderCalibration(swerveSubsystem);           
