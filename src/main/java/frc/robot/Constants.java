@@ -21,8 +21,8 @@ public final class Constants {
 
     public static final class ModuleConstants {
         public static final double kWheelDiameterMeters = Units.inchesToMeters(4);
-        public static final double kDriveMotorGearRatio = 1 / 6.92;
-        public static final double kTurningMotorGearRatio = 1 / 18.0;
+        public static final double kDriveMotorGearRatio = 1 / 6.12;
+        public static final double kTurningMotorGearRatio = 1 / 12.8;
         public static final double kDriveEncoderRot2Meter = kDriveMotorGearRatio * Math.PI * kWheelDiameterMeters;
         public static final double kTurningEncoderRot2Rad = kTurningMotorGearRatio * 2 * Math.PI;
         public static final double kDriveEncoderRPM2MeterPerSec = kDriveEncoderRot2Meter / 60;
@@ -33,14 +33,14 @@ public final class Constants {
     public class RoboRioPortConfig{
         public static final int PDP = 0;
 
-        public static final int FRONT_LEFT_DRIVE = 1;
-        public static final int FRONT_RIGHT_DRIVE = 2;
-        public static final int BACK_LEFT_DRIVE = 3;
+        public static final int FRONT_LEFT_DRIVE = 8;
+        public static final int FRONT_RIGHT_DRIVE = 3;
+        public static final int BACK_LEFT_DRIVE = 6;
         public static final int BACK_RIGHT_DRIVE = 4;
-        public static final int FRONT_LEFT_TURN = 5;
-        public static final int FRONT_RIGHT_TURN = 6;
-        public static final int BACK_LEFT_TURN = 7;
-        public static final int BACK_RIGHT_TURN = 8;
+        public static final int FRONT_LEFT_TURN = 7;
+        public static final int FRONT_RIGHT_TURN = 2;
+        public static final int BACK_LEFT_TURN = 5;
+        public static final int BACK_RIGHT_TURN = 1;
         public static final int PIGEON2 = 9;
         public static final int INTAKE_MOTOR = 11;
         public static final int FRONT_LEFT_CANCODER = 15;
