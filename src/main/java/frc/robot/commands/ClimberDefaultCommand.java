@@ -32,6 +32,8 @@ public class ClimberDefaultCommand extends Command {
       climber.upperClimberControl(upperSpeedFunction.getAsDouble());
       climber.lowerClimberControl(lowerSpeedFunction.getAsDouble());
   }
+  
+  
 
   // Called once the command ends or is interrupted.
   @Override
@@ -42,4 +44,5 @@ public class ClimberDefaultCommand extends Command {
   public boolean isFinished() {
     return false;
   }
+
 }

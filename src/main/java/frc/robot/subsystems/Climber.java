@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkBase.IdleMode;
@@ -13,29 +15,28 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Climber extends SubsystemBase {
- private CANSparkMax climberUpper = new CANSparkMax(Constants.RoboRioPortConfig.CLIMBER_UPPER, MotorType.kBrushless);
- private CANSparkMax climberLower = new CANSparkMax(Constants.RoboRioPortConfig.CLIMBER_LOWER, MotorType.kBrushless);
+ private TalonFX climberUpper = new TalonFX(Constants.RoboRioPortConfig.CLIMBER_UPPER);
+ private TalonFX climberLower = new TalonFX(Constants.RoboRioPortConfig.CLIMBER_LOWER);
  
- private final RelativeEncoder upperEncoder;
- private final RelativeEncoder lowerEncoder;
+ private Double upperEncoderValue;
+ private Double lowerEncoderValue;
  
  
   /** Creates a new Climber. */
   public Climber() {
-    climberUpper.clearFaults();
-    climberLower.clearFaults();
+    climberUpper.clearStickyFaults();
+    climberLower.clearStickyFaults();
 
-    climberUpper.restoreFactoryDefaults();
-    climberLower.restoreFactoryDefaults();
+    //climberUpper.restoreFactoryDefaults();
+    //climberLower.restoreFactoryDefaults();
 
-    climberUpper.setSmartCurrentLimit(50, 50);
-    climberLower.setSmartCurrentLimit(50, 50);
+    //climberUpper.configStator
+    //climberLower.setSmartCurrentLimit(50, 50);
     
-    climberUpper.setIdleMode(IdleMode.kBrake);
-    climberLower.setIdleMode(IdleMode.kBrake);
+    climberUpper.setNeutralMode(NeutralModeValue.Brake);
+    climberLower.setNeutralMode(NeutralModeValue.Brake);
 
-    upperEncoder = climberUpper.getEncoder();
-    lowerEncoder = climberLower.getEncoder();
+    
   }
 
 public void upperClimberControl(double speed){
@@ -44,8 +45,21 @@ public void upperClimberControl(double speed){
 public void lowerClimberControl(double speed){
   this.climberLower.set(speed);
 }
+public void climber(double speed){
+  climberUpper.set(speed);
+  climberLower.set(speed);
+}
+
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    upperEncoderValue = climberUpper.getPosition().getValueAsDouble();
+    lowerEncoderValue = climberLower.getPosition().getValueAsDouble();
+
+    upperClimberControl(0);
+    lowerClimberControl(0);
+
   }
+
 }

@@ -81,7 +81,7 @@ public class RobotContainer {
         () -> primaryController.getLeftTriggerAxis(),
         () -> primaryController.getRightTriggerAxis(),
         limeLightGrid));
-        climber.setDefaultCommand(new ClimberDefaultCommand(climber, ()->secondaryController.getLeftY(), ()->secondaryController.getRightY()));
+        climber.setDefaultCommand(new ClimberDefaultCommand(climber, ()->secondaryController.getLeftY()*0.3, ()->secondaryController.getRightY()*0.3));
       // Configure the button bindings
       ManualEncoderCalibration manualEncoderCalibration = new ManualEncoderCalibration(swerveSubsystem);  
       AbsoluteEncoderCalibration absoluteEncoderCalibration = new AbsoluteEncoderCalibration(swerveSubsystem);           
