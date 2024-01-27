@@ -55,6 +55,8 @@ public final class Constants {
         public static final int CLAW_MOTOR = 31;
         public static final int ORIENT_MOTOR = 42;
         public static final int EXTENDER_MOTOR = 51;
+        public static final int CLIMBER_UPPER = 61;
+        public static final int CLIMBER_LOWER = 62;
     
         public static final int ABSOLUTE_ENCODER_FRONT_LEFT = 0;
         public static final int ABSOLUTE_ENCODER_FRONT_RIGHT = 1;
