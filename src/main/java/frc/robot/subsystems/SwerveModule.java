@@ -8,6 +8,8 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.ModuleConstants;
 import frc.robot.enums.WheelPosition;
 
+import com.ctre.phoenix6.configs.CANcoderConfigurator;
+import com.ctre.phoenix6.configs.MagnetSensorConfigs;
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkMax;
@@ -36,6 +38,7 @@ public class SwerveModule implements Sendable{
 
   private final AnalogInput absoluteEncoder;
   private final CANcoder cancoder;
+  private final CANcoderConfigurator cancoderConfigurator;
   private final boolean absoluteEncoderReversed;
   private final double absoluteEncoderOffsetRad;
 
@@ -54,6 +57,10 @@ public class SwerveModule implements Sendable{
     cancoder = new CANcoder(cancoderId);
     driveMotor = new CANSparkMax(driveMotorId, MotorType.kBrushless);
     turningMotor = new CANSparkFlex(turningMotorId, MotorType.kBrushless);
+
+    cancoderConfigurator = cancoder.getConfigurator();
+    cancoderConfigurator.apply(new MagnetSensorConfigs().withMagnetOffset(absoluteEncoderOffset));
+
 
     driveMotor.clearFaults();
     turningMotor.clearFaults();
@@ -121,13 +128,14 @@ public class SwerveModule implements Sendable{
   }
   public void resetTurningEncoderWithAbsolute () {
     turningEncoder.setPosition(getAbsoluteEncoderRadians());
-
+    // cancoder.setPosition(cancoder.getAbsolutePosition().getValueAsDouble());
   }
   public SwerveModulePosition getPosition() {
     return new SwerveModulePosition( driveEncoder.getPosition(), new Rotation2d(turningEncoder.getPosition()));
   }
   public void zeroTurningEncoder(){
-    turningEncoder.setPosition(0);  
+    turningEncoder.setPosition(0);
+    // cancoder.setPosition(0);  
   }
 
   public double getDrivePosition(){
@@ -135,16 +143,24 @@ public class SwerveModule implements Sendable{
   }
 
   public double getTurningPosition(){
-    return turningEncoder.getPosition();
+    return cancoder.getPosition().getValueAsDouble()*2*Math.PI;
   }
 
   public double getDriveVelocity(){
     return driveEncoder.getVelocity();
   }
 
-  public AnalogInput getAbsoluteEncoder(){
-    return this.absoluteEncoder;
+  public double getAbsoluteEncoderRadians(){
+    // return this.absoluteEncoder;
+    double rads = cancoder.getAbsolutePosition().getValueAsDouble()*2*Math.PI;
+    // if (absoluteEncoderReversed){
+    //   rads *= -1;
+    // } 
+    //rads -= absoluteEncoderOffsetRad;
+    rads = boundAngle(rads);
+    return rads;
   }
+
 
 
 
@@ -183,17 +199,17 @@ public class SwerveModule implements Sendable{
   }
 
 
-  public double getAbsoluteEncoderRadians() {
-    // double angle = absoluteEncoder.getVoltage() / RobotController.getCurrent5V();
-    double angle = absoluteEncoder.getVoltage() / 5.0;
-    angle = (Math.PI * 2) * angle - Math.PI;
-    if (absoluteEncoderReversed){
-      angle *= -1;
-    } 
-    angle -= absoluteEncoderOffsetRad;
-    angle = boundAngle(angle);
-    return angle;
-  }
+  // public double getAbsoluteEncoderRadians() {
+  //   // double angle = absoluteEncoder.getVoltage() / RobotController.getCurrent5V();
+  //   double angle = absoluteEncoder.getVoltage() / 5.0;
+  //   angle = (Math.PI * 2) * angle - Math.PI;
+  //   if (absoluteEncoderReversed){
+  //     angle *= -1;
+  //   } 
+  //   angle -= absoluteEncoderOffsetRad;
+  //   angle = boundAngle(angle);
+  //   return angle;
+  // }
 
   private double boundAngle(double inputAngleRad){
     double outputAngleRad = inputAngleRad;
