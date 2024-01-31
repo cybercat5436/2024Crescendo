@@ -18,14 +18,15 @@ public class Climber extends SubsystemBase {
  private TalonFX climberUpper = new TalonFX(Constants.RoboRioPortConfig.CLIMBER_UPPER);
  private TalonFX climberLower = new TalonFX(Constants.RoboRioPortConfig.CLIMBER_LOWER);
  
+
  private Double upperEncoderValue;
  private Double lowerEncoderValue;
  
  
   /** Creates a new Climber. */
   public Climber() {
-    climberUpper.clearStickyFaults();
-    climberLower.clearStickyFaults();
+   // climberUpper.clearStickyFaults();
+    //climberLower.clearStickyFaults();
 
     //climberUpper.restoreFactoryDefaults();
     //climberLower.restoreFactoryDefaults();
@@ -33,17 +34,21 @@ public class Climber extends SubsystemBase {
     //climberUpper.configStator
     //climberLower.setSmartCurrentLimit(50, 50);
     
-    climberUpper.setNeutralMode(NeutralModeValue.Brake);
-    climberLower.setNeutralMode(NeutralModeValue.Brake);
+    //climberUpper.setNeutralMode(NeutralModeValue.Brake);
+    //climberLower.setNeutralMode(NeutralModeValue.Brake);
 
     
   }
 
 public void upperClimberControl(double speed){
+  //System.out.println("upper climber climbing");
   this.climberUpper.set(speed);
+  System.out.println(speed);
 }
 public void lowerClimberControl(double speed){
+  //System.out.println("lower climber");
   this.climberLower.set(speed);
+  System.out.println(speed);
 }
 public void climber(double speed){
   climberUpper.set(speed);
@@ -57,8 +62,8 @@ public void climber(double speed){
     upperEncoderValue = climberUpper.getPosition().getValueAsDouble();
     lowerEncoderValue = climberLower.getPosition().getValueAsDouble();
 
-    upperClimberControl(0);
-    lowerClimberControl(0);
+   // upperClimberControl(0);
+   // lowerClimberControl(0);
 
   }
 
