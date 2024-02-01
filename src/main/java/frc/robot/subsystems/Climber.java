@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
@@ -21,7 +22,7 @@ public class Climber extends SubsystemBase {
 
  private Double upperEncoderValue;
  private Double lowerEncoderValue;
- 
+ private DutyCycleOut upperClimberRequest;
  
   /** Creates a new Climber. */
   public Climber() {
@@ -36,13 +37,14 @@ public class Climber extends SubsystemBase {
     
     //climberUpper.setNeutralMode(NeutralModeValue.Brake);
     //climberLower.setNeutralMode(NeutralModeValue.Brake);
+   this.upperClimberRequest = new DutyCycleOut(0.0);
 
     
   }
 
 public void upperClimberControl(double speed){
   //System.out.println("upper climber climbing");
-  this.climberUpper.set(speed);
+  this.climberUpper.setControl(upperClimberRequest.withOutput(speed));
   System.out.println(speed);
 }
 public void lowerClimberControl(double speed){
