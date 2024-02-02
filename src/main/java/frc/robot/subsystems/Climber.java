@@ -16,13 +16,14 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Climber extends SubsystemBase {
- private TalonFX climberUpper = new TalonFX(Constants.RoboRioPortConfig.CLIMBER_UPPER);
- private TalonFX climberLower = new TalonFX(Constants.RoboRioPortConfig.CLIMBER_LOWER);
+ private TalonFX climberUpper = new TalonFX(Constants.RoboRioPortConfig.CLIMBER_UPPER, "rio");
+ private TalonFX climberLower = new TalonFX(Constants.RoboRioPortConfig.CLIMBER_LOWER, "rio");
  
 
  private Double upperEncoderValue;
  private Double lowerEncoderValue;
  private DutyCycleOut upperClimberRequest;
+ private DutyCycleOut lowerClimberRequest;
  
   /** Creates a new Climber. */
   public Climber() {
@@ -38,25 +39,22 @@ public class Climber extends SubsystemBase {
     //climberUpper.setNeutralMode(NeutralModeValue.Brake);
     //climberLower.setNeutralMode(NeutralModeValue.Brake);
    this.upperClimberRequest = new DutyCycleOut(0.0);
-
+   this.lowerClimberRequest = new DutyCycleOut(0.0);
     
   }
 
 public void upperClimberControl(double speed){
   //System.out.println("upper climber climbing");
-  this.climberUpper.setControl(upperClimberRequest.withOutput(speed));
+  upperClimberRequest.Output = speed;
+  this.climberUpper.setControl(upperClimberRequest);
   System.out.println(speed);
 }
 public void lowerClimberControl(double speed){
   //System.out.println("lower climber");
-  this.climberLower.set(speed);
+  lowerClimberRequest.Output = speed; 
+  this.climberLower.setControl(lowerClimberRequest);
   System.out.println(speed);
 }
-public void climber(double speed){
-  climberUpper.set(speed);
-  climberLower.set(speed);
-}
-
 
   @Override
   public void periodic() {

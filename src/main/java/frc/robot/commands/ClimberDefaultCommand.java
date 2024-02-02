@@ -30,8 +30,8 @@ public class ClimberDefaultCommand extends Command {
   @Override
   public void execute() {
     System.out.println("Climber is climbing");
-      climber.upperClimberControl(upperSpeedFunction.getAsDouble());
-      climber.lowerClimberControl(lowerSpeedFunction.getAsDouble());
+      climber.upperClimberControl(upperSpeedFunction.getAsDouble()*0.5);
+      climber.lowerClimberControl(lowerSpeedFunction.getAsDouble()*0.5);
      // System.out.println(upperSpeedFunction.getAsDouble());
       //System.out.println(lowerSpeedFunction.getAsDouble());
       
