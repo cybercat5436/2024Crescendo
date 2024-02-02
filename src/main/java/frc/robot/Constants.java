@@ -38,9 +38,9 @@ public final class Constants {
         public static final int BACK_LEFT_DRIVE = 6;
         public static final int BACK_RIGHT_DRIVE = 4;
         public static final int FRONT_LEFT_TURN = 7;
-        public static final int FRONT_RIGHT_TURN = 2;
+        public static final int FRONT_RIGHT_TURN = 10;
         public static final int BACK_LEFT_TURN = 5;
-        public static final int BACK_RIGHT_TURN = 1;
+        public static final int BACK_RIGHT_TURN = 2;
         public static final int PIGEON2 = 9;
         public static final int INTAKE_MOTOR = 11;
         public static final int FRONT_LEFT_CANCODER = 15;
@@ -66,10 +66,10 @@ public final class Constants {
         public static final int EXTENDER_ZERO_LIMIT_SWITCH = 0;
         public static final int EXTENDER_MAX_LIMIT_SWITCH = 1;
 
-        public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad = -0.954;//2.827;//-1.285;
-        public static final double kFrontRightDriveAbsoluteEncoderOffsetRad = 0.79;//2.482;
-        public static final double kBackLeftDriveAbsoluteEncoderOffsetRad = 1.79;//-2.86;//-2.399;
-        public static final double kBackRightDriveAbsoluteEncoderOffsetRad = -2.201;//-2.752;
+        public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad = -0.4375;
+        public static final double kFrontRightDriveAbsoluteEncoderOffsetRad = 0.312255859375;
+        public static final double kBackLeftDriveAbsoluteEncoderOffsetRad = -0.009521484375;
+        public static final double kBackRightDriveAbsoluteEncoderOffsetRad = -0.48779296875;
         
     }
 

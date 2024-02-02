@@ -149,15 +149,20 @@ public class SwerveSubsystem extends SubsystemBase{
             } catch (Exception e) {
             }
         }).start(); 
-        var toApply = new Pigeon2Configuration();
+        Pigeon2Configuration toApply = new Pigeon2Configuration();
         pidgey.getConfigurator().apply(toApply);
         pidgey.setYaw(0, 0.1); // Set our yaw to 144 degrees and wait up to 100 ms for the setter to take affect
         pidgey.getYaw().waitForUpdate(0.1); // And wait up to 100 ms for the position to take affect
+
+
+        
+        pidgey.getYaw().setUpdateFrequency(100);
+        pidgey.getGravityVectorZ().setUpdateFrequency(100);
+
         
 
         /* Speed up signals to an appropriate rate */
-        pidgey.getYaw().setUpdateFrequency(100);
-        pidgey.getGravityVectorZ().setUpdateFrequency(100);
+        // pidgey.getYaw().setUpdateFrequency(100);
         // Initialize the moduleStates array
         moduleStates.add(new SwerveModuleState());
         moduleStates.add(new SwerveModuleState());
@@ -192,7 +197,7 @@ public double getPitchDegrees(){
 }
 public double getHeading(){
     //return Math.IEEEremainder(-(gyro.getAngle()), 360);
-    return Math.IEEEremainder(-(yaw.getValueAsDouble()), 360);
+    return Math.IEEEremainder(pidgey.getYaw().getValueAsDouble(), 360);
 }
 
 
@@ -378,13 +383,11 @@ public ChassisSpeeds getRobotRelativeSpeeds(){
 @Override
 public void periodic() {
     odometry.update(getRotation2d(), getModulePositions());
-     yaw = pidgey.getYaw();
+    //  yaw = pidgey.getYaw();
    
 
    // System.out.println("Yaw is " + yaw.getValueAsDouble() + " with " + yaw.getTimestamp().getLatency());
 
-    SmartDashboard.putNumber("PigeonYaw",yaw.getValueAsDouble());
-    SmartDashboard.putNumber("PigeonYawRemainder",Math.IEEEremainder(-(yaw.getValueAsDouble()), 360));
     // SmartDashboard.putString("Robot Location", getPose().getTranslation().toString());
     // SmartDashboard.putNumber("Robot Location x:", getPose().getX());
     // SmartDashboard.putNumber("Robot Location Y", getPose().getY());
@@ -453,6 +456,8 @@ public void initSendable(SendableBuilder builder) {
 
     builder.addDoubleProperty("feed forward", () -> feedForwardConstant, (value) -> feedForwardConstant = value);
     builder.addStringProperty("Odometry Position", () -> this.odometry.getPoseMeters().toString(), null);
+    builder.addDoubleProperty("Yaw: ", () -> pidgey.getYaw().getValueAsDouble(), null);
+    builder.addDoubleProperty("getHeading: ", () -> this.getHeading(), null);
 
     // builder.addDoubleProperty("Integrator Constant", () -> integratorConstant, (value) -> integratorConstant = value);
 
