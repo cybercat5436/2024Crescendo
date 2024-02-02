@@ -140,6 +140,7 @@ public class SwerveSubsystem extends SubsystemBase{
     ProfiledPIDController thetaController;
 
     public SwerveSubsystem(){
+        yaw = pidgey.getYaw();
         new Thread(() -> {
             try {
                 Thread.sleep(1000);

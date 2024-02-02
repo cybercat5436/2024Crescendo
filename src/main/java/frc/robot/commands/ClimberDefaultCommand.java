@@ -29,9 +29,15 @@ public class ClimberDefaultCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-      climber.upperClimberControl(upperSpeedFunction.getAsDouble());
-      climber.lowerClimberControl(lowerSpeedFunction.getAsDouble());
+    System.out.println("Climber is climbing");
+      climber.upperClimberControl(upperSpeedFunction.getAsDouble()*0.5);
+      climber.lowerClimberControl(lowerSpeedFunction.getAsDouble()*0.5);
+     // System.out.println(upperSpeedFunction.getAsDouble());
+      //System.out.println(lowerSpeedFunction.getAsDouble());
+      
   }
+  
+  
 
   // Called once the command ends or is interrupted.
   @Override
@@ -42,4 +48,5 @@ public class ClimberDefaultCommand extends Command {
   public boolean isFinished() {
     return false;
   }
+
 }

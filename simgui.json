@@ -1,0 +1,19 @@
+{
+  "NTProvider": {
+    "types": {
+      "/FMSInfo": "FMSInfo",
+      "/SmartDashboard/AbsoluteEncoderCalibration": "Command",
+      "/SmartDashboard/Auton Chooser": "String Chooser",
+      "/SmartDashboard/Claw": "Subsystem",
+      "/SmartDashboard/InstantCommand": "Command",
+      "/SmartDashboard/Intake": "Subsystem",
+      "/SmartDashboard/ManualEncoderCalibration": "Command",
+      "/SmartDashboard/Orienter": "Subsystem",
+      "/SmartDashboard/SequentialCommandGroup": "Command",
+      "/SmartDashboard/SwerveSubsystem": "Subsystem"
+    }
+  },
+  "NetworkTables Info": {
+    "visible": true
+  }
+}
