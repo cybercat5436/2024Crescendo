@@ -23,6 +23,7 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 
@@ -190,8 +191,10 @@ public class SwerveModule implements Sendable{
     
     driveMotor.set(driveMotorPower);
 
-    turningMotor.set(turningPidController.calculate(turningEncoder.getPosition(), state.angle.getRadians()));
+    // System.out.println("Turning Encoder Error: "+(state.angle.getRadians()-boundAngle(turningEncoder.getPosition())));
 
+    turningMotor.set(turningPidController.calculate(turningEncoder.getPosition(), state.angle.getRadians()));
+  
     // SmartDashboard.putString(String.format("%s Modue State", this.wheelPosition.name()), state.toString());
     
     // SmartDashboard.putNumber(String.format("%s Drive Motor Power", this.wheelPosition.name()) , driveMotorPower);
