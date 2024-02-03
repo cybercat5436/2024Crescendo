@@ -5,30 +5,30 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonFX;
+// import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Amp extends SubsystemBase {
   /** Creates a new Amp. */
-  private TalonFX ampMotor;
+  // private TalonFX ampMotor;
   private double speed = 0.5;
   public Amp() {
 
-    ampMotor = new TalonFX(Constants.RoboRioPortConfig.AMP_FALCON_MOTOR);
+    // ampMotor = new TalonFX(Constants.RoboRioPortConfig.AMP_FALCON_MOTOR);
   }
 
   public void up() {
-    ampMotor.set(ControlMode.PercentOutput,speed);
+    // ampMotor.set(ControlMode.PercentOutput,speed);
   }
 
   public void down() {
-    ampMotor.set(ControlMode.PercentOutput,-speed);
+    // ampMotor.set(ControlMode.PercentOutput,-speed);
   }
 
   public void stop() {
-    ampMotor.set(ControlMode.PercentOutput,0);
+    // ampMotor.set(ControlMode.PercentOutput,0);
   }
 
 
