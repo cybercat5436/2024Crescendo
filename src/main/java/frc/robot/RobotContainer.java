@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
 import edu.wpi.first.wpilibj.GenericHID;
@@ -38,7 +39,7 @@ public class RobotContainer {
     private final Intake intake = new Intake();
     private final CommandXboxController primaryController = new CommandXboxController(1);
     private final CommandXboxController secondaryController = new CommandXboxController(0);
-    private final SendableChooser<Command> autonChooser = new SendableChooser<>();
+    private SendableChooser<Command> autonChooser = new SendableChooser<>();
 
     private final Climber climber = new Climber();
 
@@ -75,8 +76,9 @@ public class RobotContainer {
       // Register Named Commands for Path Planner
       registerNamedCommands();
       // Build an auto chooser. This will use Commands.none() as the default option.
-      
-
+      String defaultAuton = AutoBuilder.getAllAutoNames().isEmpty() ? "" : AutoBuilder.getAllAutoNames().get(0);
+      autonChooser = AutoBuilder.buildAutoChooser(defaultAuton);
+      SmartDashboard.putData("Auton Chooser", autonChooser);
 }
   
     /**
