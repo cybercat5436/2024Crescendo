@@ -1,0 +1,37 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 1.0680920648574521,
+      "y": 5.539225686154654
+    },
+    "rotation": 0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "LeftTopNote"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "LeftMidNote"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "LeftBotNote"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}
