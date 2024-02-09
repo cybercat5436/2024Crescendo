@@ -29,7 +29,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class SwerveModule implements Sendable{
 
-  private final CANSparkMax driveMotor;
+  private final CANSparkFlex driveMotor;
   private final CANSparkFlex turningMotor;
 
   private final RelativeEncoder driveEncoder;
@@ -56,11 +56,13 @@ public class SwerveModule implements Sendable{
     this.absoluteEncoderReversed = absoluteEncoderReversed;
     absoluteEncoder = new AnalogInput(absoluteEncoderId);
     cancoder = new CANcoder(cancoderId);
-    driveMotor = new CANSparkMax(driveMotorId, MotorType.kBrushless);
+    driveMotor = new CANSparkFlex(driveMotorId, MotorType.kBrushless);
     turningMotor = new CANSparkFlex(turningMotorId, MotorType.kBrushless);
 
     cancoderConfigurator = cancoder.getConfigurator();
     cancoderConfigurator.apply(new MagnetSensorConfigs().withMagnetOffset(absoluteEncoderOffset));
+
+    // driveMotor.setPeriodicFramePeriod(null, cancoderId)
 
 
     driveMotor.clearFaults();

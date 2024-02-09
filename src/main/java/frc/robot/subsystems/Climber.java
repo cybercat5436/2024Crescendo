@@ -36,8 +36,8 @@ public class Climber extends SubsystemBase {
     //climberUpper.configStator
     //climberLower.setSmartCurrentLimit(50, 50);
     
-    //climberUpper.setNeutralMode(NeutralModeValue.Brake);
-    //climberLower.setNeutralMode(NeutralModeValue.Brake);
+    climberUpper.setNeutralMode(NeutralModeValue.Brake);
+    climberLower.setNeutralMode(NeutralModeValue.Brake);
    this.upperClimberRequest = new DutyCycleOut(0.0);
    this.lowerClimberRequest = new DutyCycleOut(0.0);
     

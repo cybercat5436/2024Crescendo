@@ -35,7 +35,7 @@ public class RobotContainer {
     public boolean halfSpeed = false;
     private final LimeLight limeLightGrid = new LimeLight("limelight");
     private final LimeLight limeLightOrient = new LimeLight("limelight-orient");
-    private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
+    private final SwerveSubsystem swerveSubsystem = Robot.robot.getSwerveSubsystem();//new SwerveSubsystem();
     private final Intake intake = new Intake();
     private final CommandXboxController primaryController = new CommandXboxController(1);
     private final CommandXboxController secondaryController = new CommandXboxController(0);
@@ -43,7 +43,7 @@ public class RobotContainer {
 
     private final Climber climber = new Climber();
 
-
+    
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
