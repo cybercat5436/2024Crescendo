@@ -24,8 +24,6 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
-  private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
-
   public static Robot robot;
 
   /**
@@ -36,16 +34,14 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
-    m_robotContainer = new RobotContainer();
     robot = this;
-    addPeriodic(()->{swerveSubsystem.getOdometry().update(swerveSubsystem.getRotation2d(), swerveSubsystem.getModulePositions());
+    m_robotContainer = new RobotContainer();
+    addPeriodic(()->{m_robotContainer.getSwerveSubsystem().getOdometry().update(m_robotContainer.getSwerveSubsystem().getRotation2d(), 
+      m_robotContainer.getSwerveSubsystem().getModulePositions());
     }, 0.01, 0.005);
   }
 
-  
-  public SwerveSubsystem getSwerveSubsystem(){
-    return swerveSubsystem;
-  }
+ 
 
   /**
    * This function is called every robot packet, no matter the mode. Use this for items like

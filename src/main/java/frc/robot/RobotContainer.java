@@ -35,13 +35,13 @@ public class RobotContainer {
     public boolean halfSpeed = false;
     private final LimeLight limeLightGrid = new LimeLight("limelight");
     private final LimeLight limeLightOrient = new LimeLight("limelight-orient");
-    private final SwerveSubsystem swerveSubsystem = Robot.robot.getSwerveSubsystem();//new SwerveSubsystem();
-    private final Intake intake = new Intake();
+    private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
+    // private final Intake intake = new Intake();
     private final CommandXboxController primaryController = new CommandXboxController(1);
     private final CommandXboxController secondaryController = new CommandXboxController(0);
     private SendableChooser<Command> autonChooser = new SendableChooser<>();
 
-    private final Climber climber = new Climber();
+    // private final Climber climber = new Climber();
 
     
 
@@ -89,16 +89,16 @@ public class RobotContainer {
      */
     private void configureButtonBindings() {
       //Intake Buttons
-      primaryController.leftBumper().onTrue(new InstantCommand(()->intake.intakeFeedIn()))
-        .onFalse(new InstantCommand(()->intake.stopIntake()));
-      primaryController.rightBumper().onTrue(new InstantCommand(()->intake.intakeFeedOut()))
-        .onFalse(new InstantCommand(()->intake.stopIntake()));
+      // primaryController.leftBumper().onTrue(new InstantCommand(()->intake.intakeFeedIn()))
+      //   .onFalse(new InstantCommand(()->intake.stopIntake()));
+      // primaryController.rightBumper().onTrue(new InstantCommand(()->intake.intakeFeedOut()))
+      //   .onFalse(new InstantCommand(()->intake.stopIntake()));
       
 
       //Auto command groups
-      secondaryController.start().onTrue(
-          new ClimberDefaultCommand(climber, ()->secondaryController.getLeftY(), ()->secondaryController.getRightY()
-      ));
+      // secondaryController.start().onTrue(
+      //     new ClimberDefaultCommand(climber, ()->secondaryController.getLeftY(), ()->secondaryController.getRightY()
+      // ));
     
     
 
@@ -117,6 +117,10 @@ public class RobotContainer {
 
   private void registerNamedCommands(){
  
+  }
+
+  public SwerveSubsystem getSwerveSubsystem(){
+    return swerveSubsystem;
   }
 
 }
