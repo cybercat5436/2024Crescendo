@@ -18,11 +18,13 @@ import frc.robot.commands.SwerveJoystickCmd;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LimeLight;
+import frc.robot.subsystems.Speaker;
 import frc.robot.subsystems.SwerveSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -42,7 +44,7 @@ public class RobotContainer {
     private SendableChooser<Command> autonChooser = new SendableChooser<>();
 
     private final Climber climber = new Climber();
-
+    private final Speaker speaker = new Speaker();
 
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -99,8 +101,18 @@ public class RobotContainer {
       secondaryController.start().onTrue(
           new ClimberDefaultCommand(climber, ()->secondaryController.getLeftY(), ()->secondaryController.getRightY()
       ));
+          
+
+
     
-    
+      
+      Trigger rightTrigger = new Trigger(()->secondaryController.getRightTriggerAxis()> 0.2);
+      Trigger leftTrigger = new Trigger(()->secondaryController.getLeftTriggerAxis()> 0.2);
+      leftTrigger.whileTrue(new InstantCommand(()-> speaker.startLauncher(secondaryController.getLeftTriggerAxis())).repeatedly())
+        
+        .onFalse(new InstantCommand(()-> speaker.stopLauncher()));
+
+      rightTrigger.onTrue(new InstantCommand(()-> speaker.startFeeder())).onFalse(new InstantCommand(()-> speaker.stopFeeder()));
 
     }
 
