@@ -189,7 +189,8 @@ public class SwerveSubsystem extends SubsystemBase{
 //todo make sure we only do hardware call once (getAngle)
 
 public double getRollDegrees(){
-    return gyro.getRoll();
+    return pidgey.getRoll().getValueAsDouble();
+ //   return gyro.getRoll();
 }
 
 public double getPitchDegrees(){
@@ -420,7 +421,7 @@ public void periodic() {
     // SmartDashboard.putNumber("FL Target Angle", moduleStates.get(0).angle.getRadians());
     // SmartDashboard.putNumber("Gyro", gyro.getAngle());
    // SmartDashboard.putNumber("Mystery", getHeading());
-       SmartDashboard.putNumber ("Pitch", gyro.getPitch());
+       SmartDashboard.putNumber ("Roll Angle", getRollDegrees());
 //    SmartDashboard.putNumber ("Roll", gyro.getRoll());
    
     // DataLogManager.log(String.format("Back Left Encoder Voltage %f", backLeft.getAbsoluteEncoder().getVoltage()));

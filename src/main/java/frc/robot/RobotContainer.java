@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import java.rmi.StubNotFoundException;
+
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
@@ -12,6 +14,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.AbsoluteEncoderCalibration;
+import frc.robot.commands.AutoClimbCommand;
 import frc.robot.commands.ClimberDefaultCommand;
 import frc.robot.commands.ManualEncoderCalibration;
 import frc.robot.commands.SwerveJoystickCmd;
@@ -96,9 +99,20 @@ public class RobotContainer {
       
 
       //Auto command groups
-      secondaryController.start().onTrue(
-          new ClimberDefaultCommand(climber, ()->secondaryController.getLeftY(), ()->secondaryController.getRightY()
-      ));
+      climber.setDefaultCommand(
+        new ClimberDefaultCommand(climber, 
+          ()->secondaryController.getLeftY(), 
+          ()->secondaryController.getRightY()
+        )
+      );
+      // secondaryController.start().onTrue(
+      //    // new ClimberDefaultCommand(climber, ()->secondaryController.getLeftY(), ()->secondaryController.getRightY()
+      //    new AutoClimbCommand(climber, swerveSubsystem)
+      // );
+      secondaryController.x().onTrue((new AutoClimbCommand(climber, swerveSubsystem)))
+      .onFalse(new InstantCommand(()-> climber.climberStop()));
+      // secondaryController.x().onTrue(new InstantCommand(() -> System.out.println("Starting AutoClimb...")))
+      // .onFalse(new InstantCommand(()-> System.out.println("Exiting AutoClimb...")));
     
     
 
