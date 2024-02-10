@@ -8,6 +8,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.Constants.DriveConstants;
@@ -26,6 +27,8 @@ public class Robot extends TimedRobot {
 
   public static Robot robot;
 
+  private Timer timer = new Timer();
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -36,9 +39,11 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     robot = this;
     m_robotContainer = new RobotContainer();
-    addPeriodic(()->{m_robotContainer.getSwerveSubsystem().getOdometry().update(m_robotContainer.getSwerveSubsystem().getRotation2d(), 
-      m_robotContainer.getSwerveSubsystem().getModulePositions());
-    }, 0.01, 0.005);
+    timer.start();
+    addPeriodic(()->{
+      m_robotContainer.getSwerveSubsystem().getOdometry().update(m_robotContainer.getSwerveSubsystem().getRotation2d(), m_robotContainer.getSwerveSubsystem().getModulePositions());    
+    }, 
+      0.01, 0.0);
   }
 
  

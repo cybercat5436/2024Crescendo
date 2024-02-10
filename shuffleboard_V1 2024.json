@@ -569,7 +569,7 @@
         "tiles": {
           "6,3": {
             "size": [
-              1,
+              2,
               1
             ],
             "content": {
@@ -595,7 +595,7 @@
           },
           "6,2": {
             "size": [
-              1,
+              2,
               1
             ],
             "content": {
@@ -628,6 +628,58 @@
               "_type": "ComboBox Chooser",
               "_source0": "network_table:///SmartDashboard/Auton Chooser",
               "_title": "/SmartDashboard/Auton Chooser",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "8,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/FRONT_LEFT Turning Encoder",
+              "_title": "SmartDashboard/FRONT_LEFT Turning Encoder",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "9,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/FRONT_RIGHT Turning Encoder",
+              "_title": "SmartDashboard/FRONT_RIGHT Turning Encoder",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "9,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/BACK_RIGHT Turning Encoder",
+              "_title": "SmartDashboard/BACK_RIGHT Turning Encoder",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "8,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/BACK_LEFT Turning Encoder",
+              "_title": "SmartDashboard/BACK_LEFT Turning Encoder",
               "_glyph": 148,
               "_showGlyph": false
             }

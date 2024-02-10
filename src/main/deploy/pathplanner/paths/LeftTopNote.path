@@ -33,11 +33,11 @@
     {
       "anchor": {
         "x": 1.07,
-        "y": 5.54
+        "y": 5.4
       },
       "prevControl": {
         "x": 1.0455104348122128,
-        "y": 5.595868248557773
+        "y": 5.455868248557773
       },
       "nextControl": null,
       "isLocked": false,
@@ -59,7 +59,7 @@
   "constraintZones": [
     {
       "name": "soft end",
-      "minWaypointRelativePos": 0.0,
+      "minWaypointRelativePos": 1.8,
       "maxWaypointRelativePos": 2.0,
       "constraints": {
         "maxVelocity": 1.5,
