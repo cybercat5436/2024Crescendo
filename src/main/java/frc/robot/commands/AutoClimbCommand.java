@@ -16,12 +16,14 @@ import frc.robot.subsystems.SwerveSubsystem;
 public class AutoClimbCommand extends Command {
   private Climber climber;
   private SwerveSubsystem swerveSubsystem;
+  private double targetAngle = 0.0;
   /** Creates a new AutoClimbCommand. */
   public AutoClimbCommand(Climber climber, SwerveSubsystem swerveSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(climber);
     this.climber = climber;
     this.swerveSubsystem = swerveSubsystem;
+    this.targetAngle = swerveSubsystem.getBalanceRoll();
   }
 
   // Called when the command is initially scheduled.
@@ -31,17 +33,17 @@ public class AutoClimbCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double targetAngle = 0.0;
+    // double targetAngle = 0.0;
     double rollAngle = swerveSubsystem.getRollDegrees();
-    double rollError = targetAngle - rollAngle;
+    double rollError = this.targetAngle - rollAngle;
     System.out.println("roll error: " + rollError);
     double kP = 0.05;
     double speed =Math.abs(kP*rollError);
     speed = Math.min(speed, 0.3);
-    if(rollError<0){
+    if(rollError>0){
       climber.moveLeftClimber(speed);
       climber.moveRightClimber(0);
-    } else if(rollError>0){
+    } else if(rollError<0){
       climber.moveRightClimber(speed);
       climber.moveLeftClimber(0);
     }else{
@@ -56,12 +58,12 @@ public class AutoClimbCommand extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    climber.climberStop();
+    // climber.climberStop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

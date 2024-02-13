@@ -55,6 +55,7 @@ public class SwerveSubsystem extends SubsystemBase{
     private double integratorConstant = 0.0000;
     private double targetPitch = 0;
     private double saturatedPitch = -10;
+    private double balanceRoll = 0.0;
 
 
 
@@ -146,6 +147,7 @@ public class SwerveSubsystem extends SubsystemBase{
                 Thread.sleep(1000);
                 zeroHeading();
                 targetPitch = getPitchDegrees();
+                balanceRoll = getRollDegrees();
             } catch (Exception e) {
             }
         }).start(); 
@@ -191,6 +193,9 @@ public class SwerveSubsystem extends SubsystemBase{
 public double getRollDegrees(){
     return pidgey.getRoll().getValueAsDouble();
  //   return gyro.getRoll();
+}
+public double getBalanceRoll(){
+    return this.balanceRoll;
 }
 
 public double getPitchDegrees(){
@@ -410,6 +415,7 @@ public void periodic() {
         // SmartDashboard.putNumber(String.format("%s Target Angle", swerveModule.wheelPosition.name()), swerveModule.getState().angle.getRadians());
         SmartDashboard.putNumber(String.format("%s Velocity", swerveModule.wheelPosition.name()), swerveModule.getDriveVelocity());
     }
+    SmartDashboard.putNumber("balanceRoll", balanceRoll);
     // SmartDashboard.putNumber("FL Angle", frontLeft.getAbsoluteEncoderRadians());
     // SmartDashboard.putNumber("FL Turning Encoder", frontLeft.getTurningPosition());
     // SmartDashboard.putNumber("FR Angle", frontRight.getAbsoluteEncoderRadians());

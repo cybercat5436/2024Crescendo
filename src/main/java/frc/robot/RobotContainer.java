@@ -43,7 +43,7 @@ public class RobotContainer {
     private final CommandXboxController primaryController = new CommandXboxController(1);
     private final CommandXboxController secondaryController = new CommandXboxController(0);
     private SendableChooser<Command> autonChooser = new SendableChooser<>();
-
+    // swerve subsystem must be instantiated before climber
     private final Climber climber = new Climber();
 
 
@@ -109,9 +109,9 @@ public class RobotContainer {
       //    // new ClimberDefaultCommand(climber, ()->secondaryController.getLeftY(), ()->secondaryController.getRightY()
       //    new AutoClimbCommand(climber, swerveSubsystem)
       // );
-      secondaryController.x().onTrue((new AutoClimbCommand(climber, swerveSubsystem)))
-      .onFalse(new InstantCommand(()-> climber.climberStop()));
-      // secondaryController.x().onTrue(new InstantCommand(() -> System.out.println("Starting AutoClimb...")))
+       secondaryController.x().whileTrue((new AutoClimbCommand(climber, swerveSubsystem)).repeatedly())
+       .onFalse(new InstantCommand(()-> climber.climberStop()));
+      //  secondaryController.x().whileTrue(new InstantCommand(() -> System.out.println("Starting AutoClimb...")).repeatedly())
       // .onFalse(new InstantCommand(()-> System.out.println("Exiting AutoClimb...")));
     
     

@@ -27,6 +27,7 @@ public class Climber extends SubsystemBase {
  private DutyCycleOut rightClimberRequest;
  private DutyCycleOut leftClimberRequest;
  
+ 
   /** Creates a new Climber. */
   public Climber() {
    // climberUpper.clearStickyFaults();
@@ -45,6 +46,7 @@ public class Climber extends SubsystemBase {
     config.CurrentLimits.SupplyCurrentThreshold = 50;
     config.CurrentLimits.SupplyTimeThreshold = 0.3;
     config.CurrentLimits.SupplyCurrentLimitEnable = true;
+    config.MotorOutput.NeutralMode = NeutralModeValue.Brake;
    leftClimberMotor.getConfigurator().apply(config);
    rightClimberMotor.getConfigurator().apply(config);
    this.rightClimberRequest = new DutyCycleOut(0.0);
