@@ -226,15 +226,17 @@ public class SwerveModule implements Sendable{
   //   return angle;
   // }
 
-  private double boundAngle(double inputAngleRad){
-    double outputAngleRad = inputAngleRad;
-    if (outputAngleRad <= -Math.PI){
-      outputAngleRad += (2*Math.PI);
-    } else if(outputAngleRad > (Math.PI)){
-      outputAngleRad -= (2 * Math.PI);
-    }
-    return outputAngleRad;
-
+  public double boundAngle(double inputAngleRad){
+    // double outputAngleRad = inputAngleRad;
+    // while(Math.abs(outputAngleRad)>=Math.PI){
+    //   if (outputAngleRad <= -Math.PI){
+    //   outputAngleRad += (2*Math.PI);
+    // } else if(outputAngleRad > (Math.PI)){
+    //   outputAngleRad -= (2 * Math.PI);
+    // }
+    // }
+    // return outputAngleRad;
+      return Math.IEEEremainder(inputAngleRad, 2*Math.PI);
   }
 
 
