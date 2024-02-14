@@ -5,6 +5,7 @@
 package frc.robot;
 
 import java.rmi.StubNotFoundException;
+import java.util.function.DoubleSupplier;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
@@ -109,7 +110,7 @@ public class RobotContainer {
       //    // new ClimberDefaultCommand(climber, ()->secondaryController.getLeftY(), ()->secondaryController.getRightY()
       //    new AutoClimbCommand(climber, swerveSubsystem)
       // );
-       secondaryController.x().whileTrue((new AutoClimbCommand(climber, swerveSubsystem)).repeatedly())
+       secondaryController.x().whileTrue((new AutoClimbCommand(climber, swerveSubsystem, ()-> secondaryController.getLeftY())).repeatedly())
        .onFalse(new InstantCommand(()-> climber.climberStop()));
       //  secondaryController.x().whileTrue(new InstantCommand(() -> System.out.println("Starting AutoClimb...")).repeatedly())
       // .onFalse(new InstantCommand(()-> System.out.println("Exiting AutoClimb...")));

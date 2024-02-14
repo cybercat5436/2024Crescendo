@@ -17,12 +17,14 @@ public class AutoClimbCommand extends Command {
   private Climber climber;
   private SwerveSubsystem swerveSubsystem;
   private double targetAngle = 0.0;
+  private DoubleSupplier leftSpeedFunction;
   /** Creates a new AutoClimbCommand. */
-  public AutoClimbCommand(Climber climber, SwerveSubsystem swerveSubsystem) {
+  public AutoClimbCommand(Climber climber, SwerveSubsystem swerveSubsystem, DoubleSupplier leftSpeedFunction) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(climber);
     this.climber = climber;
     this.swerveSubsystem = swerveSubsystem;
+    this.leftSpeedFunction = leftSpeedFunction;
     this.targetAngle = swerveSubsystem.getBalanceRoll();
   }
 
@@ -38,20 +40,27 @@ public class AutoClimbCommand extends Command {
     double rollError = this.targetAngle - rollAngle;
     System.out.println("roll error: " + rollError);
     double kP = 0.05;
-    double speed =Math.abs(kP*rollError);
-    speed = Math.min(speed, 0.3);
+    double climbSpeed = Math.abs(leftSpeedFunction.getAsDouble()) > 0.2 ? 0.15 : 0.0;
+    climbSpeed = Math.signum(leftSpeedFunction.getAsDouble()) * climbSpeed;
+
+    double balanceSpeed = Math.abs(kP*rollError);
+    balanceSpeed = Math.min(balanceSpeed, 0.15);
+
+    double rightSpeed = 0.0;
+    double leftSpeed = 0.0;
     if(rollError>0){
-      climber.moveLeftClimber(speed);
-      climber.moveRightClimber(0);
+      leftSpeed = climbSpeed + balanceSpeed;
+      rightSpeed = climbSpeed - balanceSpeed;
     } else if(rollError<0){
-      climber.moveRightClimber(speed);
-      climber.moveLeftClimber(0);
+      rightSpeed = climbSpeed + balanceSpeed;
+      leftSpeed = climbSpeed - balanceSpeed;
     }else{
-      climber.moveLeftClimber(0);
-      climber.moveRightClimber(0);
+      leftSpeed = (0);
+      rightSpeed = (0);
     }
-
-
+    climber.moveLeftClimber(leftSpeed);
+     climber.moveRightClimber(rightSpeed);
+    
   }
 
 
