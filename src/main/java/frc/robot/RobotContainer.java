@@ -40,14 +40,16 @@ public class RobotContainer {
     private final LimeLight limeLightGrid = new LimeLight("limelight");
     private final LimeLight limeLightOrient = new LimeLight("limelight-orient");
     private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
-    private final Intake intake = new Intake();
+    // private final Intake intake = new Intake();
     private final CommandXboxController primaryController = new CommandXboxController(1);
     private final CommandXboxController secondaryController = new CommandXboxController(0);
     private SendableChooser<Command> autonChooser = new SendableChooser<>();
+
     // swerve subsystem must be instantiated before climber
     private final Climber climber = new Climber();
 
 
+    
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
@@ -93,13 +95,14 @@ public class RobotContainer {
      */
     private void configureButtonBindings() {
       //Intake Buttons
-      primaryController.leftBumper().onTrue(new InstantCommand(()->intake.intakeFeedIn()))
-        .onFalse(new InstantCommand(()->intake.stopIntake()));
-      primaryController.rightBumper().onTrue(new InstantCommand(()->intake.intakeFeedOut()))
-        .onFalse(new InstantCommand(()->intake.stopIntake()));
+      // primaryController.leftBumper().onTrue(new InstantCommand(()->intake.intakeFeedIn()))
+      //   .onFalse(new InstantCommand(()->intake.stopIntake()));
+      // primaryController.rightBumper().onTrue(new InstantCommand(()->intake.intakeFeedOut()))
+      //   .onFalse(new InstantCommand(()->intake.stopIntake()));
       
 
       //Auto command groups
+
       climber.setDefaultCommand(
         new ClimberDefaultCommand(climber, 
           ()->secondaryController.getLeftY(), 
@@ -114,6 +117,7 @@ public class RobotContainer {
        .onFalse(new InstantCommand(()-> climber.climberStop()));
       //  secondaryController.x().whileTrue(new InstantCommand(() -> System.out.println("Starting AutoClimb...")).repeatedly())
       // .onFalse(new InstantCommand(()-> System.out.println("Exiting AutoClimb...")));
+
     
     
 
@@ -132,6 +136,10 @@ public class RobotContainer {
 
   private void registerNamedCommands(){
  
+  }
+
+  public SwerveSubsystem getSwerveSubsystem(){
+    return swerveSubsystem;
   }
 
 }

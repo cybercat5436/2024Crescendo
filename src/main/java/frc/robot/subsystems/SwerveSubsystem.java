@@ -65,9 +65,8 @@ public class SwerveSubsystem extends SubsystemBase{
         Constants.RoboRioPortConfig.FRONT_LEFT_TURN,
         false,
         false,
-        Constants.RoboRioPortConfig.ABSOLUTE_ENCODER_FRONT_LEFT,
         Constants.RoboRioPortConfig.FRONT_LEFT_CANCODER,
-        Constants.RoboRioPortConfig.kFrontLeftDriveAbsoluteEncoderOffsetRad,
+        Constants.RoboRioPortConfig.kFrontLeftDriveAbsoluteEncoderOffsetRotations,
         true,
         IdleMode.kBrake,
         IdleMode.kCoast
@@ -79,9 +78,8 @@ public class SwerveSubsystem extends SubsystemBase{
         Constants.RoboRioPortConfig.FRONT_RIGHT_TURN,
         false,
         false,
-        Constants.RoboRioPortConfig.ABSOLUTE_ENCODER_FRONT_RIGHT,
         Constants.RoboRioPortConfig.FRONT_RIGHT_CANCODER,
-        Constants.RoboRioPortConfig.kFrontRightDriveAbsoluteEncoderOffsetRad,
+        Constants.RoboRioPortConfig.kFrontRightDriveAbsoluteEncoderOffsetRotations,
         true,
         IdleMode.kBrake,
         IdleMode.kCoast
@@ -93,9 +91,8 @@ public class SwerveSubsystem extends SubsystemBase{
         Constants.RoboRioPortConfig.BACK_LEFT_TURN,
         false,
         false,
-        Constants.RoboRioPortConfig.ABSOLUTE_ENCODER_BACK_LEFT,
         Constants.RoboRioPortConfig.BACK_LEFT_CANCODER,
-        Constants.RoboRioPortConfig.kBackLeftDriveAbsoluteEncoderOffsetRad,
+        Constants.RoboRioPortConfig.kBackLeftDriveAbsoluteEncoderOffsetRotations,
         true,
         IdleMode.kBrake,
         IdleMode.kCoast
@@ -107,9 +104,8 @@ public class SwerveSubsystem extends SubsystemBase{
         Constants.RoboRioPortConfig.BACK_RIGHT_TURN,
         false,
         false,
-        Constants.RoboRioPortConfig.ABSOLUTE_ENCODER_BACK_RIGHT,
         Constants.RoboRioPortConfig.BACK_RIGHT_CANCODER,
-        Constants.RoboRioPortConfig.kBackRightDriveAbsoluteEncoderOffsetRad,
+        Constants.RoboRioPortConfig.kBackRightDriveAbsoluteEncoderOffsetRotations,
         true,
         IdleMode.kBrake,
         IdleMode.kCoast
@@ -161,7 +157,6 @@ public class SwerveSubsystem extends SubsystemBase{
         pidgey.getYaw().setUpdateFrequency(100);
         pidgey.getGravityVectorZ().setUpdateFrequency(100);
 
-        
 
         /* Speed up signals to an appropriate rate */
         // pidgey.getYaw().setUpdateFrequency(100);
@@ -219,6 +214,10 @@ public Rotation2d getRotation2d(){
 
 public Pose2d getPose(){
     return odometry.getPoseMeters();
+}
+
+public SwerveDriveOdometry getOdometry(){
+    return odometry;
 }
 
 public double getSaturatedPitch(){
@@ -388,7 +387,7 @@ public ChassisSpeeds getRobotRelativeSpeeds(){
 
 @Override
 public void periodic() {
-    odometry.update(getRotation2d(), getModulePositions());
+    // odometry.update(getRotation2d(), getModulePositions());
     //  yaw = pidgey.getYaw();
    
 
@@ -411,7 +410,7 @@ public void periodic() {
         SmartDashboard.putNumber(String.format("%s Angle", swerveModule.wheelPosition.name()), swerveModule.getAbsoluteEncoderRadians());
         SmartDashboard.putNumber(String.format("%s Position", swerveModule.wheelPosition.name()), swerveModule.getDrivePosition());
       //  SmartDashboard.putNumber(String.format("%s Back Left", swerveMo))
-        SmartDashboard.putNumber(String.format("%s Turning Encoder", swerveModule.wheelPosition.name()), swerveModule.getTurningPosition());
+        SmartDashboard.putNumber(String.format("%s Turning Encoder", swerveModule.wheelPosition.name()), swerveModule.boundAngle(swerveModule.getTurningPosition()));
         // SmartDashboard.putNumber(String.format("%s Target Angle", swerveModule.wheelPosition.name()), swerveModule.getState().angle.getRadians());
         SmartDashboard.putNumber(String.format("%s Velocity", swerveModule.wheelPosition.name()), swerveModule.getDriveVelocity());
     }

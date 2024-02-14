@@ -4,9 +4,15 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.Constants.DriveConstants;
+import frc.robot.subsystems.SwerveSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -19,6 +25,10 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
+  public static Robot robot;
+
+  private Timer timer = new Timer();
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -27,8 +37,16 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
+    robot = this;
     m_robotContainer = new RobotContainer();
+    timer.start();
+    addPeriodic(()->{
+      m_robotContainer.getSwerveSubsystem().getOdometry().update(m_robotContainer.getSwerveSubsystem().getRotation2d(), m_robotContainer.getSwerveSubsystem().getModulePositions());    
+    }, 
+      0.01, 0.0);
   }
+
+ 
 
   /**
    * This function is called every robot packet, no matter the mode. Use this for items like

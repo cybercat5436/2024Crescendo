@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.6,
-      "y": 5.0
+      "x": 1.9581156423368469,
+      "y": 2.8106007709875613
     },
     "rotation": 0
   },
@@ -14,7 +14,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "StraightAndSlow2m"
+            "pathName": "Slow Left 2 meters"
           }
         }
       ]

@@ -66,10 +66,11 @@ public final class Constants {
         public static final int EXTENDER_ZERO_LIMIT_SWITCH = 0;
         public static final int EXTENDER_MAX_LIMIT_SWITCH = 1;
 
-        public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad = 0.471924;
-        public static final double kFrontRightDriveAbsoluteEncoderOffsetRad = 0.449463;
-        public static final double kBackLeftDriveAbsoluteEncoderOffsetRad = -0.046631;
-        public static final double kBackRightDriveAbsoluteEncoderOffsetRad = 0.476562;
+        public static final double kFrontLeftDriveAbsoluteEncoderOffsetRotations = 0.480713;
+        public static final double kFrontRightDriveAbsoluteEncoderOffsetRotations = -0.131104;
+        public static final double kBackLeftDriveAbsoluteEncoderOffsetRotations = -0.317139;
+        public static final double kBackRightDriveAbsoluteEncoderOffsetRotations = 0.089111;
+        
         
     }
 
@@ -77,11 +78,10 @@ public final class Constants {
     public static class DriveConstants{
         public static final double kTranslateDriveMaxSpeedMetersPerSecond = 1.8;
         public static final double ykTranslateDriveMaxSpeedMetersPerSecond = 1.8;
-        public static final double kRotateDriveMaxSpeedMetersPerSecond = 4.36;
-        public static final double kPhysicalMaxSpeedMetersPerSecond = 4.36;
+        public static final double kRotateDriveMaxSpeedMetersPerSecond = 5.82;//4.36;
+        public static final double kPhysicalMaxSpeedMetersPerSecond = 5.82;//4.36;
         //public static final double kTrackWidth = Units.inchesToMeters(19); //OLD
         public static final double kTrackWidth = 0.55;
-        public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 3.78;
         //kWheelBase: Distance between front and back of the robot
         //public static final double kWheelBase = Units.inchesToMeters(23.5);
         public static final double kWheelBase = 0.63;
@@ -91,6 +91,9 @@ public final class Constants {
                 new Translation2d(kWheelBase / 2, -kTrackWidth / 2),
                 new Translation2d(-kWheelBase / 2, kTrackWidth / 2),
                 new Translation2d(-kWheelBase / 2, -kTrackWidth / 2));
+
+        public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = kRotateDriveMaxSpeedMetersPerSecond/kSpinRadius;//3.78;
+
         //public static final double kLimelightHorizontal = 0.0667;
         //public static final double kLimelightForward = 0.0833; //CHANGE
     }

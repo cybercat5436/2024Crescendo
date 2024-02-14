@@ -39,6 +39,7 @@ public class Climber extends SubsystemBase {
     //climberUpper.configStator
     //climberLower.setSmartCurrentLimit(50, 50);
     
+
     //climberUpper.setNeutralMode(NeutralModeValue.Brake);
     //climberLower.setNeutralMode(NeutralModeValue.Brake);
     TalonFXConfiguration config = new TalonFXConfiguration();
@@ -51,6 +52,7 @@ public class Climber extends SubsystemBase {
    rightClimberMotor.getConfigurator().apply(config);
    this.rightClimberRequest = new DutyCycleOut(0.0);
    this.leftClimberRequest = new DutyCycleOut(0.0);
+
     
   }
 

@@ -16,12 +16,15 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
+import com.revrobotics.CANSparkLowLevel.PeriodicFrame;
+
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.util.sendable.SendableBuilder;
+import edu.wpi.first.util.sendable.SendableRegistry;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -29,7 +32,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class SwerveModule implements Sendable{
 
-  private final CANSparkMax driveMotor;
+  private final CANSparkFlex driveMotor;
   private final CANSparkFlex turningMotor;
 
   private final RelativeEncoder driveEncoder;
@@ -37,7 +40,7 @@ public class SwerveModule implements Sendable{
 
   private final PIDController turningPidController;
 
-  private final AnalogInput absoluteEncoder;
+  // private final AnalogInput absoluteEncoder;
   private final CANcoder cancoder;
   private final CANcoderConfigurator cancoderConfigurator;
   private final boolean absoluteEncoderReversed;
@@ -49,18 +52,22 @@ public class SwerveModule implements Sendable{
 
   /** Creates a new SwerveModule. */
   public SwerveModule(WheelPosition wheelPosition, int driveMotorId, int turningMotorId, boolean driveMotorReversed, boolean turningMotorReversed,
-   int absoluteEncoderId, int cancoderId, double absoluteEncoderOffset, boolean absoluteEncoderReversed, IdleMode driveMode, IdleMode turningMode) {
+   int cancoderId, double absoluteEncoderOffsetRotations, boolean absoluteEncoderReversed, IdleMode driveMode, IdleMode turningMode) {
 
     this.wheelPosition = wheelPosition;
-    this.absoluteEncoderOffsetRad = absoluteEncoderOffset;
+    this.absoluteEncoderOffsetRad = absoluteEncoderOffsetRotations;
     this.absoluteEncoderReversed = absoluteEncoderReversed;
-    absoluteEncoder = new AnalogInput(absoluteEncoderId);
+    // absoluteEncoder = new AnalogInput(absoluteEncoderId);
     cancoder = new CANcoder(cancoderId);
-    driveMotor = new CANSparkMax(driveMotorId, MotorType.kBrushless);
+    driveMotor = new CANSparkFlex(driveMotorId, MotorType.kBrushless);
     turningMotor = new CANSparkFlex(turningMotorId, MotorType.kBrushless);
 
     cancoderConfigurator = cancoder.getConfigurator();
-    cancoderConfigurator.apply(new MagnetSensorConfigs().withMagnetOffset(absoluteEncoderOffset));
+    cancoderConfigurator.apply(new MagnetSensorConfigs().withMagnetOffset(absoluteEncoderOffsetRotations));
+
+    driveMotor.setPeriodicFramePeriod(PeriodicFrame.kStatus2, 10);
+    turningMotor.setPeriodicFramePeriod(PeriodicFrame.kStatus2, 10);
+
 
 
     driveMotor.clearFaults();
@@ -91,6 +98,11 @@ public class SwerveModule implements Sendable{
 
     resetDriveEncoders();
     resetTurningEncoderWithAbsolute();
+    System.out.println("Setting " + wheelPosition + " with offset of " + absoluteEncoderOffsetRotations);
+
+    //Register the sendables
+    SendableRegistry.addLW(this, this.getClass().getSimpleName(), this.getClass().getSimpleName());
+    SmartDashboard.putData(this);
   }
 
   /*
@@ -144,7 +156,7 @@ public class SwerveModule implements Sendable{
   }
 
   public double getTurningPosition(){
-    return cancoder.getPosition().getValueAsDouble()*2*Math.PI;
+    return turningEncoder.getPosition();
   }
 
   public double getDriveVelocity(){
@@ -214,15 +226,17 @@ public class SwerveModule implements Sendable{
   //   return angle;
   // }
 
-  private double boundAngle(double inputAngleRad){
-    double outputAngleRad = inputAngleRad;
-    if (outputAngleRad <= -Math.PI){
-      outputAngleRad += (2*Math.PI);
-    } else if(outputAngleRad > (Math.PI)){
-      outputAngleRad -= (2 * Math.PI);
-    }
-    return outputAngleRad;
-
+  public double boundAngle(double inputAngleRad){
+    // double outputAngleRad = inputAngleRad;
+    // while(Math.abs(outputAngleRad)>=Math.PI){
+    //   if (outputAngleRad <= -Math.PI){
+    //   outputAngleRad += (2*Math.PI);
+    // } else if(outputAngleRad > (Math.PI)){
+    //   outputAngleRad -= (2 * Math.PI);
+    // }
+    // }
+    // return outputAngleRad;
+      return Math.IEEEremainder(inputAngleRad, 2*Math.PI);
   }
 
 
