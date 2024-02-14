@@ -4,6 +4,9 @@
 
 package frc.robot;
 
+import java.rmi.StubNotFoundException;
+import java.util.function.DoubleSupplier;
+
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
@@ -12,6 +15,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.AbsoluteEncoderCalibration;
+import frc.robot.commands.AutoClimbCommand;
 import frc.robot.commands.ClimberDefaultCommand;
 import frc.robot.commands.ManualEncoderCalibration;
 import frc.robot.commands.SwerveJoystickCmd;
@@ -41,7 +45,9 @@ public class RobotContainer {
     private final CommandXboxController secondaryController = new CommandXboxController(0);
     private SendableChooser<Command> autonChooser = new SendableChooser<>();
 
-    // private final Climber climber = new Climber();
+    // swerve subsystem must be instantiated before climber
+    private final Climber climber = new Climber();
+
 
     
 
@@ -96,9 +102,22 @@ public class RobotContainer {
       
 
       //Auto command groups
+
+      climber.setDefaultCommand(
+        new ClimberDefaultCommand(climber, 
+          ()->secondaryController.getLeftY(), 
+          ()->secondaryController.getRightY()
+        )
+      );
       // secondaryController.start().onTrue(
-      //     new ClimberDefaultCommand(climber, ()->secondaryController.getLeftY(), ()->secondaryController.getRightY()
-      // ));
+      //    // new ClimberDefaultCommand(climber, ()->secondaryController.getLeftY(), ()->secondaryController.getRightY()
+      //    new AutoClimbCommand(climber, swerveSubsystem)
+      // );
+       secondaryController.x().whileTrue((new AutoClimbCommand(climber, swerveSubsystem, ()-> secondaryController.getLeftY())).repeatedly())
+       .onFalse(new InstantCommand(()-> climber.climberStop()));
+      //  secondaryController.x().whileTrue(new InstantCommand(() -> System.out.println("Starting AutoClimb...")).repeatedly())
+      // .onFalse(new InstantCommand(()-> System.out.println("Exiting AutoClimb...")));
+
     
     
 

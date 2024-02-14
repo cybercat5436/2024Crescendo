@@ -11,27 +11,29 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.subsystems.Climber;
 
 public class ClimberDefaultCommand extends Command {
-  private DoubleSupplier upperSpeedFunction, lowerSpeedFunction;
+  private DoubleSupplier rightSpeedFuction, leftSpeedFunction;
   private Climber climber;
   /** Creates a new ClimberDefaultCommand. */
-  public ClimberDefaultCommand(Climber climber, DoubleSupplier upperSpeedFunction, DoubleSupplier lowerSpeedFunction) {
+  public ClimberDefaultCommand(Climber climber, DoubleSupplier leftSpeedFunction, DoubleSupplier rightSpeedFunction) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(climber);
-    this.upperSpeedFunction = upperSpeedFunction;
-    this.lowerSpeedFunction = lowerSpeedFunction;
+    this.rightSpeedFuction = rightSpeedFunction;
+    this.leftSpeedFunction = leftSpeedFunction;
     this.climber = climber;
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    System.out.println("Climber default command");
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    System.out.println("Climber is climbing");
-      climber.upperClimberControl(upperSpeedFunction.getAsDouble()*0.5);
-      climber.lowerClimberControl(lowerSpeedFunction.getAsDouble()*0.5);
+    // System.out.println("Climber is climbing");
+      climber.moveLeftClimber(leftSpeedFunction.getAsDouble()*0.3);
+      climber.moveRightClimber(rightSpeedFuction.getAsDouble()*0.3);
      // System.out.println(upperSpeedFunction.getAsDouble());
       //System.out.println(lowerSpeedFunction.getAsDouble());
       
