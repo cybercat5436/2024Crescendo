@@ -51,7 +51,8 @@ public final class Constants {
         public static final int SPEAKER_LAUNCHER = 22;
         public static final int SPEAKER_NEO_MOTOR2 = 23;
         public static final int SPEAKER_FALCON_MOTOR = 24; 
-        public static final int AMP_FALCON_MOTOR = 25;       
+        public static final int AMP_FALCON_MOTOR = 25;   
+        public static final int SUPERSTRUCTURE_MOTOR = 28;    
         public static final int CLAW_MOTOR = 31;
         public static final int ORIENT_MOTOR = 42;
         public static final int EXTENDER_MOTOR = 51;
