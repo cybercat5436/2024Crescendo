@@ -5,13 +5,16 @@
 package frc.robot.subsystems;
 
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix6.configs.Slot0Configs;
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.InvertedValue;
 // import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
@@ -27,14 +30,18 @@ public class Speaker extends SubsystemBase {
   public Speaker() {
 
     launcher = new TalonFX(Constants.RoboRioPortConfig.SPEAKER_LAUNCHER);
-    feeder = new CANSparkMax(Constants.RoboRioPortConfig.SPEAKER_NEO_MOTOR2, MotorType.kBrushless);
+    feeder = new CANSparkMax(Constants.RoboRioPortConfig.SPEAKER_FEEDER_MOTOR, MotorType.kBrushless);
+   
     // robot init, set slot 0 gains
-    var slot0Configs = new Slot0Configs();
-    slot0Configs.kV = 0.12;
-    slot0Configs.kP = 0.11;
-    slot0Configs.kI = 0.48;
-    slot0Configs.kD = 0.01;
-    launcher.getConfigurator().apply(slot0Configs, 0.050);
+    TalonFXConfiguration config = new TalonFXConfiguration();
+    config.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+    //var slot0Configs = config.Slot0. Slot0Configs();
+   // var slot0Configs = new Slot0Configs();
+    config.Slot0.kV = 0.12;
+    config.Slot0.kP = 0.11;
+    config.Slot0.kI = 0.48;
+    config.Slot0.kD = 0.01;
+    launcher.getConfigurator().apply(config, 0.050);
     // falconMotor = new TalonFX(Constants.RoboRioPortConfig.SPEAKER_FALCON_MOTOR);
 
   }
@@ -72,5 +79,6 @@ public void startLauncher(double percentage) {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Launcher Speed:", launcher.getVelocity().getValueAsDouble());
   }
 }

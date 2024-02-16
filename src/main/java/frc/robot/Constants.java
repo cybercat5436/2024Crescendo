@@ -49,7 +49,7 @@ public final class Constants {
         public static final int BACK_RIGHT_CANCODER = 16;
         public static final int ARM_MOTOR = 21;
         public static final int SPEAKER_LAUNCHER = 22;
-        public static final int SPEAKER_NEO_MOTOR2 = 23;
+        public static final int SPEAKER_FEEDER_MOTOR = 23;
         public static final int SPEAKER_FALCON_MOTOR = 24; 
         public static final int AMP_FALCON_MOTOR = 25;       
         public static final int CLAW_MOTOR = 31;
@@ -66,10 +66,10 @@ public final class Constants {
         public static final int EXTENDER_ZERO_LIMIT_SWITCH = 0;
         public static final int EXTENDER_MAX_LIMIT_SWITCH = 1;
 
-        public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad = 0.471924;
-        public static final double kFrontRightDriveAbsoluteEncoderOffsetRad = 0.449463;
-        public static final double kBackLeftDriveAbsoluteEncoderOffsetRad = -0.046631;
-        public static final double kBackRightDriveAbsoluteEncoderOffsetRad = 0.476562;
+        public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad = -0.179932;
+        public static final double kFrontRightDriveAbsoluteEncoderOffsetRad = -0.131836;
+        public static final double kBackLeftDriveAbsoluteEncoderOffsetRad = -0.411133;
+        public static final double kBackRightDriveAbsoluteEncoderOffsetRad = 0.379883;
         
     }
 
