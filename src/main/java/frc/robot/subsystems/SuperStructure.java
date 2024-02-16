@@ -20,7 +20,7 @@ public class SuperStructure extends SubsystemBase {
   /** Creates a new SuperStructure. */
   private TalonFX superStructure;
   MotionMagicVoltage m_motmag = new MotionMagicVoltage(0);
-  private double ampPosition = 5;
+  private double ampPosition = 7;
   // 8.9
   public SuperStructure() {
 

@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -50,7 +51,7 @@ public void startLauncher(double percentage) {
     // periodic, run velocity control with slot 0 configs,
     // target velocity of 50 rps
     launcherControl.Slot = 0;
-    launcher.setControl(launcherControl.withVelocity(100 *percentage));
+    launcher.setControl(launcherControl.withVelocity(70 *percentage));
     System.out.println("start launcher with percentage " + percentage); 
     // falconMotor.set(ControlMode.PercentOutput,0.5); 
   }
@@ -72,5 +73,6 @@ public void startLauncher(double percentage) {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+  SmartDashboard.putNumber("MotorSpeed",launcher.getVelocity().getValueAsDouble());
   }
 }
