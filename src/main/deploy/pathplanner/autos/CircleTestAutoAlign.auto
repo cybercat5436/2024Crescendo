@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.07,
-      "y": 5.4
+      "x": 3.1291992969149973,
+      "y": 6.640044321458116
     },
     "rotation": 0
   },
@@ -14,7 +14,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "LeftBotNote"
+            "pathName": "Circle"
           }
         },
         {

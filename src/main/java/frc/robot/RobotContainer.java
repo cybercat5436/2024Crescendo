@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.AbsoluteEncoderCalibration;
+import frc.robot.commands.AutoAlign;
 import frc.robot.commands.AutoClimbCommand;
 import frc.robot.commands.ClimberDefaultCommand;
 import frc.robot.commands.ManualEncoderCalibration;
@@ -37,8 +38,8 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 public class RobotContainer {
     // The robot's subsystems and commands are defined here...
     public boolean halfSpeed = false;
-    private final LimeLight limeLightGrid = new LimeLight("limelight");
-    private final LimeLight limeLightOrient = new LimeLight("limelight-orient");
+    private final LimeLight limeLight = new LimeLight("limelight");
+    // private final LimeLight limeLightOrient = new LimeLight("limelight-orient");
     private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
     // private final Intake intake = new Intake();
     private final CommandXboxController primaryController = new CommandXboxController(1);
@@ -65,7 +66,7 @@ public class RobotContainer {
         () -> primaryController.x().getAsBoolean(),
         () -> primaryController.getLeftTriggerAxis(),
         () -> primaryController.getRightTriggerAxis(),
-        limeLightGrid));
+        limeLight));
       // Configure the button bindings
       ManualEncoderCalibration manualEncoderCalibration = new ManualEncoderCalibration(swerveSubsystem);  
       AbsoluteEncoderCalibration absoluteEncoderCalibration = new AbsoluteEncoderCalibration(swerveSubsystem);           
@@ -102,7 +103,7 @@ public class RobotContainer {
       
 
       //Auto command groups
-
+      primaryController.x().whileTrue(new AutoAlign(swerveSubsystem, limeLight).repeatedly()).onFalse(new InstantCommand(()->swerveSubsystem.stopModules()));
       climber.setDefaultCommand(
         new ClimberDefaultCommand(climber, 
           ()->secondaryController.getLeftY(), 
@@ -135,7 +136,7 @@ public class RobotContainer {
   }
 
   private void registerNamedCommands(){
- 
+    NamedCommands.registerCommand("autoAlign", new AutoAlign(swerveSubsystem, limeLight));
   }
 
   public SwerveSubsystem getSwerveSubsystem(){

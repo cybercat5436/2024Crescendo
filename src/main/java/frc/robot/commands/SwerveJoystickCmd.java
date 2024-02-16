@@ -107,13 +107,13 @@ public class SwerveJoystickCmd extends Command {
 
         if(targetInView && autoVisionFunction){
             fieldOrientedFunction = () -> false;
-            xSpeed = limeLightGrid.getVisionTargetAreaError() * kLimelightForward;
-            ySpeed = -limeLightGrid.getVisionTargetHorizontalError() * kLimelightHorizontal;
+            // xSpeed = limeLightGrid.getVisionTargetAreaError() * kLimelightForward;
+            // ySpeed = -limeLightGrid.getVisionTargetHorizontalError() * kLimelightHorizontal;
         }else{
             fieldOrientedFunction = () -> true;
         }
         if(autoVisionFunction){
-            turningSpeed=(targetHeading - swerveSubsystem.getHeading())*kLimelightTurning;
+            // turningSpeed=(targetHeading - swerveSubsystem.getHeading())*kLimelightTurning;
         }
 
  
