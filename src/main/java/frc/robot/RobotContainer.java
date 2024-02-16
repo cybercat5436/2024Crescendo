@@ -19,6 +19,7 @@ import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LimeLight;
 import frc.robot.subsystems.Speaker;
+import frc.robot.subsystems.SuperStructure;
 import frc.robot.subsystems.SwerveSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
@@ -45,6 +46,7 @@ public class RobotContainer {
 
     private final Climber climber = new Climber();
     private final Speaker speaker = new Speaker();
+    private final SuperStructure superStructure = new SuperStructure();
 
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -113,7 +115,10 @@ public class RobotContainer {
         .onFalse(new InstantCommand(()-> speaker.stopLauncher()));
 
       rightTrigger.onTrue(new InstantCommand(()-> speaker.startFeeder())).onFalse(new InstantCommand(()-> speaker.stopFeeder()));
-
+      // SuperStructure bindings
+      secondaryController.y().onTrue(new InstantCommand(()->superStructure.rotateToAmp()));
+      secondaryController.a().onTrue(new InstantCommand(()->superStructure.rotateToSpeaker()));
+      
     }
 
     /**
