@@ -42,7 +42,7 @@ public class AutoAlign extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    ySpeed = -limeLight.getVisionTargetHorizontalError() * kLimelightHorizontal;
+    ySpeed = limeLight.getVisionTargetHorizontalError() * kLimelightHorizontal;
 
 
     chassisSpeeds = new ChassisSpeeds(xSpeed, ySpeed, turningSpeed);
@@ -55,12 +55,15 @@ public class AutoAlign extends Command {
   @Override
   public void end(boolean interrupted) {
     timer.stop();
+    swerveSubsystem.stopModules();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     if(Math.abs(limeLight.getVisionTargetHorizontalError())<0.5||timer.get()>2.0){
+      System.out.println("tx value: "+limeLight.getVisionTargetHorizontalError());
+      System.out.println("time: "+timer.get());
       return true;
     }
     return false;

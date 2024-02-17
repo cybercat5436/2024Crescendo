@@ -68,18 +68,18 @@ public final class Constants {
         public static final int EXTENDER_MAX_LIMIT_SWITCH = 1;
 
         public static final double kFrontLeftDriveAbsoluteEncoderOffsetRotations = -0.181641;
-        public static final double kFrontRightDriveAbsoluteEncoderOffsetRotations = -0.128662;
+        public static final double kFrontRightDriveAbsoluteEncoderOffsetRotations = -0.134521;
         public static final double kBackLeftDriveAbsoluteEncoderOffsetRotations = -0.413086;
-        public static final double kBackRightDriveAbsoluteEncoderOffsetRotations = 0.349854;
+        public static final double kBackRightDriveAbsoluteEncoderOffsetRotations = 0.329590;
         
         
     }
 
 
     public static class DriveConstants{
-        public static final double kTranslateDriveMaxSpeedMetersPerSecond = 1.8;
+        public static final double kTranslateDriveMaxSpeedMetersPerSecond = 1.8; //normal speed
         public static final double ykTranslateDriveMaxSpeedMetersPerSecond = 1.8;
-        public static final double kRotateDriveMaxSpeedMetersPerSecond = 5.82;//4.36;
+        public static final double kRotateDriveMaxSpeedMetersPerSecond = 5.82;//4.36; //super fast mode
         public static final double kPhysicalMaxSpeedMetersPerSecond = 5.82;//4.36;
         //public static final double kTrackWidth = Units.inchesToMeters(19); //OLD
         public static final double kTrackWidth = 0.55;

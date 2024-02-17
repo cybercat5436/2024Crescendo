@@ -16,12 +16,6 @@
           "data": {
             "pathName": "Circle"
           }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "autoAlign"
-          }
         }
       ]
     }

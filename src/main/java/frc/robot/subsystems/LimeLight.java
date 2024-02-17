@@ -13,6 +13,7 @@ public class LimeLight extends SubsystemBase {
   public NetworkTableEntry taLocal; //area error
   public NetworkTableEntry tvLocal; //valid target found
   public NetworkTableEntry tsLocal; //skew error
+  public NetworkTableEntry tzLocal;
   public NetworkTableEntry tLongLocal;
 
   private double horizontalError = 0.0;
@@ -33,6 +34,7 @@ public class LimeLight extends SubsystemBase {
     taLocal = tableLimelight.getEntry("ta"); // communicates percentage of image the target takes up
     tvLocal = tableLimelight.getEntry("tv"); // communicates whether a valid target is acquired, 0 or 1
     tsLocal = tableLimelight.getEntry("ts"); // communicates skew offset from target
+    tzLocal = tableLimelight.getEntry("tz");
     tLongLocal = tableLimelight.getEntry("tlong");
   
 }
@@ -46,6 +48,7 @@ public class LimeLight extends SubsystemBase {
     SmartDashboard.putBoolean("Valid Target Found", targetInView);
     SmartDashboard.putNumber("tx", getVisionTargetHorizontalError());
     SmartDashboard.putNumber("ty", getVisionTargetVerticalError());
+    SmartDashboard.putNumber("tz", tzLocal.getDouble(0));
     // if (isOriented()) {
       // System.out.println("It is oriented!!!!");
     

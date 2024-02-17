@@ -39,11 +39,11 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     robot = this;
     m_robotContainer = new RobotContainer();
-    timer.start();
-    addPeriodic(()->{
-      m_robotContainer.getSwerveSubsystem().getOdometry().update(m_robotContainer.getSwerveSubsystem().getRotation2d(), m_robotContainer.getSwerveSubsystem().getModulePositions());    
-    }, 
-      0.01, 0.0);
+    // timer.start();
+    // addPeriodic(()->{
+    //   m_robotContainer.getSwerveSubsystem().getOdometry().update(m_robotContainer.getSwerveSubsystem().getRotation2d(), m_robotContainer.getSwerveSubsystem().getModulePositions());    
+    // }, 
+    //   0.01, 0.0);
   }
 
  
