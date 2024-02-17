@@ -107,34 +107,28 @@ public class RobotContainer {
       
 
       //Climber Bindings
-
       climber.setDefaultCommand(
         new ClimberDefaultCommand(climber, 
           ()->secondaryController.getLeftY(), 
           ()->secondaryController.getRightY()
         )
       );
-      // secondaryController.start().onTrue(
-      //    // new ClimberDefaultCommand(climber, ()->secondaryController.getLeftY(), ()->secondaryController.getRightY()
-      //    new AutoClimbCommand(climber, swerveSubsystem)
-      // );
-       secondaryController.x().whileTrue((new AutoClimbCommand(climber, swerveSubsystem, ()-> secondaryController.getLeftY())).repeatedly())
-       .onFalse(new InstantCommand(()-> climber.climberStop()));
-      //  secondaryController.x().whileTrue(new InstantCommand(() -> System.out.println("Starting AutoClimb...")).repeatedly())
-      // .onFalse(new InstantCommand(()-> System.out.println("Exiting AutoClimb...")));
 
-          
+       secondaryController.x().whileTrue((new AutoClimbCommand(climber, swerveSubsystem, ()-> secondaryController.getLeftY())).repeatedly())
+        .onFalse(new InstantCommand(()-> climber.climberStop()));
 
 
       // Speaker Bindings
       Trigger rightTrigger = new Trigger(()->secondaryController.getRightTriggerAxis()> 0.2);
       Trigger leftTrigger = new Trigger(()->secondaryController.getLeftTriggerAxis()> 0.2);
+      
       leftTrigger.whileTrue(new InstantCommand(()-> speaker.startLauncher(secondaryController.getLeftTriggerAxis())).repeatedly())
-        
         .onFalse(new InstantCommand(()-> speaker.stopLauncher()));
 
-      rightTrigger.onTrue(new InstantCommand(()-> speaker.startFeeder())).onFalse(new InstantCommand(()-> speaker.stopFeeder()));
+      rightTrigger.onTrue(new InstantCommand(()-> speaker.startFeeder()))
+        .onFalse(new InstantCommand(()-> speaker.stopFeeder()));
       
+
       // SuperStructure bindings
       secondaryController.y().onTrue(new InstantCommand(()->superStructure.rotateToAmp()));
       secondaryController.a().onTrue(new InstantCommand(()->superStructure.rotateToSpeaker()));
