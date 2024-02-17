@@ -5,11 +5,11 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Speaker;
+import frc.robot.subsystems.Amp;
 
 public class SpeakerCommand extends Command {
   /** Creates a new SpeakerCommand. */
-  private Speaker speaker;
+  private Amp speaker;
   public SpeakerCommand() {
     // Use addRequirements() here to declare subsystem dependencies.
     

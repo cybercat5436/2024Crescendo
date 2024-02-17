@@ -4,34 +4,72 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-// import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix6.configs.Slot0Configs;
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.controls.VelocityVoltage;
+import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.InvertedValue;
+// import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkLowLevel.MotorType;
+
 public class Amp extends SubsystemBase {
-  /** Creates a new Amp. */
-  // private TalonFX ampMotor;
-  private double speed = 0.5;
+  /** Creates a new Speaker. */
+  private final TalonFX ampLauncher;
+  private final CANSparkMax ampFeeder;
+  private final VelocityVoltage launcherControl = new VelocityVoltage(0);
+
+  // private TalonFX falconMotor;
+
   public Amp() {
 
-    // ampMotor = new TalonFX(Constants.RoboRioPortConfig.AMP_FALCON_MOTOR);
+    ampLauncher = new TalonFX(Constants.RoboRioPortConfig.SPEAKER_LAUNCHER);
+    ampFeeder = new CANSparkMax(Constants.RoboRioPortConfig.SPEAKER_FEEDER_MOTOR, MotorType.kBrushless);
+   
+    // robot init, set slot 0 gains
+    TalonFXConfiguration config = new TalonFXConfiguration();
+    config.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+    //var slot0Configs = config.Slot0. Slot0Configs();
+   // var slot0Configs = new Slot0Configs();
+    config.Slot0.kV = 0.12;
+    config.Slot0.kP = 0.11;
+    config.Slot0.kI = 0.48;
+    config.Slot0.kD = 0.01;
+    ampLauncher.getConfigurator().apply(config, 0.050);
+    // falconMotor = new TalonFX(Constants.RoboRioPortConfig.SPEAKER_FALCON_MOTOR);
+
+  }
+  public void startLauncher() {
+    // periodic, run velocity control with slot 0 configs,
+    // target velocity of 50 rps
+    launcherControl.Slot = 0;
+    ampLauncher.setControl(launcherControl.withVelocity(50));
+    // falconMotor.set(ControlMode.PercentOutput,0.5);
+  }
+public void startAmpLauncher(double percentage) {
+    // periodic, run velocity control with slot 0 configs,
+    // target velocity of 50 rps
+    launcherControl.Slot = 0;
+    ampLauncher.setControl(launcherControl.withVelocity(10 *percentage));
+    // falconMotor.set(ControlMode.PercentOutput,0.5); 
   }
 
-  public void up() {
-    // ampMotor.set(ControlMode.PercentOutput,speed);
+  public void stopAmpLauncher() {
+    ampLauncher.set(0);
+    // falconMotor.set(ControlMode.PercentOutput,0);
+  }
+  public void startAmpFeeder(){
+    ampFeeder.set(.1);
   }
 
-  public void down() {
-    // ampMotor.set(ControlMode.PercentOutput,-speed);
+  public void stopAmpFeeder(){
+    ampFeeder.set(0);
   }
-
-  public void stop() {
-    // ampMotor.set(ControlMode.PercentOutput,0);
-  }
-
-
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

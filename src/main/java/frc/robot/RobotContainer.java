@@ -24,6 +24,7 @@ import frc.robot.commands.AutoClimbCommand;
 import frc.robot.commands.ClimberDefaultCommand;
 import frc.robot.commands.ManualEncoderCalibration;
 import frc.robot.commands.SwerveJoystickCmd;
+import frc.robot.subsystems.Amp;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LimeLight;
@@ -48,7 +49,7 @@ public class RobotContainer {
     private final LimeLight limeLight = new LimeLight("limelight");
     // private final LimeLight limeLightOrient = new LimeLight("limelight-orient");
     private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
-    // private final Intake intake = new Intake();
+    private final Intake intake = new Intake();
     private final CommandXboxController primaryController = new CommandXboxController(1);
     private final CommandXboxController secondaryController = new CommandXboxController(0);
     private SendableChooser<Command> autonChooser = new SendableChooser<>();
@@ -82,9 +83,9 @@ public class RobotContainer {
      */
     private void configureButtonBindings() {
       
-      //Intake Buttons
-      // primaryController.leftBumper().onTrue(new InstantCommand(()->intake.intakeFeedIn()))
-      //   .onFalse(new InstantCommand(()->intake.stopIntake()));
+      Intake Buttons;
+      secondaryController.b().onTrue(new InstantCommand(()->intake.intakeFeedIn()))
+        .onFalse(new InstantCommand(()->intake.stopIntake()));
       // primaryController.rightBumper().onTrue(new InstantCommand(()->intake.intakeFeedOut()))
       //   .onFalse(new InstantCommand(()->intake.stopIntake()));
       
@@ -131,7 +132,9 @@ public class RobotContainer {
       // SuperStructure bindings
       secondaryController.y().onTrue(new InstantCommand(()->superStructure.rotateToAmp()));
       secondaryController.a().onTrue(new InstantCommand(()->superStructure.rotateToSpeaker()));
-      
+
+      // Amp bindings
+      secondaryController.rightBumper().onTrue((new InstantCommand().startAmpFeeder));
     }
 
     public SwerveSubsystem getSwerveSubsystem(){
