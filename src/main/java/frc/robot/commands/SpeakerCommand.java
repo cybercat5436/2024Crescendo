@@ -12,7 +12,7 @@ public class SpeakerCommand extends Command {
   private Speaker speaker;
   public SpeakerCommand() {
     // Use addRequirements() here to declare subsystem dependencies.
-    speaker = new Speaker();
+    
   }
 
   // Called when the command is initially scheduled.
@@ -22,13 +22,13 @@ public class SpeakerCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    speaker.start();
+    speaker.startLauncher();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    speaker.stop();
+    speaker.stopLauncher();
   }
 
   // Returns true when the command should end.

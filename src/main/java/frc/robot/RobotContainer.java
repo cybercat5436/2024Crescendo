@@ -22,11 +22,14 @@ import frc.robot.commands.SwerveJoystickCmd;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LimeLight;
+import frc.robot.subsystems.Speaker;
+import frc.robot.subsystems.SuperStructure;
 import frc.robot.subsystems.SwerveSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -47,9 +50,9 @@ public class RobotContainer {
 
     // swerve subsystem must be instantiated before climber
     private final Climber climber = new Climber();
+    private final Speaker speaker = new Speaker();
+    private final SuperStructure superStructure = new SuperStructure();
 
-
-    
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
@@ -94,6 +97,8 @@ public class RobotContainer {
      * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
      */
     private void configureButtonBindings() {
+      
+      
       //Intake Buttons
       // primaryController.leftBumper().onTrue(new InstantCommand(()->intake.intakeFeedIn()))
       //   .onFalse(new InstantCommand(()->intake.stopIntake()));
@@ -101,7 +106,7 @@ public class RobotContainer {
       //   .onFalse(new InstantCommand(()->intake.stopIntake()));
       
 
-      //Auto command groups
+      //Climber Bindings
 
       climber.setDefaultCommand(
         new ClimberDefaultCommand(climber, 
@@ -118,9 +123,22 @@ public class RobotContainer {
       //  secondaryController.x().whileTrue(new InstantCommand(() -> System.out.println("Starting AutoClimb...")).repeatedly())
       // .onFalse(new InstantCommand(()-> System.out.println("Exiting AutoClimb...")));
 
-    
-    
+          
 
+
+      // Speaker Bindings
+      Trigger rightTrigger = new Trigger(()->secondaryController.getRightTriggerAxis()> 0.2);
+      Trigger leftTrigger = new Trigger(()->secondaryController.getLeftTriggerAxis()> 0.2);
+      leftTrigger.whileTrue(new InstantCommand(()-> speaker.startLauncher(secondaryController.getLeftTriggerAxis())).repeatedly())
+        
+        .onFalse(new InstantCommand(()-> speaker.stopLauncher()));
+
+      rightTrigger.onTrue(new InstantCommand(()-> speaker.startFeeder())).onFalse(new InstantCommand(()-> speaker.stopFeeder()));
+      
+      // SuperStructure bindings
+      secondaryController.y().onTrue(new InstantCommand(()->superStructure.rotateToAmp()));
+      secondaryController.a().onTrue(new InstantCommand(()->superStructure.rotateToSpeaker()));
+      
     }
 
     /**
