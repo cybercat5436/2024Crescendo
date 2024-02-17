@@ -29,7 +29,7 @@ public class SuperStructure extends SubsystemBase {
     
     // robot init
     var talonFXConfigs = new TalonFXConfiguration();
-    talonFXConfigs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+    // talonFXConfigs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
     // set slot 0 gains
     var slot0Configs = talonFXConfigs.Slot0;
     slot0Configs.kS = 0.24; // add 0.24 V to overcome friction

@@ -92,6 +92,8 @@ public class RobotContainer {
      * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
      */
     private void configureButtonBindings() {
+      
+      
       //Intake Buttons
       primaryController.leftBumper().onTrue(new InstantCommand(()->intake.intakeFeedIn()))
         .onFalse(new InstantCommand(()->intake.stopIntake()));
@@ -99,15 +101,14 @@ public class RobotContainer {
         .onFalse(new InstantCommand(()->intake.stopIntake()));
       
 
-      //Auto command groups
+      //Climber Bindings
       secondaryController.start().onTrue(
           new ClimberDefaultCommand(climber, ()->secondaryController.getLeftY(), ()->secondaryController.getRightY()
       ));
           
 
 
-    
-      
+      // Speaker Bindings
       Trigger rightTrigger = new Trigger(()->secondaryController.getRightTriggerAxis()> 0.2);
       Trigger leftTrigger = new Trigger(()->secondaryController.getLeftTriggerAxis()> 0.2);
       leftTrigger.whileTrue(new InstantCommand(()-> speaker.startLauncher(secondaryController.getLeftTriggerAxis())).repeatedly())
@@ -115,6 +116,7 @@ public class RobotContainer {
         .onFalse(new InstantCommand(()-> speaker.stopLauncher()));
 
       rightTrigger.onTrue(new InstantCommand(()-> speaker.startFeeder())).onFalse(new InstantCommand(()-> speaker.stopFeeder()));
+      
       // SuperStructure bindings
       secondaryController.y().onTrue(new InstantCommand(()->superStructure.rotateToAmp()));
       secondaryController.a().onTrue(new InstantCommand(()->superStructure.rotateToSpeaker()));
