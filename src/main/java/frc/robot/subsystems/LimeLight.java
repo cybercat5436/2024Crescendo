@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class LimeLight extends SubsystemBase {
@@ -42,9 +43,9 @@ public class LimeLight extends SubsystemBase {
     verticalError = getVisionTargetVerticalError();
     area = getVisionTargetAreaError();
     targetInView = getVisionTargetStatus();
-    // SmartDashboard.putBoolean("Valid Target Found", targetInView);
-    // SmartDashboard.putNumber("tx", getVisionTargetHorizontalError());
-    // SmartDashboard.putNumber("ty", getVisionTargetVerticalError());
+    SmartDashboard.putBoolean("Valid Target Found", targetInView);
+    SmartDashboard.putNumber("tx", getVisionTargetHorizontalError());
+    SmartDashboard.putNumber("ty", getVisionTargetVerticalError());
     // if (isOriented()) {
       // System.out.println("It is oriented!!!!");
     

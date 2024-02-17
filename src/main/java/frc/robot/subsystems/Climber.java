@@ -60,13 +60,13 @@ public void moveRightClimber(double speed){
   //System.out.println("upper climber climbing");
   rightClimberRequest.Output = speed;
   this.rightClimberMotor.setControl(rightClimberRequest.withOutput(speed));
-  System.out.println(speed);
+  // System.out.println(speed);
 }
 public void moveLeftClimber(double speed){
   //System.out.println("lower climber");
   leftClimberRequest.Output = speed; 
   this.leftClimberMotor.setControl(leftClimberRequest.withOutput(speed));
-  System.out.println(speed);
+  // System.out.println(speed);
 }
 public void climberStop(){
  this.leftClimberMotor.setControl(leftClimberRequest.withOutput(0));
