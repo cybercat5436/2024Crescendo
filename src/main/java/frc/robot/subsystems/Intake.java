@@ -24,7 +24,7 @@ public class Intake extends SubsystemBase {
     intakeMotor.restoreFactoryDefaults();
     intakeMotor.clearFaults();
     intakeMotor.setSmartCurrentLimit(30, 30);
-    intakeMotor.setInverted(true);
+    // intakeMotor.setInverted(true);
     SendableRegistry.addLW(this, this.getClass().getSimpleName(), this.getClass().getSimpleName());
     SmartDashboard.putData(this);
   }
@@ -32,13 +32,15 @@ public class Intake extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    
+
   }
   @Override
   public void initSendable(SendableBuilder builder) {
     // TODO Auto-generated method stub
     super.initSendable(builder);
-    // builder.addDoubleProperty("Intake Speed", () -> speed, (value) -> speed = value);
-    // builder.addDoubleProperty("Intake Position", () -> getIntakePosition(), null);
+    builder.addDoubleProperty("Intake Speed", () -> speed, (value) -> speed = value);
+    builder.addDoubleProperty("Intake Position", () -> getIntakePosition(), null);
   }
 
   public void stopIntake(){
@@ -47,9 +49,9 @@ public class Intake extends SubsystemBase {
   public void intakeFeedIn(){
     intakeMotor.set(speed);
   }
-  public void intakeFeedOut(){
-    intakeMotor.set(speed*-1);
-  }
+  // public void intakeFeedOut(){
+  //   intakeMotor.set(speed*-1);
+  // }
   public double getIntakePosition(){
     return intakeEncoder.getPosition();
   }
