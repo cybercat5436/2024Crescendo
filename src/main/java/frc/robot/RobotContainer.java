@@ -5,11 +5,15 @@
 package frc.robot;
 
 import java.rmi.StubNotFoundException;
+import java.util.List;
 import java.util.function.DoubleSupplier;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.pathplanner.lib.path.PathPlannerPath;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -58,33 +62,12 @@ public class RobotContainer {
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
         
-        swerveSubsystem.setDefaultCommand(new SwerveJoystickCmd(
-        swerveSubsystem,
-        () -> -primaryController.getLeftY(),
-        () -> -primaryController.getLeftX(),
-        () -> -primaryController.getRightX(),
-        () -> !primaryController.start().getAsBoolean(),
-        () -> primaryController.rightTrigger().getAsBoolean(),
-        () -> primaryController.y().getAsBoolean(),
-        () -> primaryController.x().getAsBoolean(),
-        () -> primaryController.getLeftTriggerAxis(),
-        () -> primaryController.getRightTriggerAxis(),
-        limeLight));
-      // Configure the button bindings
-      ManualEncoderCalibration manualEncoderCalibration = new ManualEncoderCalibration(swerveSubsystem);  
-      AbsoluteEncoderCalibration absoluteEncoderCalibration = new AbsoluteEncoderCalibration(swerveSubsystem);           
-
-      SmartDashboard.putData(manualEncoderCalibration);
-      SmartDashboard.putData(absoluteEncoderCalibration);
+      // Configure the button bindings        
       configureButtonBindings();
-
-
-      SmartDashboard.putData(new InstantCommand(() -> swerveSubsystem.zeroIntegrator()));
-
- 
 
       // Register Named Commands for Path Planner
       registerNamedCommands();
+      
       // Build an auto chooser. This will use Commands.none() as the default option.
       String defaultAuton = AutoBuilder.getAllAutoNames().isEmpty() ? "" : AutoBuilder.getAllAutoNames().get(0);
       autonChooser = AutoBuilder.buildAutoChooser(defaultAuton);
@@ -99,7 +82,6 @@ public class RobotContainer {
      */
     private void configureButtonBindings() {
       
-      
       //Intake Buttons
       // primaryController.leftBumper().onTrue(new InstantCommand(()->intake.intakeFeedIn()))
       //   .onFalse(new InstantCommand(()->intake.stopIntake()));
@@ -107,8 +89,23 @@ public class RobotContainer {
       //   .onFalse(new InstantCommand(()->intake.stopIntake()));
       
 
-      //Auto command groups
+      //Swerve Bindings
+      swerveSubsystem.setDefaultCommand(new SwerveJoystickCmd(
+        swerveSubsystem,
+        () -> -primaryController.getLeftY(),
+        () -> -primaryController.getLeftX(),
+        () -> -primaryController.getRightX(),
+        () -> !primaryController.start().getAsBoolean(),
+        () -> primaryController.rightTrigger().getAsBoolean(),
+        () -> primaryController.y().getAsBoolean(),
+        () -> primaryController.x().getAsBoolean(),
+        () -> primaryController.getLeftTriggerAxis(),
+        () -> primaryController.getRightTriggerAxis(),
+        limeLight));
+
       primaryController.x().whileTrue(new AutoAlign(swerveSubsystem, limeLight).repeatedly()).onFalse(new InstantCommand(()->swerveSubsystem.stopModules()));
+      
+      // Climber bindings
       climber.setDefaultCommand(
         new ClimberDefaultCommand(climber, 
           ()->secondaryController.getLeftY(), 
@@ -137,6 +134,10 @@ public class RobotContainer {
       
     }
 
+    public SwerveSubsystem getSwerveSubsystem(){
+      return swerveSubsystem;
+    }
+
     /**
      * Use this to pass the autonomous command to the main {@link Robot} class.
      *
@@ -152,9 +153,44 @@ public class RobotContainer {
     NamedCommands.registerCommand("autoAlign", new AutoAlign(swerveSubsystem, limeLight));
   }
 
-  public SwerveSubsystem getSwerveSubsystem(){
-    return swerveSubsystem;
+  /**
+   * Looks at the auton command selected in auton chooser.  If no starting pose is present, it sets the robot's starting pose
+   * to the initial pose of the first path
+   * @param autonName:  name of auton path selected
+   */
+  public void setStartingPoseIfMissing(String autonName){
+    System.out.println("Selected Auton: " + autonName);
+    String poseString = "Unknown";
+    
+    try {
+      poseString = PathPlannerAuto.getStaringPoseFromAutoFile(autonName).toString();
+      System.out.println("StartingPose from Auto: " + poseString);
+
+    } catch (RuntimeException e){
+      // Exception thrown if starting pose is null in PathPlanner Auton file
+      System.out.println("No starting pose detected in Auton file!");
+      
+      // get a list of all paths present in the auton file
+      List<PathPlannerPath> paths = PathPlannerAuto.getPathGroupFromAutoFile(autonName);
+      // make sure the list isn't empty
+      if(!paths.isEmpty()){
+        PathPlannerPath firstPath = paths.get(0);
+        Pose2d initialPose = firstPath.getPreviewStartingHolonomicPose();
+        System.out.println("Starting pose from first path: " + initialPose);
+        System.out.println("Setting robot pose...");
+        swerveSubsystem.resetOdometry(initialPose);
+        poseString = initialPose.toString();
+      } else{
+        // no pose provided and no paths present
+        System.out.println("Initial Pose is unknown, potential issue!!!");
+        // throw new RuntimeException("No Initial Pose for the robot provided");
+      }
+    }
+
+    System.out.println("Exiting setStartingPoseIfMissing with robot pose: " + poseString);
   }
+
+
 
 }
   

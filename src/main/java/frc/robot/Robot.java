@@ -76,6 +76,9 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
+    // check if starting pose is provided
+    m_robotContainer.setStartingPoseIfMissing(m_autonomousCommand.getName());
+
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
