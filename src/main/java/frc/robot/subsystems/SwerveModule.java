@@ -14,7 +14,6 @@ import com.ctre.phoenix6.hardware.CANcoder;
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.SparkPIDController;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
@@ -27,7 +26,6 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.util.sendable.SendableRegistry;
-import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
@@ -46,8 +44,7 @@ public class SwerveModule implements Sendable{
   // private final AnalogInput absoluteEncoder;
   private final CANcoder cancoder;
   private final CANcoderConfigurator cancoderConfigurator;
-  private final boolean absoluteEncoderReversed;
-  private final double absoluteEncoderOffsetRad;
+  private final double absoluteEncoderOffsetRotations;
   private double driveMotorPower;
 
   public final WheelPosition wheelPosition;
@@ -59,11 +56,10 @@ public class SwerveModule implements Sendable{
 
   /** Creates a new SwerveModule. */
   public SwerveModule(WheelPosition wheelPosition, int driveMotorId, int turningMotorId, boolean driveMotorReversed, boolean turningMotorReversed,
-   int cancoderId, double absoluteEncoderOffsetRotations, boolean absoluteEncoderReversed, IdleMode driveMode, IdleMode turningMode) {
+   int cancoderId, double absoluteEncoderOffsetRotations, IdleMode driveMode, IdleMode turningMode) {
 
     this.wheelPosition = wheelPosition;
-    this.absoluteEncoderOffsetRad = absoluteEncoderOffsetRotations;
-    this.absoluteEncoderReversed = absoluteEncoderReversed;
+    this.absoluteEncoderOffsetRotations = absoluteEncoderOffsetRotations;
     // absoluteEncoder = new AnalogInput(absoluteEncoderId);
     cancoder = new CANcoder(cancoderId);
     driveMotor = new CANSparkFlex(driveMotorId, MotorType.kBrushless);

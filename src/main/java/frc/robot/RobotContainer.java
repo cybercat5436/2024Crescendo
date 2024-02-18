@@ -4,10 +4,7 @@
 
 package frc.robot;
 
-import java.rmi.StubNotFoundException;
 import java.util.List;
-import java.util.function.DoubleSupplier;
-
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
@@ -18,14 +15,10 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.AbsoluteEncoderCalibration;
 import frc.robot.commands.AutoAlign;
 import frc.robot.commands.AutoClimbCommand;
-import frc.robot.commands.ClimberDefaultCommand;
-import frc.robot.commands.ManualEncoderCalibration;
 import frc.robot.commands.SwerveJoystickCmd;
 import frc.robot.subsystems.Climber;
-import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LimeLight;
 import frc.robot.subsystems.Speaker;
 import frc.robot.subsystems.SuperStructure;

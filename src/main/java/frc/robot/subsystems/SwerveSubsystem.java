@@ -6,10 +6,8 @@ package frc.robot.subsystems;
 
 import java.util.ArrayList;
 
-import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.configs.Pigeon2Configuration;
 import com.ctre.phoenix6.hardware.Pigeon2;
-import com.kauailabs.navx.frc.AHRS;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
@@ -28,7 +26,6 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.util.sendable.SendableRegistry;
-import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -67,7 +64,6 @@ public class SwerveSubsystem extends SubsystemBase{
         false,
         Constants.RoboRioPortConfig.FRONT_LEFT_CANCODER,
         Constants.RoboRioPortConfig.kFrontLeftDriveAbsoluteEncoderOffsetRotations,
-        true,
         IdleMode.kBrake,
         IdleMode.kCoast
        );
@@ -80,7 +76,6 @@ public class SwerveSubsystem extends SubsystemBase{
         false,
         Constants.RoboRioPortConfig.FRONT_RIGHT_CANCODER,
         Constants.RoboRioPortConfig.kFrontRightDriveAbsoluteEncoderOffsetRotations,
-        true,
         IdleMode.kBrake,
         IdleMode.kCoast
         );
@@ -93,7 +88,6 @@ public class SwerveSubsystem extends SubsystemBase{
         false,
         Constants.RoboRioPortConfig.BACK_LEFT_CANCODER,
         Constants.RoboRioPortConfig.kBackLeftDriveAbsoluteEncoderOffsetRotations,
-        true,
         IdleMode.kBrake,
         IdleMode.kCoast
     );
@@ -106,7 +100,6 @@ public class SwerveSubsystem extends SubsystemBase{
         false,
         Constants.RoboRioPortConfig.BACK_RIGHT_CANCODER,
         Constants.RoboRioPortConfig.kBackRightDriveAbsoluteEncoderOffsetRotations,
-        true,
         IdleMode.kBrake,
         IdleMode.kCoast
         );
@@ -119,9 +112,7 @@ public class SwerveSubsystem extends SubsystemBase{
 
 
     //idk if this is the gyro we have 
-    private final AHRS gyro = new AHRS(SPI.Port.kMXP);
     private final Pigeon2 pidgey = new Pigeon2(Constants.RoboRioPortConfig.PIGEON2);
-    private StatusSignal<Double> yaw;
     private final SwerveDriveOdometry odometry = new SwerveDriveOdometry(
         DriveConstants.kDriveKinematics,
         new Rotation2d(0),
@@ -137,7 +128,6 @@ public class SwerveSubsystem extends SubsystemBase{
     ProfiledPIDController thetaController;
 
     public SwerveSubsystem(){
-        yaw = pidgey.getYaw();
         new Thread(() -> {
             try {
                 Thread.sleep(1000);
@@ -183,112 +173,111 @@ public class SwerveSubsystem extends SubsystemBase{
         SmartDashboard.putData(this);
 
     }
-//todo make sure we only do hardware call once (getAngle)
 
-public double getRollDegrees(){
-    return pidgey.getRoll().getValueAsDouble();
- //   return gyro.getRoll();
-}
-public double getBalanceRoll(){
-    return this.balanceRoll;
-}
-
-public double getPitchDegrees(){
-    return gyro.getPitch();
-}
-public double getHeading(){
-    //return Math.IEEEremainder(-(gyro.getAngle()), 360);
-    return Math.IEEEremainder(pidgey.getYaw().getValueAsDouble(), 360);
-}
-
-
-public void zeroTurningEncoders(){
-    for(int x=0; x<4; x++){
-        swerveModules.get(x).zeroTurningEncoder();
+    public double getRollDegrees(){
+        return pidgey.getRoll().getValueAsDouble();
+    //   return gyro.getRoll();
     }
-}
-public Rotation2d getRotation2d(){
-
-    return Rotation2d.fromDegrees(getHeading());
-}
-
-public Pose2d getPose(){
-    return odometry.getPoseMeters();
-}
-
-public SwerveDriveOdometry getOdometry(){
-    return odometry;
-}
-
-public double getSaturatedPitch(){
-    return saturatedPitch;
-}
-public void setSaturatedPitch(double x){
-    saturatedPitch = x;
-}
-public PIDController getxController(){
-    // DataLogManager.log(String.format("X conroller %.2f", kPXController));
-    return new PIDController(kPXController, 0, 0);
-}
-
-public PIDController getyController(){
-    // DataLogManager.log(String.format("Y controller %.2f", kPYController));
-    return new PIDController(kPYController, 0,0);
-}
-
-public ProfiledPIDController getThetaController(){
-    // DataLogManager.log(String.format("Theta controller %.2f", kThetaController));
-    return new ProfiledPIDController(kPThetaController, 0, 0,AutoConstants.kThetaControllerConstraints);
-}
-
-public SwerveModulePosition[] getModulePositions(){
-    return new SwerveModulePosition[]{
-        frontLeft.getPosition(),
-        frontRight.getPosition(),
-        backLeft.getPosition(),
-        backRight.getPosition() };
-}
-
-public void resetOdometry(Pose2d pose){
-    odometry.resetPosition( getRotation2d(), getModulePositions(), pose);
-}
-
-public void resetEncoders(){
-    frontLeft.resetDriveEncoders();
-    backLeft.resetDriveEncoders();
-    frontRight.resetDriveEncoders();
-    backRight.resetDriveEncoders();
-}
-
-public void zeroHeading(){
-    gyro.reset();
-}
-
-public void zeroIntegrator(){
-    integratorSum = 0;
-}
-
-/**
- * Sets the swerve module states in order (FL, FR, BL, BR)
- * @param desiredStates
- */
-public void setModuleStates(SwerveModuleState[] desiredStates){
-    moduleStates.clear();
-    for(int i = 0; i < 4; i++){
-        moduleStates.add(desiredStates[i]);
+    public double getBalanceRoll(){
+        return this.balanceRoll;
     }
-    SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, DriveConstants.kPhysicalMaxSpeedMetersPerSecond);
-    frontLeft.setDesiredState(desiredStates[0]);
-    frontRight.setDesiredState(desiredStates[1]);
-    backLeft.setDesiredState(desiredStates[2]);
-    backRight.setDesiredState(desiredStates[3]);
-}
 
-public ArrayList<SwerveModule> getSwerveModules(){
-    return this.swerveModules;
-}
+    public double getPitchDegrees(){
+        return pidgey.getPitch().getValueAsDouble();
+    }
+    public double getHeading(){
+        //return Math.IEEEremainder(-(gyro.getAngle()), 360);
+        return Math.IEEEremainder(pidgey.getYaw().getValueAsDouble(), 360);
+    }
 
-public double autoBalance(){
+
+    public void zeroTurningEncoders(){
+        for(int x=0; x<4; x++){
+            swerveModules.get(x).zeroTurningEncoder();
+        }
+    }
+    public Rotation2d getRotation2d(){
+
+        return Rotation2d.fromDegrees(getHeading());
+    }
+
+    public Pose2d getPose(){
+        return odometry.getPoseMeters();
+    }
+
+    public SwerveDriveOdometry getOdometry(){
+        return odometry;
+    }
+
+    public double getSaturatedPitch(){
+        return saturatedPitch;
+    }
+    public void setSaturatedPitch(double x){
+        saturatedPitch = x;
+    }
+    public PIDController getxController(){
+        // DataLogManager.log(String.format("X conroller %.2f", kPXController));
+        return new PIDController(kPXController, 0, 0);
+    }
+
+    public PIDController getyController(){
+        // DataLogManager.log(String.format("Y controller %.2f", kPYController));
+        return new PIDController(kPYController, 0,0);
+    }
+
+    public ProfiledPIDController getThetaController(){
+        // DataLogManager.log(String.format("Theta controller %.2f", kThetaController));
+        return new ProfiledPIDController(kPThetaController, 0, 0,AutoConstants.kThetaControllerConstraints);
+    }
+
+    public SwerveModulePosition[] getModulePositions(){
+        return new SwerveModulePosition[]{
+            frontLeft.getPosition(),
+            frontRight.getPosition(),
+            backLeft.getPosition(),
+            backRight.getPosition() };
+    }
+
+    public void resetOdometry(Pose2d pose){
+        odometry.resetPosition( getRotation2d(), getModulePositions(), pose);
+    }
+
+    public void resetEncoders(){
+        frontLeft.resetDriveEncoders();
+        backLeft.resetDriveEncoders();
+        frontRight.resetDriveEncoders();
+        backRight.resetDriveEncoders();
+    }
+
+    public void zeroHeading(){
+        pidgey.reset();
+    }
+
+    public void zeroIntegrator(){
+        integratorSum = 0;
+    }
+
+    /**
+     * Sets the swerve module states in order (FL, FR, BL, BR)
+     * @param desiredStates
+     */
+    public void setModuleStates(SwerveModuleState[] desiredStates){
+        moduleStates.clear();
+        for(int i = 0; i < 4; i++){
+            moduleStates.add(desiredStates[i]);
+        }
+        SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, DriveConstants.kPhysicalMaxSpeedMetersPerSecond);
+        frontLeft.setDesiredState(desiredStates[0]);
+        frontRight.setDesiredState(desiredStates[1]);
+        backLeft.setDesiredState(desiredStates[2]);
+        backRight.setDesiredState(desiredStates[3]);
+    }
+
+    public ArrayList<SwerveModule> getSwerveModules(){
+        return this.swerveModules;
+    }
+
+    public double autoBalance(){
     //rollROC = ((getRollDegrees() - previousRoll)/20);
     double currentPitch = getPitchDegrees();
 
@@ -331,7 +320,7 @@ public double autoBalance(){
     return xSpeed;
 }
 
-public void stopModules(){
+    public void stopModules(){
     ChassisSpeeds chassisSpeeds;
     chassisSpeeds = new ChassisSpeeds(0, 0, 0);
     SwerveModuleState[] moduleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
@@ -339,137 +328,123 @@ public void stopModules(){
 }
 
 
-/**
- * Configures Path Planner objects
- * --AutoBuilder
- * --Managed Named Commands
- */
-private void initPathPlanner(){
-    AutoBuilder.configureHolonomic(
-      this::getPose,
-      this::resetOdometry,
-      this::getRobotRelativeSpeeds,
-      this::driveRobotRelative,
-      new HolonomicPathFollowerConfig(
-        new PIDConstants(AutoConstants.kPXController,0,0),
-        new PIDConstants(AutoConstants.kPThetaController,0,0),
-        AutoConstants.kMaxSpeedMetersPerSecond,
-        DriveConstants.kSpinRadius,
-        new ReplanningConfig()
-      ),
-      () -> false,
-      this
-    );
-}
-
-/**
- * Converts chassis speeds (robot relative speed) to swerve module states and then applies those states
- * @param chassisSpeeds
- */
-public void driveRobotRelative(ChassisSpeeds chassisSpeeds){
-    // Convert the chassis speeds to module states
-    SwerveModuleState[] swerveModuleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
-    // apply those states to the swerve modles
-    this.setModuleStates(swerveModuleStates);
-}
-
-/**
- * Calculates the chassis speed from the from the module states (used for odometry)
- * @return
- */
-public ChassisSpeeds getRobotRelativeSpeeds(){
-    return DriveConstants.kDriveKinematics.toChassisSpeeds(frontLeft.getActualState(),
-                                                           frontRight.getActualState(),
-                                                           backLeft.getActualState(),
-                                                           backRight.getActualState());
-} 
-
-
-@Override
-public void periodic() {
-    odometry.update(getRotation2d(), getModulePositions());
-    //  yaw = pidgey.getYaw();
-   
-
-   // System.out.println("Yaw is " + yaw.getValueAsDouble() + " with " + yaw.getTimestamp().getLatency());
-
-    // SmartDashboard.putString("Robot Location", getPose().getTranslation().toString());
-    // SmartDashboard.putNumber("Robot Location x:", getPose().getX());
-    // SmartDashboard.putNumber("Robot Location Y", getPose().getY());
-    // System.out.println("Robot Locaton X:" + getPose().getX());
-    // System.out.println("Robot Location Y:" + getPose().getY());
-    // for(int i = 0; i < modulePositions.length; i++ ){
-    //     System.out.println(modulePositions[i]);
-    // }
-    
-    // SmartDashboard.putNumber("Loop Count: ", loopCount++);
-    // DataLogManager.log(String.format("Loop count %d", loopCount));
-
-    for (SwerveModule swerveModule: swerveModules){
-        // SmartDashboard.putNumber(String.format("%s Angle", swerveModule.wheelPosition.name()), swerveModule.getAbsoluteEncoderRadians());
-        SmartDashboard.putNumber(String.format("%s Angle", swerveModule.wheelPosition.name()), swerveModule.getAbsoluteEncoderRadians());
-        SmartDashboard.putNumber(String.format("%s Position", swerveModule.wheelPosition.name()), swerveModule.getDrivePosition());
-      //  SmartDashboard.putNumber(String.format("%s Back Left", swerveMo))
-        SmartDashboard.putNumber(String.format("%s Turning Encoder", swerveModule.wheelPosition.name()), swerveModule.boundAngle(swerveModule.getTurningPosition()));
-        // SmartDashboard.putNumber(String.format("%s Target Angle", swerveModule.wheelPosition.name()), swerveModule.getState().angle.getRadians());
-        SmartDashboard.putNumber(String.format("%s Velocity", swerveModule.wheelPosition.name()), swerveModule.getDriveVelocity());
+    /**
+     * Configures Path Planner objects
+     * --AutoBuilder
+     * --Managed Named Commands
+     */
+    private void initPathPlanner(){
+        AutoBuilder.configureHolonomic(
+        this::getPose,
+        this::resetOdometry,
+        this::getRobotRelativeSpeeds,
+        this::driveRobotRelative,
+        new HolonomicPathFollowerConfig(
+            new PIDConstants(AutoConstants.kPXController,0,0),
+            new PIDConstants(AutoConstants.kPThetaController,0,0),
+            AutoConstants.kMaxSpeedMetersPerSecond,
+            DriveConstants.kSpinRadius,
+            new ReplanningConfig()
+        ),
+        () -> false,
+        this
+        );
     }
-    SmartDashboard.putNumber("balanceRoll", balanceRoll);
-    // SmartDashboard.putNumber("FL Angle", frontLeft.getAbsoluteEncoderRadians());
-    // SmartDashboard.putNumber("FL Turning Encoder", frontLeft.getTurningPosition());
-    // SmartDashboard.putNumber("FR Angle", frontRight.getAbsoluteEncoderRadians());
-    // SmartDashboard.putNumber("BL Angle", backLeft.getAbsoluteEncoderRadians());
-    // SmartDashboard.putNumber("BR Angle", backRight.getAbsoluteEncoderRadians());
-    // SmartDashboard.putNumber("BL Encoder Voltage", backLeft.getAbsoluteEncoder().getVoltage());
-    // SmartDashboard.putNumber("5V RobotController", RobotController.getCurrent5V());
+
+    /**
+     * Converts chassis speeds (robot relative speed) to swerve module states and then applies those states
+     * @param chassisSpeeds
+     */
+    public void driveRobotRelative(ChassisSpeeds chassisSpeeds){
+        // Convert the chassis speeds to module states
+        SwerveModuleState[] swerveModuleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
+        // apply those states to the swerve modles
+        this.setModuleStates(swerveModuleStates);
+    }
+
+    /**
+     * Calculates the chassis speed from the from the module states (used for odometry)
+     * @return
+     */
+    public ChassisSpeeds getRobotRelativeSpeeds(){
+        return DriveConstants.kDriveKinematics.toChassisSpeeds(frontLeft.getActualState(),
+                                                            frontRight.getActualState(),
+                                                            backLeft.getActualState(),
+                                                            backRight.getActualState());
+    } 
+
+
+    @Override
+    public void periodic() {
+        odometry.update(getRotation2d(), getModulePositions());
+        //  yaw = pidgey.getYaw();
     
-    // SmartDashboard.putNumber("FL Target Angle", moduleStates.get(0).angle.getRadians());
-    // SmartDashboard.putNumber("Gyro", gyro.getAngle());
-   // SmartDashboard.putNumber("Mystery", getHeading());
-       SmartDashboard.putNumber ("Roll Angle", getRollDegrees());
-//    SmartDashboard.putNumber ("Roll", gyro.getRoll());
-   
-    // DataLogManager.log(String.format("Back Left Encoder Voltage %f", backLeft.getAbsoluteEncoder().getVoltage()));
-    // DataLogManager.log(String.format("Back Right Encoder Voltage %f", backRight.getAbsoluteEncoder().getVoltage()));
+
+    // System.out.println("Yaw is " + yaw.getValueAsDouble() + " with " + yaw.getTimestamp().getLatency());
+
+        // SmartDashboard.putString("Robot Location", getPose().getTranslation().toString());
+        // SmartDashboard.putNumber("Robot Location x:", getPose().getX());
+        // SmartDashboard.putNumber("Robot Location Y", getPose().getY());
+        // System.out.println("Robot Locaton X:" + getPose().getX());
+        // System.out.println("Robot Location Y:" + getPose().getY());
+        // for(int i = 0; i < modulePositions.length; i++ ){
+        //     System.out.println(modulePositions[i]);
+        // }
+        
+        // SmartDashboard.putNumber("Loop Count: ", loopCount++);
+        // DataLogManager.log(String.format("Loop count %d", loopCount));
+
+        for (SwerveModule swerveModule: swerveModules){
+            // SmartDashboard.putNumber(String.format("%s Angle", swerveModule.wheelPosition.name()), swerveModule.getAbsoluteEncoderRadians());
+            SmartDashboard.putNumber(String.format("%s Angle", swerveModule.wheelPosition.name()), swerveModule.getAbsoluteEncoderRadians());
+            SmartDashboard.putNumber(String.format("%s Position", swerveModule.wheelPosition.name()), swerveModule.getDrivePosition());
+        //  SmartDashboard.putNumber(String.format("%s Back Left", swerveMo))
+            SmartDashboard.putNumber(String.format("%s Turning Encoder", swerveModule.wheelPosition.name()), swerveModule.boundAngle(swerveModule.getTurningPosition()));
+            // SmartDashboard.putNumber(String.format("%s Target Angle", swerveModule.wheelPosition.name()), swerveModule.getState().angle.getRadians());
+            SmartDashboard.putNumber(String.format("%s Velocity", swerveModule.wheelPosition.name()), swerveModule.getDriveVelocity());
+        }
+        SmartDashboard.putNumber("balanceRoll", balanceRoll);
+        // SmartDashboard.putNumber("FL Angle", frontLeft.getAbsoluteEncoderRadians());
+        // SmartDashboard.putNumber("FL Turning Encoder", frontLeft.getTurningPosition());
+        // SmartDashboard.putNumber("FR Angle", frontRight.getAbsoluteEncoderRadians());
+        // SmartDashboard.putNumber("BL Angle", backLeft.getAbsoluteEncoderRadians());
+        // SmartDashboard.putNumber("BR Angle", backRight.getAbsoluteEncoderRadians());
+        // SmartDashboard.putNumber("BL Encoder Voltage", backLeft.getAbsoluteEncoder().getVoltage());
+        // SmartDashboard.putNumber("5V RobotController", RobotController.getCurrent5V());
+        
+        // SmartDashboard.putNumber("FL Target Angle", moduleStates.get(0).angle.getRadians());
+        // SmartDashboard.putNumber("Gyro", gyro.getAngle());
+    // SmartDashboard.putNumber("Mystery", getHeading());
+        SmartDashboard.putNumber ("Roll Angle", getRollDegrees());
+    //    SmartDashboard.putNumber ("Roll", gyro.getRoll());
+    
+        // DataLogManager.log(String.format("Back Left Encoder Voltage %f", backLeft.getAbsoluteEncoder().getVoltage()));
+        // DataLogManager.log(String.format("Back Right Encoder Voltage %f", backRight.getAbsoluteEncoder().getVoltage()));
 
 
-    // DataLogManager.log(String.format("Back left Angle %f", backLeft.getAbsoluteEncoderRadians()));
-    // DataLogManager.log(String.format("Back right Angle %f", backRight.getAbsoluteEncoderRadians()));
-    // DataLogManager.log(String.format("Front left Angle %f", frontLeft.getAbsoluteEncoderRadians()));
-    // DataLogManager.log(String.format("Front right Angle %f", frontRight.getAbsoluteEncoderRadians()));
+        // DataLogManager.log(String.format("Back left Angle %f", backLeft.getAbsoluteEncoderRadians()));
+        // DataLogManager.log(String.format("Back right Angle %f", backRight.getAbsoluteEncoderRadians()));
+        // DataLogManager.log(String.format("Front left Angle %f", frontLeft.getAbsoluteEncoderRadians()));
+        // DataLogManager.log(String.format("Front right Angle %f", frontRight.getAbsoluteEncoderRadians()));
 
-    // DataLogManager.log(String.format("Voltage %f", RobotController.getCurrent5V()));
+        // DataLogManager.log(String.format("Voltage %f", RobotController.getCurrent5V()));
 
-    // SmartDashboard.putNumber("Integrator Sum", integratorSum);
-}
+        // SmartDashboard.putNumber("Integrator Sum", integratorSum);
+    }
 
-@Override
-public void initSendable(SendableBuilder builder) {
-    // TODO Auto-generated method stub
-    super.initSendable(builder);
-    // builder.addDoubleProperty("FL Power", () -> frontLeft.getDriveVelocity(), null);
-    // builder.addDoubleProperty("FR Power", () -> frontRight.getDriveVelocity(), null);
-    // builder.addDoubleProperty("BL Power", () -> backLeft.getDriveVelocity(), null);
-    // builder.addDoubleProperty("BR Power", () -> backRight.getDriveVelocity(), null);
-     builder.addDoubleProperty("kPXController", () -> kPXController, (value) -> kPXController = value);
-     builder.addDoubleProperty("kPYController", () -> kPYController, (value) -> kPYController = value);
-     builder.addDoubleProperty("kThetaController", () -> kPThetaController, (value) -> kPThetaController = value);
+    @Override
+    public void initSendable(SendableBuilder builder) {
+        // TODO Auto-generated method stub
+        super.initSendable(builder);
 
-    builder.addDoubleProperty("balanceConstant", () -> balanceConstant, (value) -> balanceConstant = value);
-    // builder.addDoubleProperty("Roll Rate of Change", () -> rollROC, null);
-//    builder.addDoubleProperty("Roll Rate of Change Constant", () -> rollROCConstant, (value) -> rollROCConstant = value);
-   builder.addDoubleProperty("Roll Rate of Change Constant", () -> pitchROCConstant, (value) -> pitchROCConstant = value);
+        //  builder.addDoubleProperty("kPXController", () -> kPXController, (value) -> kPXController = value);
+        //  builder.addDoubleProperty("kPYController", () -> kPYController, (value) -> kPYController = value);
+        //  builder.addDoubleProperty("kThetaController", () -> kPThetaController, (value) -> kPThetaController = value);
 
-    builder.addDoubleProperty("feed forward", () -> feedForwardConstant, (value) -> feedForwardConstant = value);
-    builder.addStringProperty("Odometry Position", () -> this.odometry.getPoseMeters().toString(), null);
-    builder.addDoubleProperty("Yaw: ", () -> pidgey.getYaw().getValueAsDouble(), null);
-    builder.addDoubleProperty("getHeading: ", () -> this.getHeading(), null);
+        builder.addStringProperty("Odometry Position", () -> this.odometry.getPoseMeters().toString(), null);
+        builder.addDoubleProperty("Heading/Yaw [Deg]: ", () -> this.getHeading(), null);
 
-    // builder.addDoubleProperty("Integrator Constant", () -> integratorConstant, (value) -> integratorConstant = value);
-
-
-
-}
+    }
 
 }
 
