@@ -6,27 +6,9 @@
     "data": {
       "commands": [
         {
-          "type": "named",
-          "data": {
-            "name": "scoreHighGoal"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "foldArm"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "BTI_Path1"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "reverseIntake"
           }
         }
       ]
