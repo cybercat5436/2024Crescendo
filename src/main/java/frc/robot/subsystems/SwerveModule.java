@@ -14,6 +14,8 @@ import com.ctre.phoenix6.hardware.CANcoder;
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkMaxPIDController;
+import com.revrobotics.SparkPIDController;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkLowLevel.PeriodicFrame;
@@ -39,16 +41,21 @@ public class SwerveModule implements Sendable{
   private final RelativeEncoder turningEncoder;
 
   private final PIDController turningPidController;
+  private final SparkPIDController velocityPidController;
 
   // private final AnalogInput absoluteEncoder;
   private final CANcoder cancoder;
   private final CANcoderConfigurator cancoderConfigurator;
   private final boolean absoluteEncoderReversed;
   private final double absoluteEncoderOffsetRad;
+  private double driveMotorPower;
 
   public final WheelPosition wheelPosition;
+
+  public double kP = 0.45;
+  public double kFF = 0.225;
   
-  
+  public SwerveModuleState desiredState = new SwerveModuleState();
 
   /** Creates a new SwerveModule. */
   public SwerveModule(WheelPosition wheelPosition, int driveMotorId, int turningMotorId, boolean driveMotorReversed, boolean turningMotorReversed,
@@ -65,8 +72,8 @@ public class SwerveModule implements Sendable{
     cancoderConfigurator = cancoder.getConfigurator();
     cancoderConfigurator.apply(new MagnetSensorConfigs().withMagnetOffset(absoluteEncoderOffsetRotations));
 
-    driveMotor.setPeriodicFramePeriod(PeriodicFrame.kStatus2, 10);
-    turningMotor.setPeriodicFramePeriod(PeriodicFrame.kStatus2, 10);
+    driveMotor.setPeriodicFramePeriod(PeriodicFrame.kStatus2, 20);
+    turningMotor.setPeriodicFramePeriod(PeriodicFrame.kStatus2, 20);
 
 
 
@@ -96,12 +103,16 @@ public class SwerveModule implements Sendable{
     turningPidController = new PIDController(ModuleConstants.kPTurning, 0, 0);
     turningPidController.enableContinuousInput(-Math.PI, Math.PI);
 
+    velocityPidController = driveMotor.getPIDController();
+    velocityPidController.setP(kP);
+    velocityPidController.setFF(kFF);
+
     resetDriveEncoders();
     resetTurningEncoderWithAbsolute();
     System.out.println("Setting " + wheelPosition + " with offset of " + absoluteEncoderOffsetRotations);
 
     //Register the sendables
-    SendableRegistry.addLW(this, this.getClass().getSimpleName(), this.getClass().getSimpleName());
+    SendableRegistry.addLW(this, this.getClass().getSimpleName(), this.wheelPosition.toString());
     SmartDashboard.putData(this);
   }
 
@@ -177,8 +188,11 @@ public class SwerveModule implements Sendable{
 
 
 
-  public SwerveModuleState getState() {
+  public SwerveModuleState getActualState() {
     return new SwerveModuleState(getDriveVelocity(), new Rotation2d(getTurningPosition()));
+  }
+  public SwerveModuleState getDesiredState(){
+    return new SwerveModuleState(this.desiredState.speedMetersPerSecond, this.desiredState.angle);
   }
 
   //definetly ot right but gets rid of error
@@ -192,18 +206,23 @@ public class SwerveModule implements Sendable{
    */
   public void setDesiredState(SwerveModuleState state){
     
+    this.desiredState = state;
+
     if (Math.abs(state.speedMetersPerSecond) < 0.001) {
-      stop();
+      this.desiredState = new SwerveModuleState(0.0, state.angle);
+      this.stop();
       return;
     }
 
-    state = SwerveModuleState.optimize(state, getState().angle);
+    state = SwerveModuleState.optimize(state, getActualState().angle);
 
-    double driveMotorPower = state.speedMetersPerSecond /DriveConstants.kPhysicalMaxSpeedMetersPerSecond;
-    
-    driveMotor.set(driveMotorPower);
+    // Setting Drive Motor Power Using a Linear Correlation with Max Speed
+    // driveMotorPower = state.speedMetersPerSecond /DriveConstants.kPhysicalMaxSpeedMetersPerSecond;
+    // driveMotor.set(driveMotorPower);
 
     // System.out.println("Turning Encoder Error: "+(state.angle.getRadians()-boundAngle(turningEncoder.getPosition())));
+
+    velocityPidController.setReference(state.speedMetersPerSecond, CANSparkMax.ControlType.kVelocity);
 
     turningMotor.set(turningPidController.calculate(turningEncoder.getPosition(), state.angle.getRadians()));
   
@@ -246,11 +265,16 @@ public class SwerveModule implements Sendable{
     turningMotor.set(0);
   }
 
+  public double getDrivePower(){
+    return driveMotorPower;
+  }
+
   @Override
   public void initSendable(SendableBuilder builder) {
     // TODO Auto-generated method stub
     builder.addDoubleProperty("Power From Module", () -> this.getDriveVelocity(), null);
     builder.addDoubleProperty("CANCoder Absolute", () -> cancoder.getAbsolutePosition().getValueAsDouble(),null);
+    builder.addDoubleProperty(this.wheelPosition.toString()+" Desired Drive Power", () -> this.getDrivePower()*DriveConstants.kPhysicalMaxSpeedMetersPerSecond, null);
     // builder.addDoubleProperty("Physical Restraints", () -> DriveConstants.kPhysicalMaxAngularSpeedRadiansPerSecond, null);
   }
 

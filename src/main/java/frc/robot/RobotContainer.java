@@ -106,12 +106,12 @@ public class RobotContainer {
       primaryController.x().whileTrue(new AutoAlign(swerveSubsystem, limeLight).repeatedly()).onFalse(new InstantCommand(()->swerveSubsystem.stopModules()));
       
       // Climber bindings
-      climber.setDefaultCommand(
-        new ClimberDefaultCommand(climber, 
-          ()->secondaryController.getLeftY(), 
-          ()->secondaryController.getRightY()
-        )
-      );
+      // climber.setDefaultCommand(
+      //   new ClimberDefaultCommand(climber, 
+      //     ()->secondaryController.getLeftY(), 
+      //     ()->secondaryController.getRightY()
+      //   )
+      // );
 
        secondaryController.x().whileTrue((new AutoClimbCommand(climber, swerveSubsystem, ()-> secondaryController.getLeftY())).repeatedly())
         .onFalse(new InstantCommand(()-> climber.climberStop()));

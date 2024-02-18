@@ -2,7 +2,7 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.0680920648574521,
+      "x": 1.07,
       "y": 5.4
     },
     "rotation": 0
@@ -14,19 +14,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "LeftTopNote"
+            "pathName": "LeftBotNote"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "autoAlign"
           }
         },
         {
           "type": "path",
           "data": {
             "pathName": "LeftMidNote"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "LeftBotNote"
           }
         },
         {

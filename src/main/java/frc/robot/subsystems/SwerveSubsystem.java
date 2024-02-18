@@ -154,8 +154,8 @@ public class SwerveSubsystem extends SubsystemBase{
 
 
         
-        pidgey.getYaw().setUpdateFrequency(100);
-        pidgey.getGravityVectorZ().setUpdateFrequency(100);
+        pidgey.getYaw().setUpdateFrequency(50);
+        pidgey.getGravityVectorZ().setUpdateFrequency(50);
 
 
         /* Speed up signals to an appropriate rate */
@@ -378,16 +378,16 @@ public void driveRobotRelative(ChassisSpeeds chassisSpeeds){
  * @return
  */
 public ChassisSpeeds getRobotRelativeSpeeds(){
-    return DriveConstants.kDriveKinematics.toChassisSpeeds(frontLeft.getState(),
-                                                           frontRight.getState(),
-                                                           backLeft.getState(),
-                                                           backRight.getState());
+    return DriveConstants.kDriveKinematics.toChassisSpeeds(frontLeft.getActualState(),
+                                                           frontRight.getActualState(),
+                                                           backLeft.getActualState(),
+                                                           backRight.getActualState());
 } 
 
 
 @Override
 public void periodic() {
-    // odometry.update(getRotation2d(), getModulePositions());
+    odometry.update(getRotation2d(), getModulePositions());
     //  yaw = pidgey.getYaw();
    
 
