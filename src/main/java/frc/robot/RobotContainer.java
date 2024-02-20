@@ -19,8 +19,9 @@ import frc.robot.commands.AutoAlign;
 import frc.robot.commands.AutoClimbCommand;
 import frc.robot.commands.SwerveJoystickCmd;
 import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LimeLight;
-import frc.robot.subsystems.Speaker;
+import frc.robot.subsystems.Launcher;
 import frc.robot.subsystems.SuperStructure;
 import frc.robot.subsystems.SwerveSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -41,15 +42,16 @@ public class RobotContainer {
     private final LimeLight limeLight = new LimeLight("limelight");
     // private final LimeLight limeLightOrient = new LimeLight("limelight-orient");
     private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
-    // private final Intake intake = new Intake();
+    private final Intake intake = new Intake();
     private final CommandXboxController primaryController = new CommandXboxController(1);
     private final CommandXboxController secondaryController = new CommandXboxController(0);
     private SendableChooser<Command> autonChooser = new SendableChooser<>();
 
     // swerve subsystem must be instantiated before climber
     private final Climber climber = new Climber();
-    private final Speaker speaker = new Speaker();
+    private final Launcher launcher = new Launcher();
     private final SuperStructure superStructure = new SuperStructure();
+    
 
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -75,9 +77,9 @@ public class RobotContainer {
      */
     private void configureButtonBindings() {
       
-      //Intake Buttons
-      // primaryController.leftBumper().onTrue(new InstantCommand(()->intake.intakeFeedIn()))
-      //   .onFalse(new InstantCommand(()->intake.stopIntake()));
+      // Intake Buttons;
+      secondaryController.b().whileTrue(new InstantCommand(()->intake.intakeFeedIn()).repeatedly())
+        .whileFalse(new InstantCommand(()->intake.stopIntake()));
       // primaryController.rightBumper().onTrue(new InstantCommand(()->intake.intakeFeedOut()))
       //   .onFalse(new InstantCommand(()->intake.stopIntake()));
       
@@ -114,17 +116,21 @@ public class RobotContainer {
       Trigger rightTrigger = new Trigger(()->secondaryController.getRightTriggerAxis()> 0.2);
       Trigger leftTrigger = new Trigger(()->secondaryController.getLeftTriggerAxis()> 0.2);
       
-      leftTrigger.whileTrue(new InstantCommand(()-> speaker.startLauncher(secondaryController.getLeftTriggerAxis())).repeatedly())
-        .onFalse(new InstantCommand(()-> speaker.stopLauncher()));
+      leftTrigger.whileTrue(new InstantCommand(()-> launcher.startLauncher(0.7)).repeatedly())
+        .onFalse(new InstantCommand(()-> launcher.stopLauncher()));
 
-      rightTrigger.onTrue(new InstantCommand(()-> speaker.startFeeder()))
-        .onFalse(new InstantCommand(()-> speaker.stopFeeder()));
+      rightTrigger.onTrue(new InstantCommand(()-> launcher.startFeeder()))
+        .onFalse(new InstantCommand(()-> launcher.stopFeeder()));
       
 
       // SuperStructure bindings
       secondaryController.y().onTrue(new InstantCommand(()->superStructure.rotateToAmp()));
       secondaryController.a().onTrue(new InstantCommand(()->superStructure.rotateToSpeaker()));
-      
+
+      // Amp bindings
+      secondaryController.rightBumper().whileTrue(new InstantCommand(()->launcher.scoreAmp()).repeatedly())
+      .whileFalse(new InstantCommand(()->launcher.stop()));
+    
     }
 
     public SwerveSubsystem getSwerveSubsystem(){

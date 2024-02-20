@@ -235,10 +235,10 @@
               "Crosshair/Crosshair color": "#FFFFFFFF",
               "Controls/Show controls": true,
               "Controls/Rotation": "NONE",
-              "compression": -1.0,
-              "fps": -1,
-              "imageWidth": 0,
-              "imageHeight": 0
+              "compression": 100.0,
+              "fps": 10,
+              "imageWidth": 5,
+              "imageHeight": 5
             }
           },
           "1,2": {
@@ -817,6 +817,19 @@
             }
           }
         }
+      }
+    },
+    {
+      "title": "limelight",
+      "autoPopulate": true,
+      "autoPopulatePrefix": "camera_server://limelight/",
+      "widgetPane": {
+        "gridSize": 128.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "titleType": 0,
+        "tiles": {}
       }
     }
   ],

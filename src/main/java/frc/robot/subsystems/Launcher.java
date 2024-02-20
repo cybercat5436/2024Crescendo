@@ -16,7 +16,7 @@ import com.ctre.phoenix6.signals.InvertedValue;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
-public class Speaker extends SubsystemBase {
+public class Launcher extends SubsystemBase {
   /** Creates a new Speaker. */
   private final TalonFX launcher;
   private final CANSparkMax feeder;
@@ -24,7 +24,7 @@ public class Speaker extends SubsystemBase {
 
   // private TalonFX falconMotor;
 
-  public Speaker() {
+  public Launcher() {
 
     launcher = new TalonFX(Constants.RoboRioPortConfig.SPEAKER_LAUNCHER);
     feeder = new CANSparkMax(Constants.RoboRioPortConfig.SPEAKER_FEEDER_MOTOR, MotorType.kBrushless);
@@ -47,31 +47,45 @@ public class Speaker extends SubsystemBase {
     // target velocity of 50 rps
     launcherControl.Slot = 0;
     launcher.setControl(launcherControl.withVelocity(50));
-    System.out.println("start launcher");
+    // System.out.println("start launcher");
     // falconMotor.set(ControlMode.PercentOutput,0.5);
   }
 public void startLauncher(double percentage) {
     // periodic, run velocity control with slot 0 configs,
     // target velocity of 50 rps
     launcherControl.Slot = 0;
-    launcher.setControl(launcherControl.withVelocity(70 *percentage));
+    launcher.setControl(launcherControl.withVelocity(100 *percentage));
     System.out.println("start launcher with percentage " + percentage); 
     // falconMotor.set(ControlMode.PercentOutput,0.5); 
   }
 
   public void stopLauncher() {
     launcher.set(0);
-    System.out.println("stop launcher");
+    // System.out.println("stop launcher");
     // falconMotor.set(ControlMode.PercentOutput,0);
   }
   public void startFeeder(){
     feeder.set(1);
-    System.out.println("start feeeder");
+    // System.out.println("start feeeder");
+  }
+   public void startFeeder(double speed){
+    feeder.set(speed);
+    // System.out.println("start feeeder");
   }
 
   public void stopFeeder(){
     feeder.set(0);
-    System.out.println("stop feeder");
+    // System.out.println("stop feeder");
+  }
+  public void scoreAmp(){
+    startLauncher(0.1);
+    startFeeder(0.1);
+    System.out.println("start amp");
+  }
+  public void stop(){
+  stopFeeder();
+  stopLauncher();
+  System.out.println("stop amp");
   }
   @Override
   public void periodic() {
