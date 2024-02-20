@@ -67,10 +67,10 @@ public final class Constants {
         public static final int EXTENDER_ZERO_LIMIT_SWITCH = 0;
         public static final int EXTENDER_MAX_LIMIT_SWITCH = 1;
 
-        public static final double kFrontLeftDriveAbsoluteEncoderOffsetRotations = -0.181641;
-        public static final double kFrontRightDriveAbsoluteEncoderOffsetRotations = -0.134521;
-        public static final double kBackLeftDriveAbsoluteEncoderOffsetRotations = -0.413086;
-        public static final double kBackRightDriveAbsoluteEncoderOffsetRotations = 0.329590;
+    public static final double kFrontLeftDriveAbsoluteEncoderOffsetRotations = 0.347900 ;
+        public static final double kFrontRightDriveAbsoluteEncoderOffsetRotations = -0.413574;
+        public static final double kBackLeftDriveAbsoluteEncoderOffsetRotations = 0.164307 ;
+        public static final double kBackRightDriveAbsoluteEncoderOffsetRotations = -0.071045 ;
         
         
     }
