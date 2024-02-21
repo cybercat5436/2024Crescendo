@@ -82,10 +82,10 @@ public final class Constants {
         public static final double kRotateDriveMaxSpeedMetersPerSecond = 5.82;//4.36; //super fast mode
         public static final double kPhysicalMaxSpeedMetersPerSecond = 5.82;//4.36;
         //public static final double kTrackWidth = Units.inchesToMeters(19); //OLD
-        public static final double kTrackWidth = 0.55;
+        public static final double kTrackWidth = 0.524;
         //kWheelBase: Distance between front and back of the robot
         //public static final double kWheelBase = Units.inchesToMeters(23.5);
-        public static final double kWheelBase = 0.63;
+        public static final double kWheelBase = 0.645;
         public static final double kSpinRadius = Math.sqrt(Math.pow(kTrackWidth, 2) + Math.pow(kWheelBase,2)) / 2.0;
         public static final SwerveDriveKinematics kDriveKinematics = new SwerveDriveKinematics(
                 new Translation2d(kWheelBase / 2, kTrackWidth / 2),

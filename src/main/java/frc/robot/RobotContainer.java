@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.AutoAlign;
 import frc.robot.commands.AutoClimbCommand;
+import frc.robot.commands.ClimberDefaultCommand;
 import frc.robot.commands.SwerveJoystickCmd;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Intake;
@@ -27,6 +28,7 @@ import frc.robot.subsystems.SwerveSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -51,6 +53,11 @@ public class RobotContainer {
     private final Climber climber = new Climber();
     private final Launcher launcher = new Launcher();
     private final SuperStructure superStructure = new SuperStructure();
+
+    private SequentialCommandGroup shootCommand = new SequentialCommandGroup(
+    new InstantCommand(()->launcher.startLauncher(0.7)).repeatedly().withTimeout(1.0))
+    .andThen(new InstantCommand(()->launcher.startFeeder()).repeatedly().withTimeout(1.0))
+    .andThen(new InstantCommand(()->launcher.stop()));
     
 
 
@@ -101,12 +108,12 @@ public class RobotContainer {
       primaryController.x().whileTrue(new AutoAlign(swerveSubsystem, limeLight).repeatedly()).onFalse(new InstantCommand(()->swerveSubsystem.stopModules()));
       
       // Climber bindings
-      // climber.setDefaultCommand(
-      //   new ClimberDefaultCommand(climber, 
-      //     ()->secondaryController.getLeftY(), 
-      //     ()->secondaryController.getRightY()
-      //   )
-      // );
+      climber.setDefaultCommand(
+        new ClimberDefaultCommand(climber, 
+          ()->secondaryController.getLeftY(), 
+          ()->secondaryController.getRightY()
+        )
+      );
 
        secondaryController.x().whileTrue((new AutoClimbCommand(climber, swerveSubsystem, ()-> secondaryController.getLeftY())).repeatedly())
         .onFalse(new InstantCommand(()-> climber.climberStop()));
@@ -150,6 +157,12 @@ public class RobotContainer {
 
   private void registerNamedCommands(){
     NamedCommands.registerCommand("autoAlign", new AutoAlign(swerveSubsystem, limeLight));
+    NamedCommands.registerCommand("intakeFeedIn", new InstantCommand(()->intake.intakeFeedIn()));
+    NamedCommands.registerCommand("stopIntake", new InstantCommand(()->intake.stopIntake()));
+    NamedCommands.registerCommand("startLauncher", new InstantCommand(()->launcher.startLauncher(0.7)).repeatedly());
+    NamedCommands.registerCommand("startFeeder", new InstantCommand(()->launcher.startFeeder()).repeatedly().withTimeout(1.0));
+    NamedCommands.registerCommand("stopShooter", new InstantCommand(()->launcher.stop()));
+    NamedCommands.registerCommand("shoot", shootCommand);
   }
 
   /**

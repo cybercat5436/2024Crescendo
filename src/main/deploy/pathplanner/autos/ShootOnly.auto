@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.07,
-      "y": 5.527514849608872
+      "x": 1.2437546130441748,
+      "y": 5.492382339971527
     },
     "rotation": 0
   },
@@ -12,15 +12,21 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "LeftBotNote"
+            "name": "startLauncher"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "stopIntake"
+            "name": "startFeeder"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "stopShooter"
           }
         }
       ]
