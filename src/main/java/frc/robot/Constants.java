@@ -67,10 +67,10 @@ public final class Constants {
         public static final int EXTENDER_ZERO_LIMIT_SWITCH = 0;
         public static final int EXTENDER_MAX_LIMIT_SWITCH = 1;
 
-        public static final double kFrontLeftDriveAbsoluteEncoderOffsetRotations = -0.181641;
-        public static final double kFrontRightDriveAbsoluteEncoderOffsetRotations = -0.134521;
-        public static final double kBackLeftDriveAbsoluteEncoderOffsetRotations = -0.413086;
-        public static final double kBackRightDriveAbsoluteEncoderOffsetRotations = 0.329590;
+        public static final double kFrontLeftDriveAbsoluteEncoderOffsetRotations = -0.179199;
+        public static final double kFrontRightDriveAbsoluteEncoderOffsetRotations = -0.131592;
+        public static final double kBackLeftDriveAbsoluteEncoderOffsetRotations = -0.410156;
+        public static final double kBackRightDriveAbsoluteEncoderOffsetRotations = 0.332031;
         
         
     }
@@ -97,7 +97,7 @@ public final class Constants {
 
         //public static final double kLimelightHorizontal = 0.0667;
         //public static final double kLimelightForward = 0.0833; //CHANGE
-    }
+    } 
 
     public static class OIConstants{
         public static final double K_DEADBAND = 0.10;

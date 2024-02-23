@@ -27,6 +27,7 @@ import frc.robot.subsystems.SwerveSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -52,7 +53,10 @@ public class RobotContainer {
     private final Launcher launcher = new Launcher();
     private final SuperStructure superStructure = new SuperStructure();
     
-
+    private SequentialCommandGroup shootCommand = new SequentialCommandGroup(
+    new InstantCommand(()->launcher.startLauncher(0.7)).repeatedly().withTimeout(1.0))
+    .andThen(new InstantCommand(()->launcher.startFeeder()).repeatedly().withTimeout(1.0))
+    .andThen(new InstantCommand(()->launcher.stop()));
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
@@ -150,8 +154,14 @@ public class RobotContainer {
 
   private void registerNamedCommands(){
     NamedCommands.registerCommand("autoAlign", new AutoAlign(swerveSubsystem, limeLight));
+    NamedCommands.registerCommand("intakeFeedIn", new InstantCommand(()->intake.intakeFeedIn()));
+    NamedCommands.registerCommand("stopIntake", new InstantCommand(()->intake.stopIntake()));
+    NamedCommands.registerCommand("startLauncher", new InstantCommand(()->launcher.startLauncher(0.7)).repeatedly());
+    NamedCommands.registerCommand("startFeeder", new InstantCommand(()->launcher.startFeeder()).repeatedly().withTimeout(1.0));
+    NamedCommands.registerCommand("stopShooter", new InstantCommand(()->launcher.stop()));
+    NamedCommands.registerCommand("shoot", shootCommand);  
+    NamedCommands.registerCommand("zeroHeading", new InstantCommand(()->swerveSubsystem.zeroHeading()));
   }
-
   /**
    * Looks at the auton command selected in auton chooser.  If no starting pose is present, it sets the robot's starting pose
    * to the initial pose of the first path

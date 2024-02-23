@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.07,
-      "y": 5.4
+      "x": 1.39,
+      "y": 5.55
     },
     "rotation": 0
   },
@@ -12,9 +12,21 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "zeroHeading"
+          }
+        },
+        {
           "type": "path",
           "data": {
-            "pathName": "LeftBotNote"
+            "pathName": "LeftBotAlt"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "stopIntake"
           }
         }
       ]
