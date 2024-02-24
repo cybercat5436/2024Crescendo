@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.ModuleConstants;
 import frc.robot.enums.WheelPosition;
@@ -50,7 +51,7 @@ public class SwerveModule implements Sendable{
   public final WheelPosition wheelPosition;
 
   public double kP = 0.45;
-  public double kFF = 0.225;
+  public double kFF = 1.0/Constants.DriveConstants.kPhysicalMaxSpeedMetersPerSecond;
   
   public SwerveModuleState desiredState = new SwerveModuleState();
 

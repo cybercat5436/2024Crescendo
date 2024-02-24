@@ -50,7 +50,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "LeftMidNote"
+            "pathName": "LeftMidNote1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "LeftMidNote2"
           }
         },
         {
