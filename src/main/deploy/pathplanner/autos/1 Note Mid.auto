@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.07,
-      "y": 5.6212015419751244
+      "x": 1.39,
+      "y": 5.55
     },
     "rotation": 0
   },
@@ -24,7 +24,13 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "LeftMidNote"
+                  "pathName": "LeftMidNote1"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "LeftMidNote2"
                 }
               },
               {

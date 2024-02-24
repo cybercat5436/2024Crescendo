@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.07,
-      "y": 5.527514849608872
+      "x": 1.4,
+      "y": 5.55
     },
     "rotation": 0
   },
@@ -12,9 +12,27 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "shoot"
+          }
+        },
+        {
           "type": "path",
           "data": {
-            "pathName": "LeftBotNote"
+            "pathName": "LeftBotAlt"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "startFeeder"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "stopShooter"
           }
         },
         {

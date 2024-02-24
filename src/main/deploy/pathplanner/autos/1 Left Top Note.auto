@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.07,
-      "y": 5.4
+      "x": 1.4,
+      "y": 5.55
     },
     "rotation": 0
   },
@@ -12,27 +12,33 @@
     "data": {
       "commands": [
         {
-          "type": "path",
-          "data": {
-            "pathName": "LeftBotNote"
-          }
-        },
-        {
           "type": "named",
           "data": {
-            "name": "autoAlign"
+            "name": "shoot"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "LeftMidNote"
+            "pathName": "LeftTopAlt"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "autoAlign"
+            "name": "startFeeder"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "stopShooter"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "stopIntake"
           }
         }
       ]

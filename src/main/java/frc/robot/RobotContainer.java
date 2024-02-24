@@ -55,8 +55,8 @@ public class RobotContainer {
     private final SuperStructure superStructure = new SuperStructure();
 
     private SequentialCommandGroup shootCommand = new SequentialCommandGroup(
-    new InstantCommand(()->launcher.startLauncher(0.7)).repeatedly().withTimeout(1.0))
-    .andThen(new InstantCommand(()->launcher.startFeeder()).repeatedly().withTimeout(1.0))
+    new InstantCommand(()->launcher.startLauncher(0.7)).repeatedly().withTimeout(0.375))
+    .andThen(new InstantCommand(()->launcher.startFeeder()).repeatedly().withTimeout(0.2))
     .andThen(new InstantCommand(()->launcher.stop()));
     
 
@@ -160,7 +160,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("intakeFeedIn", new InstantCommand(()->intake.intakeFeedIn()));
     NamedCommands.registerCommand("stopIntake", new InstantCommand(()->intake.stopIntake()));
     NamedCommands.registerCommand("startLauncher", new InstantCommand(()->launcher.startLauncher(0.7)).repeatedly());
-    NamedCommands.registerCommand("startFeeder", new InstantCommand(()->launcher.startFeeder()).repeatedly().withTimeout(1.0));
+    NamedCommands.registerCommand("startFeeder", new InstantCommand(()->launcher.startFeeder()).repeatedly().withTimeout(0.2));
     NamedCommands.registerCommand("stopShooter", new InstantCommand(()->launcher.stop()));
     NamedCommands.registerCommand("shoot", shootCommand);
   }
