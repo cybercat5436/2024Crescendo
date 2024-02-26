@@ -27,8 +27,8 @@ public class SwerveJoystickCmd extends Command {
     private double kLimelightTurning =  0.1;
     private double targetHeading = 0;
     // private double superFastModeConstant = 7.5;
-    private SlewRateLimiter slewRateLimiterX = new SlewRateLimiter(DriveConstants.kPhysicalMaxSpeedMetersPerSecond * 2.5);
-    private SlewRateLimiter slewRateLimiterY = new SlewRateLimiter(DriveConstants.kPhysicalMaxSpeedMetersPerSecond * 2.5);
+    private SlewRateLimiter slewRateLimiterX = new SlewRateLimiter(DriveConstants.kPhysicalMaxSpeedMetersPerSecond * 2);
+    private SlewRateLimiter slewRateLimiterY = new SlewRateLimiter(DriveConstants.kPhysicalMaxSpeedMetersPerSecond * 2);
     private SlewRateLimiter slewRateLimiterTheta = new SlewRateLimiter(DriveConstants.kPhysicalMaxSpeedMetersPerSecond * 2.5);
     private double xSpeed, ySpeed, turningSpeed;
     private boolean isSlewActive;

@@ -153,6 +153,19 @@
               "_glyph": 148,
               "_showGlyph": false
             }
+          },
+          "4,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Motor Position",
+              "_title": "SmartDashboard/Motor Position",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
           }
         }
       }

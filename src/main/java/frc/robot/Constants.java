@@ -67,10 +67,10 @@ public final class Constants {
         public static final int EXTENDER_ZERO_LIMIT_SWITCH = 0;
         public static final int EXTENDER_MAX_LIMIT_SWITCH = 1;
 
-        public static final double kFrontLeftDriveAbsoluteEncoderOffsetRotations = -0.181641;
-        public static final double kFrontRightDriveAbsoluteEncoderOffsetRotations = -0.134521;
-        public static final double kBackLeftDriveAbsoluteEncoderOffsetRotations = -0.413086;
-        public static final double kBackRightDriveAbsoluteEncoderOffsetRotations = 0.329590;
+    public static final double kFrontLeftDriveAbsoluteEncoderOffsetRotations = 0.347900 ;
+        public static final double kFrontRightDriveAbsoluteEncoderOffsetRotations = -0.413574;
+        public static final double kBackLeftDriveAbsoluteEncoderOffsetRotations = 0.164307 ;
+        public static final double kBackRightDriveAbsoluteEncoderOffsetRotations = -0.071045 ;
         
         
     }
@@ -82,10 +82,10 @@ public final class Constants {
         public static final double kRotateDriveMaxSpeedMetersPerSecond = 5.82;//4.36; //super fast mode
         public static final double kPhysicalMaxSpeedMetersPerSecond = 5.82;//4.36;
         //public static final double kTrackWidth = Units.inchesToMeters(19); //OLD
-        public static final double kTrackWidth = 0.55;
+        public static final double kTrackWidth = 0.524;
         //kWheelBase: Distance between front and back of the robot
         //public static final double kWheelBase = Units.inchesToMeters(23.5);
-        public static final double kWheelBase = 0.63;
+        public static final double kWheelBase = 0.645;
         public static final double kSpinRadius = Math.sqrt(Math.pow(kTrackWidth, 2) + Math.pow(kWheelBase,2)) / 2.0;
         public static final SwerveDriveKinematics kDriveKinematics = new SwerveDriveKinematics(
                 new Translation2d(kWheelBase / 2, kTrackWidth / 2),

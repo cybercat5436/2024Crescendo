@@ -20,6 +20,30 @@
         {
           "type": "path",
           "data": {
+            "pathName": "LeftBotAlt"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "startFeeder"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "stopShooter"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "stopIntake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
             "pathName": "LeftMidNote1"
           }
         },
@@ -27,54 +51,6 @@
           "type": "path",
           "data": {
             "pathName": "LeftMidNote2"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "startFeeder"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "stopShooter"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "stopIntake"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "LeftTopAlt"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "startFeeder"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "stopShooter"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "stopIntake"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "LeftBotAlt"
           }
         },
         {
