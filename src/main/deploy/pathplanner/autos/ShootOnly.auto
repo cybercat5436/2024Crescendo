@@ -14,19 +14,7 @@
         {
           "type": "named",
           "data": {
-            "name": "startLauncher"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "startFeeder"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "stopShooter"
+            "name": "shoot"
           }
         }
       ]

@@ -14,12 +14,6 @@
         {
           "type": "named",
           "data": {
-            "name": "leftAutonGyroReset"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
             "name": "shoot"
           }
         },

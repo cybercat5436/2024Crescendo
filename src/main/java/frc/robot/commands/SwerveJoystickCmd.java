@@ -160,7 +160,7 @@ public class SwerveJoystickCmd extends Command {
 
      private double applySpeedScaleToTurn(double processedDriveSignal){
         // If right trigger is pulled, used max speed, otherwise use translate speed
-        double speedMultiplier = isSlewActive ? DriveConstants.kPhysicalMaxSpeedMetersPerSecond : DriveConstants.kPhysicalMaxSpeedMetersPerSecond * 0.9;
+        double speedMultiplier = isSlewActive ? DriveConstants.kPhysicalMaxSpeedMetersPerSecond : DriveConstants.kPhysicalMaxSpeedMetersPerSecond * 0.7;
         return processedDriveSignal *  speedMultiplier;
     }
 
