@@ -49,9 +49,9 @@ public class Intake extends SubsystemBase {
   public void intakeFeedIn(){
     intakeMotor.set(speed);
   }
-  // public void intakeFeedOut(){
-  //   intakeMotor.set(speed*-1);
-  // }
+  public void intakeFeedOut(){
+    intakeMotor.set(speed*-1);
+  }
   public double getIntakePosition(){
     return intakeEncoder.getPosition();
   }

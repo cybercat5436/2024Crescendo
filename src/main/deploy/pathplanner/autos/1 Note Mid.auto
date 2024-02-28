@@ -24,13 +24,13 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "LeftMidNote1"
+                  "pathName": "MidNote1"
                 }
               },
               {
                 "type": "path",
                 "data": {
-                  "pathName": "LeftMidNote2"
+                  "pathName": "MidNote2"
                 }
               },
               {

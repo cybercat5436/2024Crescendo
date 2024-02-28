@@ -252,6 +252,9 @@ public class SwerveSubsystem extends SubsystemBase{
     public void zeroHeading(){
         pidgey.reset();
     }
+    public void zeroHeading(double headingDegrees) {
+        pidgey.setYaw(headingDegrees);
+    }
 
     public void zeroIntegrator(){
         integratorSum = 0;

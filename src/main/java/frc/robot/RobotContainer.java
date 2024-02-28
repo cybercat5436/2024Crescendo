@@ -87,8 +87,10 @@ public class RobotContainer {
       // Intake Buttons;
       secondaryController.b().whileTrue(new InstantCommand(()->intake.intakeFeedIn()).repeatedly())
         .whileFalse(new InstantCommand(()->intake.stopIntake()));
-      // primaryController.rightBumper().onTrue(new InstantCommand(()->intake.intakeFeedOut()))
-      //   .onFalse(new InstantCommand(()->intake.stopIntake()));
+      primaryController.rightBumper().whileTrue(new InstantCommand(()->intake.intakeFeedIn()).repeatedly())
+        .whileFalse(new InstantCommand(()->intake.stopIntake()));
+      primaryController.leftBumper().onTrue(new InstantCommand(()->intake.intakeFeedOut()))
+        .onFalse(new InstantCommand(()->intake.stopIntake()));
       
 
       //Swerve Bindings
@@ -110,8 +112,8 @@ public class RobotContainer {
       // Climber bindings
       climber.setDefaultCommand(
         new ClimberDefaultCommand(climber, 
-          ()->secondaryController.getLeftY(), 
-          ()->secondaryController.getRightY()
+          ()-> -secondaryController.getLeftY(), 
+          ()-> -secondaryController.getRightY()
         )
       );
 
@@ -163,6 +165,9 @@ public class RobotContainer {
     NamedCommands.registerCommand("startFeeder", new InstantCommand(()->launcher.startFeeder()).repeatedly().withTimeout(0.2));
     NamedCommands.registerCommand("stopShooter", new InstantCommand(()->launcher.stop()));
     NamedCommands.registerCommand("shoot", shootCommand);
+    NamedCommands.registerCommand("leftAutonGyroReset", new InstantCommand(()->swerveSubsystem.zeroHeading(60)));
+    NamedCommands.registerCommand("rightAutonGyroReset", new InstantCommand(()->swerveSubsystem.zeroHeading(-60)));
+
   }
 
   /**

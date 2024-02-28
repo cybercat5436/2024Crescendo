@@ -78,8 +78,8 @@ public void startLauncher(double percentage) {
     // System.out.println("stop feeder");
   }
   public void scoreAmp(){
-    startLauncher(0.1);
-    startFeeder(0.1);
+    startLauncher(0.5);
+    startFeeder(0.5);
     System.out.println("start amp");
   }
   public void stop(){

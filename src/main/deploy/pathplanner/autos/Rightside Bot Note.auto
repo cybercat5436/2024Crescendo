@@ -2,15 +2,21 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.6332428049471499,
-      "y": 6.640452511674254
+      "x": 0.6699236223008809,
+      "y": 4.42669621430541
     },
-    "rotation": 64.98310652189998
+    "rotation": -60.0
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "rightAutonGyroReset"
+          }
+        },
         {
           "type": "named",
           "data": {
@@ -20,7 +26,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Left path "
+            "pathName": "Right Path "
           }
         },
         {
@@ -32,13 +38,13 @@
         {
           "type": "named",
           "data": {
-            "name": "stopIntake"
+            "name": "stopShooter"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "stopShooter"
+            "name": "stopIntake"
           }
         }
       ]

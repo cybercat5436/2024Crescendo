@@ -10,7 +10,9 @@ import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-
+/**
+ * positive value raises arms, negative values lowers arms. Encoder values increase when arms raise.
+ */
 public class Climber extends SubsystemBase {
  private TalonFX rightClimberMotor = new TalonFX(Constants.RoboRioPortConfig.CLIMBER_RIGHT, "rio");
  private TalonFX leftClimberMotor = new TalonFX(Constants.RoboRioPortConfig.CLIMBER_LEFT, "rio");
@@ -20,6 +22,8 @@ public class Climber extends SubsystemBase {
  private Double leftEncoderValue;
  private DutyCycleOut rightClimberRequest;
  private DutyCycleOut leftClimberRequest;
+ private double climberEncoderLimit = 1;
+
  
  
   /** Creates a new Climber. */
@@ -52,13 +56,20 @@ public class Climber extends SubsystemBase {
 
 public void moveRightClimber(double speed){
   //System.out.println("upper climber climbing");
-  rightClimberRequest.Output = speed;
+  //rightClimberRequest.Output = speed;
+  if(rightEncoderValue < climberEncoderLimit && speed < 0){
+      speed = 0.0;
+  }
   this.rightClimberMotor.setControl(rightClimberRequest.withOutput(speed));
   // System.out.println(speed);
+
 }
 public void moveLeftClimber(double speed){
   //System.out.println("lower climber");
-  leftClimberRequest.Output = speed; 
+  //leftClimberRequest.Output = speed;
+  if(leftEncoderValue < climberEncoderLimit && speed < 0){
+      speed = 0.0; 
+  }
   this.leftClimberMotor.setControl(leftClimberRequest.withOutput(speed));
   // System.out.println(speed);
 }
@@ -67,6 +78,7 @@ public void climberStop(){
  this.rightClimberMotor.setControl(rightClimberRequest.withOutput(0));
 
 }
+
 
   @Override
   public void periodic() {

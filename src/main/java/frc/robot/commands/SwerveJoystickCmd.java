@@ -90,7 +90,7 @@ public class SwerveJoystickCmd extends Command {
 
         // Read in robot turningSpeed from controller
         turningSpeed = processRawDriveSignal(turningSpdFunction.get());
-        turningSpeed = applySpeedScaleToDrive(turningSpeed);
+        turningSpeed = applySpeedScaleToTurn(turningSpeed);
         turningSpeed = applySlewRateLimiter(turningSpeed, slewRateLimiterTheta);
 
         // Apply speed reduction if commanded
@@ -155,6 +155,12 @@ public class SwerveJoystickCmd extends Command {
     private double applySpeedScaleToDrive(double processedDriveSignal){
         // If right trigger is pulled, used max speed, otherwise use translate speed
         double speedMultiplier = isSlewActive ? DriveConstants.kPhysicalMaxSpeedMetersPerSecond : DriveConstants.kTranslateDriveMaxSpeedMetersPerSecond;
+        return processedDriveSignal *  speedMultiplier;
+    }
+
+     private double applySpeedScaleToTurn(double processedDriveSignal){
+        // If right trigger is pulled, used max speed, otherwise use translate speed
+        double speedMultiplier = isSlewActive ? DriveConstants.kPhysicalMaxSpeedMetersPerSecond : DriveConstants.kPhysicalMaxSpeedMetersPerSecond * 0.9;
         return processedDriveSignal *  speedMultiplier;
     }
 

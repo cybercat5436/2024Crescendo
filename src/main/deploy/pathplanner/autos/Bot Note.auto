@@ -20,37 +20,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "LeftBotAlt"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "startFeeder"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "stopShooter"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "stopIntake"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "LeftMidNote1"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "LeftMidNote2"
+            "pathName": "BotAlt"
           }
         },
         {
