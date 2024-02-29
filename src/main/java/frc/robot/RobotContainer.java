@@ -93,6 +93,8 @@ public class RobotContainer {
         .onFalse(new InstantCommand(()->intake.stopIntake()));
       
 
+        Trigger primaryRightTrigger = new Trigger(() -> primaryController.getHID().getRightTriggerAxis()> 0.2);
+
       //Swerve Bindings
       swerveSubsystem.setDefaultCommand(new SwerveJoystickCmd(
         swerveSubsystem,
@@ -107,8 +109,15 @@ public class RobotContainer {
         () -> primaryController.getRightTriggerAxis(),
         limeLight));
 
-      primaryController.x().whileTrue(new AutoAlign(swerveSubsystem, limeLight).repeatedly()).onFalse(new InstantCommand(()->swerveSubsystem.stopModules()));
       
+      Trigger primaryXTrigger = new Trigger(() -> primaryController.getHID().getXButton());
+
+
+      primaryXTrigger.whileTrue(new AutoAlign(swerveSubsystem, limeLight).repeatedly())
+        .onFalse(new InstantCommand(()->swerveSubsystem.stopModules()));
+
+      
+
       // Climber bindings
       climber.setDefaultCommand(
         new ClimberDefaultCommand(climber, 
@@ -124,7 +133,7 @@ public class RobotContainer {
       // Speaker Bindings
       Trigger rightTrigger = new Trigger(()->secondaryController.getRightTriggerAxis()> 0.2);
       Trigger leftTrigger = new Trigger(()->secondaryController.getLeftTriggerAxis()> 0.2);
-      
+
       leftTrigger.whileTrue(new InstantCommand(()-> launcher.startLauncher(0.7)).repeatedly())
         .onFalse(new InstantCommand(()-> launcher.stopLauncher()));
 
