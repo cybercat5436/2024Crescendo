@@ -55,7 +55,7 @@ public void startLauncher(double percentage) {
     // target velocity of 50 rps
     launcherControl.Slot = 0;
     launcher.setControl(launcherControl.withVelocity(100 *percentage));
-    System.out.println("start launcher with percentage " + percentage); 
+    // System.out.println("start launcher with percentage " + percentage); 
     // falconMotor.set(ControlMode.PercentOutput,0.5); 
   }
 
@@ -80,12 +80,12 @@ public void startLauncher(double percentage) {
   public void scoreAmp(){
     startLauncher(0.5);
     startFeeder(0.5);
-    System.out.println("start amp");
+    // System.out.println("start amp");
   }
   public void stop(){
   stopFeeder();
   stopLauncher();
-  System.out.println("stop amp");
+  // System.out.println("stop amp");
   }
   @Override
   public void periodic() {
