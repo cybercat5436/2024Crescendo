@@ -93,7 +93,11 @@ public class RobotContainer {
         .onFalse(new InstantCommand(()->intake.stopIntake()));
       
 
-        Trigger primaryRightTrigger = new Trigger(() -> primaryController.getHID().getRightTriggerAxis()> 0.2);
+      Trigger primaryRightTrigger = new Trigger(() -> primaryController.getHID().getRightTriggerAxis()> 0.2);
+      Trigger primaryStart = new Trigger(()-> primaryController.getHID().getStartButton());
+      Trigger primaryYTrigger = new Trigger(() -> primaryController.getHID().getYButton());
+      Trigger primaryXTrigger = new Trigger(() -> primaryController.getHID().getXButton());
+
 
       //Swerve Bindings
       swerveSubsystem.setDefaultCommand(new SwerveJoystickCmd(
@@ -101,17 +105,15 @@ public class RobotContainer {
         () -> -primaryController.getLeftY(),
         () -> -primaryController.getLeftX(),
         () -> -primaryController.getRightX(),
-        () -> !primaryController.start().getAsBoolean(),
-        () -> primaryController.rightTrigger().getAsBoolean(),
-        () -> primaryController.y().getAsBoolean(),
-        () -> primaryController.x().getAsBoolean(),
+        () -> !primaryStart.getAsBoolean(),
+        () -> primaryRightTrigger.getAsBoolean(),
+        () -> primaryYTrigger.getAsBoolean(),
+        () -> primaryXTrigger.getAsBoolean(),
         () -> primaryController.getLeftTriggerAxis(),
         () -> primaryController.getRightTriggerAxis(),
         limeLight));
 
       
-      Trigger primaryXTrigger = new Trigger(() -> primaryController.getHID().getXButton());
-
 
       primaryXTrigger.whileTrue(new AutoAlign(swerveSubsystem, limeLight).repeatedly())
         .onFalse(new InstantCommand(()->swerveSubsystem.stopModules()));
