@@ -176,7 +176,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("shoot", shootCommand);
     NamedCommands.registerCommand("leftAutonGyroReset", new InstantCommand(()->swerveSubsystem.zeroHeading(60)));
     NamedCommands.registerCommand("rightAutonGyroReset", new InstantCommand(()->swerveSubsystem.zeroHeading(-60)));
-
+    NamedCommands.registerCommand("zeroGyroReset", new InstantCommand(()->swerveSubsystem.zeroHeading(0)));
   }
 
   /**

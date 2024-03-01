@@ -3,42 +3,48 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.6332428049471499,
-        "y": 6.640452511674254
+        "x": 8.28,
+        "y": 7.45
       },
       "prevControl": null,
       "nextControl": {
-        "x": 0.9978270455827631,
-        "y": 7.190453639109847
+        "x": 7.875578828080734,
+        "y": 7.36073933686329
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.813006710178897,
-        "y": 7.014791090923124
+        "x": 0.6582127857550991,
+        "y": 6.569779302183426
       },
       "prevControl": {
-        "x": 2.4775306546114013,
-        "y": 6.9950572053015065
+        "x": 0.14513175959304692,
+        "y": 6.421775160021297
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": null
     }
   ],
-  "rotationTargets": [
+  "rotationTargets": [],
+  "constraintZones": [
     {
-      "waypointRelativePos": 0.5,
-      "rotationDegrees": 0,
-      "rotateFast": false
+      "name": "New Constraints Zone",
+      "minWaypointRelativePos": 0.0,
+      "maxWaypointRelativePos": 0.7,
+      "constraints": {
+        "maxVelocity": 5.0,
+        "maxAcceleration": 3.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0
+      }
     }
   ],
-  "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "Start Intake",
+      "name": "Start Shooter",
       "waypointRelativePos": 0.65,
       "command": {
         "type": "parallel",
@@ -47,7 +53,7 @@
             {
               "type": "named",
               "data": {
-                "name": "intakeFeedIn"
+                "name": "startLauncher"
               }
             }
           ]
@@ -63,13 +69,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0,
+    "rotation": 60.0,
     "rotateFast": false
   },
   "reversed": false,
   "folder": null,
   "previewStartingState": {
-    "rotation": 60.0,
+    "rotation": 0,
     "velocity": 0
   },
   "useDefaultConstraints": true
