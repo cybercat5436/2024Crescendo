@@ -16,13 +16,13 @@ import frc.robot.subsystems.LimeLight;
 
 public class SwerveJoystickCmd extends Command {
     private SwerveSubsystem swerveSubsystem;
-    private LimeLight limeLightGrid;
+    private LimeLight limeLightFront;
+    private LimeLight limeLightRear;
     private Supplier <Double> xSpdFunction, ySpdFunction, turningSpdFunction, leftTrigger, rightTrigger;
     private Supplier<Boolean> fieldOrientedFunction;
     private Supplier<Boolean> visionAdjustmentFunction;
-    private Supplier<Boolean> halfSpeedFunction;
-    private Supplier<Boolean> chargePadFunction;
     private double kLimelightHorizontal = 0.08;
+    private double txFront, rx, ry, theta;
     private double kLimelightForward = 1.3;
     private double kLimelightTurning =  0.1;
     private double targetHeading = 0;
@@ -31,7 +31,7 @@ public class SwerveJoystickCmd extends Command {
     private SlewRateLimiter slewRateLimiterY = new SlewRateLimiter(DriveConstants.kPhysicalMaxSpeedMetersPerSecond * 2);
     private SlewRateLimiter slewRateLimiterTheta = new SlewRateLimiter(DriveConstants.kPhysicalMaxSpeedMetersPerSecond * 2.5);
     private double xSpeed, ySpeed, turningSpeed;
-    private boolean isSlewActive;
+    private boolean isFastModeActive;
     //Robot is tippy in Y direction so we are decreasing yspeed
     private double yScaleFactor = (DriveConstants.ykTranslateDriveMaxSpeedMetersPerSecond/DriveConstants.kTranslateDriveMaxSpeedMetersPerSecond);
 
@@ -40,23 +40,19 @@ public class SwerveJoystickCmd extends Command {
                 Supplier<Double> xSpdFunction, 
                 Supplier<Double> ySpdFunction, 
                 Supplier<Double> turningSpdFunction,
-                Supplier<Boolean> fieldOrientedFunction,
-                Supplier<Boolean> halfSpeedFunction,
-                Supplier<Boolean> chargePadFunction,
                 Supplier<Boolean> visionAdjustmentFunction, 
                 Supplier<Double> leftTrigger,
                 Supplier<Double> rightTrigger,
-                LimeLight limeLight){
+                LimeLight limeLightFront,
+                LimeLight limeLightRear){
         this.swerveSubsystem = swerveSubsystem;
         this.xSpdFunction = xSpdFunction;
         this.ySpdFunction = ySpdFunction;
         this.turningSpdFunction = turningSpdFunction;
-        this.chargePadFunction = chargePadFunction;
-        this.halfSpeedFunction = halfSpeedFunction;
         this.visionAdjustmentFunction = visionAdjustmentFunction;
         this.leftTrigger = leftTrigger;
         this.rightTrigger = rightTrigger;
-        this.limeLightGrid = limeLight;
+        this.limeLightFront = limeLightFront;
 
         this.addRequirements(swerveSubsystem);
 
@@ -72,10 +68,10 @@ public class SwerveJoystickCmd extends Command {
 
     public void execute(){
 
-        isSlewActive = rightTrigger.get() > 0.2;
+        isFastModeActive = rightTrigger.get() > 0.2;
 
-        boolean targetInView = limeLightGrid.getVisionTargetStatus();
-        boolean autoVisionFunction = visionAdjustmentFunction.get();
+        boolean targetInView = limeLightFront.getVisionTargetStatus();
+        boolean isAutoVisionActive = visionAdjustmentFunction.get();
 
         // Read in the robot xSpeed from controller
         xSpeed = processRawDriveSignal(xSpdFunction.get());
@@ -100,26 +96,24 @@ public class SwerveJoystickCmd extends Command {
         ySpeed *= superSlowMo;
         turningSpeed *= superSlowMo;
 
-        if(targetInView && autoVisionFunction){
-            fieldOrientedFunction = () -> false;
+        if(targetInView && isAutoVisionActive){
+            // fieldOrientedFunction = () -> false;
             // xSpeed = limeLightGrid.getVisionTargetAreaError() * kLimelightForward;
             // ySpeed = -limeLightGrid.getVisionTargetHorizontalError() * kLimelightHorizontal;
-        }else{
-            fieldOrientedFunction = () -> true;
-        }
-        if(autoVisionFunction){
-            // turningSpeed=(targetHeading - swerveSubsystem.getHeading())*kLimelightTurning;
+            //theta = swerveSubsystem.getHeading() - Math.atan2(xSpdFunction.get(), ySpdFunction.get())*(180.0/Math.PI);
+            txFront = limeLightFront.getVisionTargetHorizontalError();
+            rx = (ySpdFunction.get()*Math.cos(swerveSubsystem.getHeading()*(Math.PI/180.0))+xSpdFunction.get()*(Math.sin(swerveSubsystem.getHeading()*(Math.PI/180.0))));
+            ry = txFront * kLimelightHorizontal;
         }
 
  
-        //rollROC = ((swerveSubsystem.getRollDegrees() - previousRoll)/20);
-        if (chargePadFunction.get()) {
-            xSpeed = swerveSubsystem.autoBalance();    
-        }
+        
         
         // convert speeds to reference frames
         ChassisSpeeds chassisSpeeds;
-        if (fieldOrientedFunction.get()){
+        if(isAutoVisionActive){
+            chassisSpeeds = new ChassisSpeeds(rx, ry, 0.0);
+        }else if(fieldOrientedFunction.get()){
             //need to define in constants.java
             chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, turningSpeed, swerveSubsystem.getRotation2d());
             
@@ -154,13 +148,13 @@ public class SwerveJoystickCmd extends Command {
 
     private double applySpeedScaleToDrive(double processedDriveSignal){
         // If right trigger is pulled, used max speed, otherwise use translate speed
-        double speedMultiplier = isSlewActive ? DriveConstants.kPhysicalMaxSpeedMetersPerSecond : DriveConstants.kTranslateDriveMaxSpeedMetersPerSecond;
+        double speedMultiplier = isFastModeActive ? DriveConstants.kPhysicalMaxSpeedMetersPerSecond : DriveConstants.kTranslateDriveMaxSpeedMetersPerSecond;
         return processedDriveSignal *  speedMultiplier;
     }
 
      private double applySpeedScaleToTurn(double processedDriveSignal){
         // If right trigger is pulled, used max speed, otherwise use translate speed
-        double speedMultiplier = isSlewActive ? DriveConstants.kPhysicalMaxSpeedMetersPerSecond : DriveConstants.kPhysicalMaxSpeedMetersPerSecond * 0.7;
+        double speedMultiplier = isFastModeActive ? DriveConstants.kPhysicalMaxSpeedMetersPerSecond : DriveConstants.kPhysicalMaxSpeedMetersPerSecond * 0.7;
         return processedDriveSignal *  speedMultiplier;
     }
 

@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.AutoAlign;
 import frc.robot.commands.AutoClimbCommand;
+import frc.robot.commands.AutonResetGyro;
 import frc.robot.commands.ClimberDefaultCommand;
 import frc.robot.commands.SwerveJoystickCmd;
 import frc.robot.subsystems.Climber;
@@ -41,8 +42,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
     // The robot's subsystems and commands are defined here...
     public boolean halfSpeed = false;
-    private final LimeLight limeLight = new LimeLight("limelight");
-    // private final LimeLight limeLightOrient = new LimeLight("limelight-orient");
+    private final LimeLight limeLightFront = new LimeLight("limelight-front");
+    private final LimeLight limeLightRear = new LimeLight("limelight-rear");
     private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
     private final Intake intake = new Intake();
     private final CommandXboxController primaryController = new CommandXboxController(1);
@@ -105,18 +106,16 @@ public class RobotContainer {
         () -> -primaryController.getLeftY(),
         () -> -primaryController.getLeftX(),
         () -> -primaryController.getRightX(),
-        () -> !primaryStart.getAsBoolean(),
-        () -> primaryRightTrigger.getAsBoolean(),
-        () -> primaryYTrigger.getAsBoolean(),
         () -> primaryXTrigger.getAsBoolean(),
         () -> primaryController.getLeftTriggerAxis(),
         () -> primaryController.getRightTriggerAxis(),
-        limeLight));
+        limeLightFront,
+        limeLightRear));
 
-      
+      primaryController.back().onTrue(new InstantCommand(()->swerveSubsystem.zeroHeading(0))); //Manually Zero Gyro
 
-      primaryXTrigger.whileTrue(new AutoAlign(swerveSubsystem, limeLight).repeatedly())
-        .onFalse(new InstantCommand(()->swerveSubsystem.stopModules()));
+      // primaryXTrigger.whileTrue(new AutoAlign(swerveSubsystem, limeLight).repeatedly())
+      //   .onFalse(new InstantCommand(()->swerveSubsystem.stopModules()));
 
       
 
@@ -169,7 +168,7 @@ public class RobotContainer {
   }
 
   private void registerNamedCommands(){
-    NamedCommands.registerCommand("autoAlign", new AutoAlign(swerveSubsystem, limeLight));
+    NamedCommands.registerCommand("autoAlign", new AutoAlign(swerveSubsystem, limeLightFront));
     NamedCommands.registerCommand("intakeFeedIn", new InstantCommand(()->intake.intakeFeedIn()));
     NamedCommands.registerCommand("stopIntake", new InstantCommand(()->intake.stopIntake()));
     NamedCommands.registerCommand("startLauncher", new InstantCommand(()->launcher.startLauncher(0.7)).repeatedly());
@@ -179,6 +178,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("leftAutonGyroReset", new InstantCommand(()->swerveSubsystem.zeroHeading(60)));
     NamedCommands.registerCommand("rightAutonGyroReset", new InstantCommand(()->swerveSubsystem.zeroHeading(-60)));
     NamedCommands.registerCommand("zeroGyroReset", new InstantCommand(()->swerveSubsystem.zeroHeading(0)));
+    NamedCommands.registerCommand("resetGyro", new AutonResetGyro(swerveSubsystem));
   }
 
   /**
