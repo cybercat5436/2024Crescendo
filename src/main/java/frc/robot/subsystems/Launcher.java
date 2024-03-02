@@ -26,7 +26,7 @@ public class Launcher extends SubsystemBase {
 
   public Launcher() {
 
-    launcher = new TalonFX(Constants.RoboRioPortConfig.SPEAKER_LAUNCHER);
+    launcher = new TalonFX(Constants.RoboRioPortConfig.SPEAKER_LAUNCHER, Constants.RoboRioPortConfig.Canivore);
     feeder = new CANSparkMax(Constants.RoboRioPortConfig.SPEAKER_FEEDER_MOTOR, MotorType.kBrushless);
    
     // robot init, set slot 0 gains
