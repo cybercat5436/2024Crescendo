@@ -2,31 +2,25 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.6332428049471499,
-      "y": 6.640452511674254
+      "x": 0.6582127857550991,
+      "y": 4.461828723942754
     },
-    "rotation": 60.0
+    "rotation": -62.40270413135626
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
-          "type": "named",
-          "data": {
-            "name": "shoot"
-          }
-        },
-        {
           "type": "path",
           "data": {
-            "pathName": "Left Path "
+            "pathName": "Right Side First Note and Second"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "startFeeder"
+            "name": "stopShooter"
           }
         },
         {
@@ -36,9 +30,27 @@
           }
         },
         {
+          "type": "path",
+          "data": {
+            "pathName": "Right Side Far Note PT 1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Right Side Far Note PT 2"
+          }
+        },
+        {
           "type": "named",
           "data": {
             "name": "stopShooter"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "stopIntake"
           }
         }
       ]
