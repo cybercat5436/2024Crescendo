@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.ModuleConstants;
 import frc.robot.enums.WheelPosition;
@@ -61,7 +62,7 @@ public class SwerveModule implements Sendable{
     this.wheelPosition = wheelPosition;
     this.absoluteEncoderOffsetRotations = absoluteEncoderOffsetRotations;
     // absoluteEncoder = new AnalogInput(absoluteEncoderId);
-    cancoder = new CANcoder(cancoderId);
+    cancoder = new CANcoder(cancoderId, Constants.RoboRioPortConfig.Canivore);
     driveMotor = new CANSparkFlex(driveMotorId, MotorType.kBrushless);
     turningMotor = new CANSparkFlex(turningMotorId, MotorType.kBrushless);
 

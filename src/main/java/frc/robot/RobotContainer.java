@@ -123,8 +123,9 @@ public class RobotContainer {
       // Climber bindings
       climber.setDefaultCommand(
         new ClimberDefaultCommand(climber, 
-          ()-> -secondaryController.getLeftY(), 
-          ()-> -secondaryController.getRightY()
+          () -> -secondaryController.getLeftY(), 
+          () -> -secondaryController.getRightY(),
+          () -> secondaryController.getHID().getLeftBumper()
         )
       );
 

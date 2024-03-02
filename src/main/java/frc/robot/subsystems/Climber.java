@@ -16,15 +16,15 @@ import frc.robot.Constants;
  * positive value raises arms, negative values lowers arms. Encoder values increase when arms raise.
  */
 public class Climber extends SubsystemBase {
- private TalonFX rightClimberMotor = new TalonFX(Constants.RoboRioPortConfig.CLIMBER_RIGHT, "rio");
- private TalonFX leftClimberMotor = new TalonFX(Constants.RoboRioPortConfig.CLIMBER_LEFT, "rio");
+ private TalonFX rightClimberMotor = new TalonFX(Constants.RoboRioPortConfig.CLIMBER_RIGHT, Constants.RoboRioPortConfig.Canivore);
+ private TalonFX leftClimberMotor = new TalonFX(Constants.RoboRioPortConfig.CLIMBER_LEFT, Constants.RoboRioPortConfig.Canivore);
  
 
  private Double rightEncoderValue;
  private Double leftEncoderValue;
  private DutyCycleOut rightClimberRequest;
  private DutyCycleOut leftClimberRequest;
- private double climberEncoderLimit = 1;
+ private double climberEncoderLimit = 0.5;
 
  
  
@@ -60,27 +60,54 @@ public class Climber extends SubsystemBase {
 public void moveRightClimber(double speed){
   //System.out.println("upper climber climbing");
   //rightClimberRequest.Output = speed;
-  if(rightEncoderValue < climberEncoderLimit && speed < 0){
+  // if(rightEncoderValue < climberEncoderLimit && speed < 0){
+  //     speed = 0.0;
+  // }
+  // this.rightClimberMotor.setControl(rightClimberRequest.withOutput(speed));
+  moveRightClimber(speed, false);
+  // System.out.println(speed);
+
+}
+
+public void moveRightClimber(double speed, boolean override){
+  //System.out.println("upper climber climbing");
+  //rightClimberRequest.Output = speed;
+  if(!override && rightEncoderValue < climberEncoderLimit && speed < 0){
       speed = 0.0;
   }
   this.rightClimberMotor.setControl(rightClimberRequest.withOutput(speed));
   // System.out.println(speed);
 
 }
+
 public void moveLeftClimber(double speed){
   //System.out.println("lower climber");
   //leftClimberRequest.Output = speed;
-  if(leftEncoderValue < climberEncoderLimit && speed < 0){
+  //if(leftEncoderValue < climberEncoderLimit && speed < 0){
+   //   speed = 0.0; 
+  //}
+  //this.leftClimberMotor.setControl(leftClimberRequest.withOutput(speed));
+  moveLeftClimber(speed, false);
+  // System.out.println(speed);
+}
+
+public void moveLeftClimber(double speed, boolean override){
+  //System.out.println("lower climber");
+  //leftClimberRequest.Output = speed;
+  if(!override && leftEncoderValue < climberEncoderLimit && speed < 0){
       speed = 0.0; 
   }
   this.leftClimberMotor.setControl(leftClimberRequest.withOutput(speed));
   // System.out.println(speed);
 }
+
 public void climberStop(){
  this.leftClimberMotor.setControl(leftClimberRequest.withOutput(0));
  this.rightClimberMotor.setControl(rightClimberRequest.withOutput(0));
 
 }
+
+
 
 
   @Override

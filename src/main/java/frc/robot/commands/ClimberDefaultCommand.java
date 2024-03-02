@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.Command;
@@ -11,13 +12,15 @@ import frc.robot.subsystems.Climber;
 
 public class ClimberDefaultCommand extends Command {
   private DoubleSupplier rightSpeedFuction, leftSpeedFunction;
+  private BooleanSupplier overrideFunction;
   private Climber climber;
   /** Creates a new ClimberDefaultCommand. */
-  public ClimberDefaultCommand(Climber climber, DoubleSupplier leftSpeedFunction, DoubleSupplier rightSpeedFunction) {
+  public ClimberDefaultCommand(Climber climber, DoubleSupplier leftSpeedFunction, DoubleSupplier rightSpeedFunction, BooleanSupplier overrideFunction) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(climber);
     this.rightSpeedFuction = rightSpeedFunction;
     this.leftSpeedFunction = leftSpeedFunction;
+    this.overrideFunction = overrideFunction;
     this.climber = climber;
   }
 
@@ -31,8 +34,8 @@ public class ClimberDefaultCommand extends Command {
   @Override
   public void execute() {
     // System.out.println("Climber is climbing");
-      climber.moveLeftClimber(leftSpeedFunction.getAsDouble()*0.3);
-      climber.moveRightClimber(rightSpeedFuction.getAsDouble()*0.3);
+      climber.moveLeftClimber(leftSpeedFunction.getAsDouble()*0.45, overrideFunction.getAsBoolean());
+      climber.moveRightClimber(rightSpeedFuction.getAsDouble()*0.45, overrideFunction.getAsBoolean());
      // System.out.println(upperSpeedFunction.getAsDouble());
       //System.out.println(lowerSpeedFunction.getAsDouble());
       

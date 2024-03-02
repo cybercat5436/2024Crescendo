@@ -24,7 +24,7 @@ public class SuperStructure extends SubsystemBase {
   // 9.2
   public SuperStructure() {
 
-    superStructure = new TalonFX(Constants.RoboRioPortConfig.SUPERSTRUCTURE_MOTOR);
+    superStructure = new TalonFX(Constants.RoboRioPortConfig.SUPERSTRUCTURE_MOTOR, Constants.RoboRioPortConfig.Canivore);
     // class member variable
     
     // robot init

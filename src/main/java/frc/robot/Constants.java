@@ -32,6 +32,10 @@ public final class Constants {
 
     public class RoboRioPortConfig{
         public static final int PDP = 0;
+        public static final String Canivore = "carter";
+
+            
+        
 
         public static final int FRONT_LEFT_DRIVE = 8;
         public static final int FRONT_RIGHT_DRIVE = 3;

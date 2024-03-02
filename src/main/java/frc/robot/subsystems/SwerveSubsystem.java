@@ -113,7 +113,7 @@ public class SwerveSubsystem extends SubsystemBase{
 
 
     //idk if this is the gyro we have 
-    private final Pigeon2 pidgey = new Pigeon2(Constants.RoboRioPortConfig.PIGEON2);
+    private final Pigeon2 pidgey = new Pigeon2(Constants.RoboRioPortConfig.PIGEON2, Constants.RoboRioPortConfig.Canivore);
     private final SwerveDriveOdometry odometry = new SwerveDriveOdometry(
         DriveConstants.kDriveKinematics,
         new Rotation2d(0),
