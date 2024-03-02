@@ -19,7 +19,6 @@ public class SwerveJoystickCmd extends Command {
     private LimeLight limeLightFront;
     private LimeLight limeLightRear;
     private Supplier <Double> xSpdFunction, ySpdFunction, turningSpdFunction, leftTrigger, rightTrigger;
-    private Supplier<Boolean> fieldOrientedFunction;
     private Supplier<Boolean> visionAdjustmentFunction;
     private double kLimelightHorizontal = 0.08;
     private double txFront, rx, ry, theta;
@@ -102,7 +101,7 @@ public class SwerveJoystickCmd extends Command {
             // ySpeed = -limeLightGrid.getVisionTargetHorizontalError() * kLimelightHorizontal;
             //theta = swerveSubsystem.getHeading() - Math.atan2(xSpdFunction.get(), ySpdFunction.get())*(180.0/Math.PI);
             txFront = limeLightFront.getVisionTargetHorizontalError();
-            rx = (ySpdFunction.get()*Math.cos(swerveSubsystem.getHeading()*(Math.PI/180.0))+xSpdFunction.get()*(Math.sin(swerveSubsystem.getHeading()*(Math.PI/180.0))));
+            rx = (ySpeed*Math.cos(swerveSubsystem.getHeading()*(Math.PI/180.0))+xSpeed*(Math.sin(swerveSubsystem.getHeading()*(Math.PI/180.0))));
             ry = txFront * kLimelightHorizontal;
         }
 
@@ -113,14 +112,11 @@ public class SwerveJoystickCmd extends Command {
         ChassisSpeeds chassisSpeeds;
         if(isAutoVisionActive){
             chassisSpeeds = new ChassisSpeeds(rx, ry, 0.0);
-        }else if(fieldOrientedFunction.get()){
+        }else {
             //need to define in constants.java
             chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, turningSpeed, swerveSubsystem.getRotation2d());
-            
-            
-        } else {
-            chassisSpeeds = new ChassisSpeeds(xSpeed, ySpeed, turningSpeed);
         }
+            
         chassisSpeeds.vyMetersPerSecond *= yScaleFactor;
 
         SwerveModuleState[] moduleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
