@@ -122,11 +122,11 @@ public class SwerveJoystickCmd extends Command {
         SwerveModuleState[] moduleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
 
         swerveSubsystem.setModuleStates(moduleStates);
-        for(int i = 0; i< moduleStates.length; i++){
+        // for(int i = 0; i< moduleStates.length; i++){
 
-            SmartDashboard.putNumber(String.format("module %d", i), moduleStates[i].speedMetersPerSecond);
+        //     SmartDashboard.putNumber(String.format("module %d", i), moduleStates[i].speedMetersPerSecond);
 
-        }
+        // }
         
     }
 

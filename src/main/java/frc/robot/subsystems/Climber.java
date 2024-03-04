@@ -9,6 +9,8 @@ import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
+import edu.wpi.first.util.sendable.SendableBuilder;
+import edu.wpi.first.util.sendable.SendableRegistry;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -20,8 +22,8 @@ public class Climber extends SubsystemBase {
  private TalonFX leftClimberMotor = new TalonFX(Constants.RoboRioPortConfig.CLIMBER_LEFT, Constants.RoboRioPortConfig.Canivore);
  
 
- private Double rightEncoderValue;
- private Double leftEncoderValue;
+ private double rightEncoderValue;
+ private double leftEncoderValue;
  private DutyCycleOut rightClimberRequest;
  private DutyCycleOut leftClimberRequest;
  private double climberEncoderLimit = 0.5;
@@ -48,78 +50,79 @@ public class Climber extends SubsystemBase {
     config.CurrentLimits.SupplyTimeThreshold = 0.3;
     config.CurrentLimits.SupplyCurrentLimitEnable = true;
     config.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-   leftClimberMotor.getConfigurator().apply(config);
-   rightClimberMotor.getConfigurator().apply(config);
-   leftClimberMotor.setInverted(true);
-   this.rightClimberRequest = new DutyCycleOut(0.0);
-   this.leftClimberRequest = new DutyCycleOut(0.0);
+    leftClimberMotor.getConfigurator().apply(config);
+    rightClimberMotor.getConfigurator().apply(config);
+    leftClimberMotor.setInverted(true);
+    this.rightClimberRequest = new DutyCycleOut(0.0);
+    this.leftClimberRequest = new DutyCycleOut(0.0);
 
-    
+    SendableRegistry.addLW(this, this.getClass().getSimpleName(), this.getClass().getSimpleName());
+    SmartDashboard.putData(this);
   }
 
-public void moveRightClimber(double speed){
-  //System.out.println("upper climber climbing");
-  //rightClimberRequest.Output = speed;
-  // if(rightEncoderValue < climberEncoderLimit && speed < 0){
-  //     speed = 0.0;
-  // }
-  // this.rightClimberMotor.setControl(rightClimberRequest.withOutput(speed));
-  moveRightClimber(speed, false);
-  // System.out.println(speed);
+  public void moveRightClimber(double speed){
+    //System.out.println("upper climber climbing");
+    //rightClimberRequest.Output = speed;
+    // if(rightEncoderValue < climberEncoderLimit && speed < 0){
+    //     speed = 0.0;
+    // }
+    // this.rightClimberMotor.setControl(rightClimberRequest.withOutput(speed));
+    moveRightClimber(speed, false);
+    // System.out.println(speed);
 
-}
-
-public void moveRightClimber(double speed, boolean override){
-  //System.out.println("upper climber climbing");
-  //rightClimberRequest.Output = speed;
-  if(!override && rightEncoderValue < climberEncoderLimit && speed < 0){
-      speed = 0.0;
   }
-  this.rightClimberMotor.setControl(rightClimberRequest.withOutput(speed));
-  // System.out.println(speed);
 
-}
+  public void moveRightClimber(double speed, boolean override){
+    //System.out.println("upper climber climbing");
+    //rightClimberRequest.Output = speed;
+    if(!override && rightEncoderValue < climberEncoderLimit && speed < 0){
+        speed = 0.0;
+    }
+    this.rightClimberMotor.setControl(rightClimberRequest.withOutput(speed));
+    // System.out.println(speed);
 
-public void moveLeftClimber(double speed){
-  //System.out.println("lower climber");
-  //leftClimberRequest.Output = speed;
-  //if(leftEncoderValue < climberEncoderLimit && speed < 0){
-   //   speed = 0.0; 
-  //}
-  //this.leftClimberMotor.setControl(leftClimberRequest.withOutput(speed));
-  moveLeftClimber(speed, false);
-  // System.out.println(speed);
-}
-
-public void moveLeftClimber(double speed, boolean override){
-  //System.out.println("lower climber");
-  //leftClimberRequest.Output = speed;
-  if(!override && leftEncoderValue < climberEncoderLimit && speed < 0){
-      speed = 0.0; 
   }
-  this.leftClimberMotor.setControl(leftClimberRequest.withOutput(speed));
-  // System.out.println(speed);
-}
 
-public void climberStop(){
- this.leftClimberMotor.setControl(leftClimberRequest.withOutput(0));
- this.rightClimberMotor.setControl(rightClimberRequest.withOutput(0));
+  public void moveLeftClimber(double speed){
+    //System.out.println("lower climber");
+    //leftClimberRequest.Output = speed;
+    //if(leftEncoderValue < climberEncoderLimit && speed < 0){
+    //   speed = 0.0; 
+    //}
+    //this.leftClimberMotor.setControl(leftClimberRequest.withOutput(speed));
+    moveLeftClimber(speed, false);
+    // System.out.println(speed);
+  }
 
-}
+  public void moveLeftClimber(double speed, boolean override){
+    //System.out.println("lower climber");
+    //leftClimberRequest.Output = speed;
+    if(!override && leftEncoderValue < climberEncoderLimit && speed < 0){
+        speed = 0.0; 
+    }
+    this.leftClimberMotor.setControl(leftClimberRequest.withOutput(speed));
+    // System.out.println(speed);
+  }
 
+  public void climberStop(){
+  this.leftClimberMotor.setControl(leftClimberRequest.withOutput(0));
+  this.rightClimberMotor.setControl(rightClimberRequest.withOutput(0));
 
-
+  }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     rightEncoderValue = rightClimberMotor.getPosition().getValueAsDouble();
     leftEncoderValue = leftClimberMotor.getPosition().getValueAsDouble();
-    SmartDashboard.putNumber("Left Climber", leftEncoderValue);
-    SmartDashboard.putNumber("Right Climber", rightEncoderValue);
-   // upperClimberControl(0);
-   // lowerClimberControl(0);
+  }
 
+  @Override
+  public void initSendable(SendableBuilder builder) {
+    // TODO Auto-generated method stub
+    super.initSendable(builder);
+    builder.addDoubleProperty("Left Climber Position", () -> leftEncoderValue, null);
+    builder.addDoubleProperty("Right Climber Position", () -> rightEncoderValue, null);
   }
 
 }

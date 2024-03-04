@@ -386,59 +386,6 @@ public class SwerveSubsystem extends SubsystemBase{
     @Override
     public void periodic() {
         odometry.update(getRotation2d(), getModulePositions());
-        //  yaw = pidgey.getYaw();
-    
-
-    // System.out.println("Yaw is " + yaw.getValueAsDouble() + " with " + yaw.getTimestamp().getLatency());
-
-        // SmartDashboard.putString("Robot Location", getPose().getTranslation().toString());
-        // SmartDashboard.putNumber("Robot Location x:", getPose().getX());
-        // SmartDashboard.putNumber("Robot Location Y", getPose().getY());
-        // System.out.println("Robot Locaton X:" + getPose().getX());
-        // System.out.println("Robot Location Y:" + getPose().getY());
-        // for(int i = 0; i < modulePositions.length; i++ ){
-        //     System.out.println(modulePositions[i]);
-        // }
-        
-        // SmartDashboard.putNumber("Loop Count: ", loopCount++);
-        // DataLogManager.log(String.format("Loop count %d", loopCount));
-
-        for (SwerveModule swerveModule: swerveModules){
-            // SmartDashboard.putNumber(String.format("%s Angle", swerveModule.wheelPosition.name()), swerveModule.getAbsoluteEncoderRadians());
-            SmartDashboard.putNumber(String.format("%s Angle", swerveModule.wheelPosition.name()), swerveModule.getAbsoluteEncoderRadians());
-            SmartDashboard.putNumber(String.format("%s Position", swerveModule.wheelPosition.name()), swerveModule.getDrivePosition());
-        //  SmartDashboard.putNumber(String.format("%s Back Left", swerveMo))
-            SmartDashboard.putNumber(String.format("%s Turning Encoder", swerveModule.wheelPosition.name()), swerveModule.boundAngle(swerveModule.getTurningPosition()));
-            // SmartDashboard.putNumber(String.format("%s Target Angle", swerveModule.wheelPosition.name()), swerveModule.getState().angle.getRadians());
-            SmartDashboard.putNumber(String.format("%s Velocity", swerveModule.wheelPosition.name()), swerveModule.getDriveVelocity());
-        }
-        SmartDashboard.putNumber("balanceRoll", balanceRoll);
-        // SmartDashboard.putNumber("FL Angle", frontLeft.getAbsoluteEncoderRadians());
-        // SmartDashboard.putNumber("FL Turning Encoder", frontLeft.getTurningPosition());
-        // SmartDashboard.putNumber("FR Angle", frontRight.getAbsoluteEncoderRadians());
-        // SmartDashboard.putNumber("BL Angle", backLeft.getAbsoluteEncoderRadians());
-        // SmartDashboard.putNumber("BR Angle", backRight.getAbsoluteEncoderRadians());
-        // SmartDashboard.putNumber("BL Encoder Voltage", backLeft.getAbsoluteEncoder().getVoltage());
-        // SmartDashboard.putNumber("5V RobotController", RobotController.getCurrent5V());
-        
-        // SmartDashboard.putNumber("FL Target Angle", moduleStates.get(0).angle.getRadians());
-        // SmartDashboard.putNumber("Gyro", gyro.getAngle());
-    // SmartDashboard.putNumber("Mystery", getHeading());
-        SmartDashboard.putNumber ("Roll Angle", getRollDegrees());
-    //    SmartDashboard.putNumber ("Roll", gyro.getRoll());
-    
-        // DataLogManager.log(String.format("Back Left Encoder Voltage %f", backLeft.getAbsoluteEncoder().getVoltage()));
-        // DataLogManager.log(String.format("Back Right Encoder Voltage %f", backRight.getAbsoluteEncoder().getVoltage()));
-
-
-        // DataLogManager.log(String.format("Back left Angle %f", backLeft.getAbsoluteEncoderRadians()));
-        // DataLogManager.log(String.format("Back right Angle %f", backRight.getAbsoluteEncoderRadians()));
-        // DataLogManager.log(String.format("Front left Angle %f", frontLeft.getAbsoluteEncoderRadians()));
-        // DataLogManager.log(String.format("Front right Angle %f", frontRight.getAbsoluteEncoderRadians()));
-
-        // DataLogManager.log(String.format("Voltage %f", RobotController.getCurrent5V()));
-
-        // SmartDashboard.putNumber("Integrator Sum", integratorSum);
     }
 
     @Override
@@ -452,6 +399,7 @@ public class SwerveSubsystem extends SubsystemBase{
 
         builder.addStringProperty("Odometry Position", () -> this.odometry.getPoseMeters().toString(), null);
         builder.addDoubleProperty("Heading/Yaw [Deg]: ", () -> this.getHeading(), null);
+        builder.addDoubleProperty("Gyro Roll Degrees", () -> getRollDegrees(), null);
 
     }
 

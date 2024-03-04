@@ -45,10 +45,10 @@ public class LimeLight extends SubsystemBase {
     verticalError = getVisionTargetVerticalError();
     area = getVisionTargetAreaError();
     targetInView = getVisionTargetStatus();
-    SmartDashboard.putBoolean("Valid Target Found", targetInView);
-    SmartDashboard.putNumber("tx", getVisionTargetHorizontalError());
-    SmartDashboard.putNumber("ty", getVisionTargetVerticalError());
-    SmartDashboard.putNumber("tz", tzLocal.getDouble(0));
+    // SmartDashboard.putBoolean("Valid Target Found", targetInView);
+    // SmartDashboard.putNumber("tx", getVisionTargetHorizontalError());
+    // SmartDashboard.putNumber("ty", getVisionTargetVerticalError());
+    // SmartDashboard.putNumber("tz", tzLocal.getDouble(0));
     // if (isOriented()) {
       // System.out.println("It is oriented!!!!");
     
@@ -125,7 +125,7 @@ public class LimeLight extends SubsystemBase {
 
     return targetAligned;
 
-  }  //End of AlignToTargetMethod
+  }  
 
 
   // Checks for cone orientation

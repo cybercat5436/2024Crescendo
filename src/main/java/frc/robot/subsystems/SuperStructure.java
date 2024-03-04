@@ -9,6 +9,8 @@ import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 
+import edu.wpi.first.util.sendable.SendableBuilder;
+import edu.wpi.first.util.sendable.SendableRegistry;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -47,10 +49,12 @@ public class SuperStructure extends SubsystemBase {
 
     superStructure.getConfigurator().apply(talonFXConfigs, 0.050);
 
-   
+    SendableRegistry.addLW(this, this.getClass().getSimpleName(), this.getClass().getSimpleName());
+    SmartDashboard.putData(this);
 
 
   }
+
   public void rotateToAmp() {
 
      // periodic, run Motion Magic with slot 0 configs,
@@ -69,6 +73,13 @@ public class SuperStructure extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Motor Position", superStructure.getPosition().getValueAsDouble());
+
+  }
+
+  @Override
+  public void initSendable(SendableBuilder builder) {
+    // TODO Auto-generated method stub
+    super.initSendable(builder);
+    builder.addDoubleProperty("Motor Position", () -> superStructure.getPosition().getValueAsDouble(), null);
   }
 }
