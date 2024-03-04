@@ -44,6 +44,7 @@ public class SuperStructure extends SubsystemBase {
     motionMagicConfigs.MotionMagicCruiseVelocity = 10; // 80 rps cruise velocity
     motionMagicConfigs.MotionMagicAcceleration = 20; // 160 rps/s acceleration (0.5 seconds)
     motionMagicConfigs.MotionMagicJerk = 200; // 1600 rps/s^2 jerk (0.1 seconds)
+    talonFXConfigs.MotorOutput.DutyCycleNeutralDeadband = 0.1;
 
     superStructure.getConfigurator().apply(talonFXConfigs, 0.050);
 

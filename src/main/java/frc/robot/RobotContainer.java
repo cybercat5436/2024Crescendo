@@ -19,6 +19,7 @@ import frc.robot.commands.AutoAlign;
 import frc.robot.commands.AutoClimbCommand;
 import frc.robot.commands.AutonResetGyro;
 import frc.robot.commands.ClimberDefaultCommand;
+import frc.robot.commands.LimeLightFieldPositioner;
 import frc.robot.commands.SwerveJoystickCmd;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Intake;
@@ -27,8 +28,9 @@ import frc.robot.subsystems.Launcher;
 import frc.robot.subsystems.SuperStructure;
 import frc.robot.subsystems.SwerveSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
-
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ScheduleCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -70,6 +72,10 @@ public class RobotContainer {
 
       // Register Named Commands for Path Planner
       registerNamedCommands();
+
+      // Schedule the LimeLightPositioner command
+      CommandScheduler.getInstance().schedule(new LimeLightFieldPositioner(limeLightRear, swerveSubsystem));
+      
       
       // Build an auto chooser. This will use Commands.none() as the default option.
       String defaultAuton = AutoBuilder.getAllAutoNames().isEmpty() ? "" : AutoBuilder.getAllAutoNames().get(0);

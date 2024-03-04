@@ -14,9 +14,10 @@ import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
 import com.revrobotics.CANSparkBase.IdleMode;
 
-
+import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
+import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -24,6 +25,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.util.sendable.SendableRegistry;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -120,6 +122,19 @@ public class SwerveSubsystem extends SubsystemBase{
         getModulePositions(),
         new Pose2d(0, 0, new Rotation2d(0)));
 
+    private final SwerveDrivePoseEstimator poseEstimator = new SwerveDrivePoseEstimator(
+        Constants.DriveConstants.kDriveKinematics,
+        this.getRotation2d(),
+        new SwerveModulePosition[] {
+          frontLeft.getPosition(),
+          frontRight.getPosition(),
+          backLeft.getPosition(),
+          backRight.getPosition()
+        },
+        new Pose2d(),
+        VecBuilder.fill(0.05, 0.05, Units.degreesToRadians(5)),
+        VecBuilder.fill(0.5, 0.5, Units.degreesToRadians(30)));
+
  
     private double kPXController =  AutoConstants.kPXController;
     private double kPYController = AutoConstants.kPYController;;
@@ -191,6 +206,9 @@ public class SwerveSubsystem extends SubsystemBase{
         return Math.IEEEremainder(pidgey.getYaw().getValueAsDouble(), 360);
     }
 
+    public SwerveDrivePoseEstimator getPoseEstimator(){
+        return this.poseEstimator;
+    }
 
     public void zeroTurningEncoders(){
         for(int x=0; x<4; x++){
