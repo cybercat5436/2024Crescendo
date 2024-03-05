@@ -23,6 +23,7 @@ public class SuperStructure extends SubsystemBase {
   private TalonFX superStructure;
   MotionMagicVoltage m_motmag = new MotionMagicVoltage(0);
   private double ampPosition = 9.2;
+  private double longShotPosition = 3.0;
   // 9.2
   public SuperStructure() {
 
@@ -68,6 +69,12 @@ public class SuperStructure extends SubsystemBase {
   public void rotateToSpeaker() {
     m_motmag.Slot = 0;
     superStructure.setControl(m_motmag.withPosition(0));
+
+  }
+
+  public void rotateToLongShot() {
+    m_motmag.Slot = 0;
+    superStructure.setControl(m_motmag.withPosition(longShotPosition));
 
   }
   @Override

@@ -146,6 +146,12 @@ public class RobotContainer {
       // SuperStructure bindings
       secondaryController.y().onTrue(new InstantCommand(()->superStructure.rotateToAmp()));
       secondaryController.a().onTrue(new InstantCommand(()->superStructure.rotateToSpeaker()));
+      secondaryController.povUp().onTrue(
+        new InstantCommand(()->launcher.startLauncher(1.0)).withTimeout(0.75)
+        .andThen(new InstantCommand(()->superStructure.rotateToLongShot())).withTimeout(0.3)
+        .andThen(new InstantCommand(()->launcher.startFeeder(1.0))).withTimeout(0.2)
+        .andThen(new InstantCommand(()->superStructure.rotateToSpeaker()))
+        );
 
       // Amp bindings
       secondaryController.rightBumper().whileTrue(new InstantCommand(()->launcher.scoreAmp()).repeatedly())
