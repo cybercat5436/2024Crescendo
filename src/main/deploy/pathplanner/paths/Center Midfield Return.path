@@ -3,51 +3,55 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.28,
-        "y": 7.45
+        "x": 8.12,
+        "y": 4.12
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.875578828080734,
-        "y": 7.36073933686329
+        "x": 7.619999999999999,
+        "y": 4.12
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 0.63,
-        "y": 6.64
+        "x": 4.580019929270629,
+        "y": 4.745999491998984
       },
       "prevControl": {
-        "x": 0.11691686513066302,
-        "y": 6.492003168218687
+        "x": 6.010019929270629,
+        "y": 4.388499491998984
+      },
+      "nextControl": {
+        "x": 3.1500199292706297,
+        "y": 5.103499491998984
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 1.4,
+        "y": 5.55
+      },
+      "prevControl": {
+        "x": 1.9,
+        "y": 5.55
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Left Midfield 1 Return End"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
-  "constraintZones": [
-    {
-      "name": "New Constraints Zone",
-      "minWaypointRelativePos": 0.0,
-      "maxWaypointRelativePos": 0.7,
-      "constraints": {
-        "maxVelocity": 5.0,
-        "maxAcceleration": 3.0,
-        "maxAngularVelocity": 540.0,
-        "maxAngularAcceleration": 720.0
-      }
-    }
-  ],
+  "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "Start Shooter",
-      "waypointRelativePos": 0.65,
+      "name": "launch start",
+      "waypointRelativePos": 1.2,
       "command": {
-        "type": "parallel",
+        "type": "sequential",
         "data": {
           "commands": [
             {
@@ -62,14 +66,14 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 5.8,
+    "maxAcceleration": 8.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 60.0,
+    "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,
@@ -78,5 +82,5 @@
     "rotation": 0,
     "velocity": 0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }
