@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.6699236223008809,
-      "y": 4.42669621430541
+      "x": 0.66,
+      "y": 4.473539560488536
     },
     "rotation": -60.0
   },
@@ -20,7 +20,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Right Path"
+            "pathName": "Right Side Far Note PT 1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Right Side Far Note PT 2"
           }
         },
         {
@@ -39,6 +45,12 @@
           "type": "named",
           "data": {
             "name": "stopIntake"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "resetGyro"
           }
         }
       ]
