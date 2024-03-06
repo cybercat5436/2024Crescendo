@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 0.9978270455827631,
-        "y": 7.190453639109847
+        "x": 0.9631757180902122,
+        "y": 7.211913080327247
       },
       "isLocked": false,
       "linkedName": null
@@ -48,6 +48,23 @@
               "type": "named",
               "data": {
                 "name": "intakeFeedIn"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Start Launcher",
+      "waypointRelativePos": 0.8,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "startLauncher"
               }
             }
           ]
