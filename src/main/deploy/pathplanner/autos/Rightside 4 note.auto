@@ -52,6 +52,30 @@
           "data": {
             "name": "stopIntake"
           }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Right side 4th note Pt 1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Right side 4th note return"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "stopShooter"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "stopIntake"
+          }
         }
       ]
     }

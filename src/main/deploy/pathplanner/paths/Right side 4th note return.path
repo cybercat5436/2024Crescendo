@@ -3,29 +3,45 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.57,
-        "y": 0.74
+        "x": 8.428127625486022,
+        "y": 2.496336531134601
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.19999152123839,
-        "y": 0.7612043754757987
+        "x": 7.601148323113065,
+        "y": 1.8637402247919832
+      },
+      "isLocked": false,
+      "linkedName": "Right side 4th note End"
+    },
+    {
+      "anchor": {
+        "x": 5.250972040405621,
+        "y": 1.7957835915671831
+      },
+      "prevControl": {
+        "x": 5.813387780621716,
+        "y": 1.8056505343779905
+      },
+      "nextControl": {
+        "x": 4.638505951132543,
+        "y": 1.785038572457131
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 6.54354154862156,
-        "y": 0.858424024540357
+        "x": 3.4354545632168203,
+        "y": 1.7957835915671831
       },
       "prevControl": {
-        "x": 6.8831558084492235,
-        "y": 0.7881590052656693
+        "x": 4.213221258617843,
+        "y": 1.7957835915671831
       },
       "nextControl": {
-        "x": 5.587857025459859,
-        "y": 1.0561518569186368
+        "x": 2.1915934542574314,
+        "y": 1.7957835915671831
       },
       "isLocked": false,
       "linkedName": null
@@ -36,20 +52,26 @@
         "y": 4.461828723942754
       },
       "prevControl": {
-        "x": 1.0377874601903068,
-        "y": 3.019284500107463
+        "x": 1.1087984822738013,
+        "y": 3.7032423960601246
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "Right side far note start"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 2.0,
+      "rotationDegrees": -43.781124764868565,
+      "rotateFast": true
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "Launcher",
-      "waypointRelativePos": 1.5,
+      "name": "Start Launcher",
+      "waypointRelativePos": 2.65,
       "command": {
         "type": "sequential",
         "data": {
@@ -65,8 +87,8 @@
       }
     },
     {
-      "name": "Feeder",
-      "waypointRelativePos": 2.0,
+      "name": "Start Feeder",
+      "waypointRelativePos": 3.0,
       "command": {
         "type": "sequential",
         "data": {
@@ -89,14 +111,14 @@
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
-    "velocity": 0.0,
-    "rotation": -59.931417178137515,
+    "velocity": 0,
+    "rotation": -57.21571913413083,
     "rotateFast": false
   },
   "reversed": false,
   "folder": null,
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": 35.94437462046794,
     "velocity": 0
   },
   "useDefaultConstraints": false
