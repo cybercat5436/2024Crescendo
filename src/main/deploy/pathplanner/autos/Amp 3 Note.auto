@@ -2,19 +2,73 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.6582127857550991,
-      "y": 4.461828723942754
+      "x": 0.63,
+      "y": 6.64
     },
-    "rotation": -62.40270413135626
+    "rotation": 60.0
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "shoot"
+          }
+        },
+        {
           "type": "path",
           "data": {
-            "pathName": "Right Side First Note and Second"
+            "pathName": "Left path"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Left Return"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "startFeeder"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "stopIntake"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "stopShooter"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "To left Middle Note"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Far left return"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "startFeeder"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "stopIntake"
           }
         },
         {
@@ -26,55 +80,13 @@
         {
           "type": "named",
           "data": {
-            "name": "stopIntake"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Right Side Far Note PT 1"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Right Side Far Note PT 2"
+            "name": "leftAutonGyroReset"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "stopShooter"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "stopIntake"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Right side 4th note Pt 1"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Right side 4th note return"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "stopShooter"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "stopIntake"
+            "name": "resetGyro"
           }
         }
       ]

@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.4,
-      "y": 5.55
+      "x": 0.63,
+      "y": 6.64
     },
-    "rotation": 0
+    "rotation": 60.0
   },
   "command": {
     "type": "sequential",
@@ -20,7 +20,79 @@
         {
           "type": "path",
           "data": {
-            "pathName": "BotAlt"
+            "pathName": "Left path"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Left Return"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "startFeeder"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "stopIntake"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "stopShooter"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "To left Middle Note"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Far left return"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "startFeeder"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "stopIntake"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "stopShooter"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "leftAutonGyroReset"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Left Midfield 2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Left Midfield 2 Return"
           }
         },
         {
@@ -42,33 +114,9 @@
           }
         },
         {
-          "type": "path",
-          "data": {
-            "pathName": "MidNote1"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "MidNote2"
-          }
-        },
-        {
           "type": "named",
           "data": {
-            "name": "startFeeder"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "stopShooter"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "stopIntake"
+            "name": "resetGyro"
           }
         }
       ]
