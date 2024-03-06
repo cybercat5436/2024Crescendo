@@ -27,7 +27,7 @@ import frc.robot.subsystems.Launcher;
 import frc.robot.subsystems.SuperStructure;
 import frc.robot.subsystems.SwerveSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
-
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -146,12 +146,45 @@ public class RobotContainer {
       // SuperStructure bindings
       secondaryController.y().onTrue(new InstantCommand(()->superStructure.rotateToAmp()));
       secondaryController.a().onTrue(new InstantCommand(()->superStructure.rotateToSpeaker()));
-      secondaryController.povUp().onTrue(
-        new InstantCommand(()->launcher.startLauncher(1.0)).withTimeout(0.75)
-        .andThen(new InstantCommand(()->superStructure.rotateToLongShot())).withTimeout(0.3)
-        .andThen(new InstantCommand(()->launcher.startFeeder(1.0))).withTimeout(0.2)
-        .andThen(new InstantCommand(()->superStructure.rotateToSpeaker()))
-        );
+      // Command longShotCommand = new InstantCommand(()->{
+      //     System.out.println("<----   Starting Launcher...");
+      //     launcher.startLauncher(1.0);
+      //   }).repeatedly().withTimeout(0.75)
+      //   .andThen(new InstantCommand(()->{
+      //     System.out.println("<---  Rotating to LongShot Position...");
+      //     superStructure.rotateToLongShot();
+      //   })).repeatedly().withTimeout(1.5)
+      //   .andThen(new InstantCommand(()->{
+      //     System.out.println("<---   Staring Feeder...");
+      //     launcher.startFeeder(1.0);
+      //   })).repeatedly().withTimeout(0.2)
+      //   .andThen(new InstantCommand(()->{
+      //     System.out.println("<---   Rotating back down to speaker position...");
+      //     superStructure.rotateToSpeaker();
+      //   }));
+
+      Command longShotCommand = Commands.sequence(
+        new InstantCommand(()->{
+          System.out.println("<----   Starting Launcher...");
+          launcher.startLauncher(1.0);
+        }),
+        Commands.waitSeconds(0.75),
+        new InstantCommand(()->{
+          System.out.println("<---  Rotating to LongShot Position...");
+          superStructure.rotateToLongShot();
+        }),
+        Commands.waitSeconds(0.6),
+        new InstantCommand(()->{
+          System.out.println("<---   Staring Feeder...");
+          launcher.startFeeder(1.0);
+        }),
+        Commands.waitSeconds(0.2),
+        new InstantCommand(()->{
+          System.out.println("<---   Rotating back down to speaker position...");
+          superStructure.rotateToSpeaker();
+        }));
+      SmartDashboard.putData(longShotCommand);
+      secondaryController.povUp().onTrue(longShotCommand);
 
       // Amp bindings
       secondaryController.rightBumper().whileTrue(new InstantCommand(()->launcher.scoreAmp()).repeatedly())
