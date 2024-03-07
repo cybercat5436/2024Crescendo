@@ -8,50 +8,34 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.876477599109046,
-        "y": 4.420390379242297
+        "x": 1.6890056857036806,
+        "y": 4.005978781188332
       },
       "isLocked": false,
       "linkedName": "Right side far note start"
     },
     {
       "anchor": {
-        "x": 2.7349016236494026,
-        "y": 4.213184580215315
+        "x": 2.685566909595359,
+        "y": 4.114515152107228
       },
       "prevControl": {
-        "x": 2.7349016236494026,
-        "y": 3.8377065968462944
-      },
-      "nextControl": {
-        "x": 2.7349016236494026,
-        "y": 4.693899799481765
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 0.6582127857550991,
-        "y": 4.461828723942754
-      },
-      "prevControl": {
-        "x": 1.1969112668610487,
-        "y": 4.555515416309007
+        "x": 2.281022254352202,
+        "y": 4.045446552431566
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "RightNote"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.5,
+      "waypointRelativePos": 0.25,
       "rotationDegrees": 0.0,
       "rotateFast": false
     },
     {
-      "waypointRelativePos": 1.0,
+      "waypointRelativePos": 0.5,
       "rotationDegrees": 0.0,
       "rotateFast": false
     }
@@ -59,42 +43,8 @@
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "shoot",
-      "waypointRelativePos": 0,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "shoot"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.15,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "stopShooter"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
       "name": "Intake",
-      "waypointRelativePos": 0.4,
+      "waypointRelativePos": 0.0,
       "command": {
         "type": "sequential",
         "data": {
@@ -103,57 +53,6 @@
               "type": "named",
               "data": {
                 "name": "intakeFeedIn"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "Start Launcher",
-      "waypointRelativePos": 1.3000000000000003,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "startLauncher"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "start Feeder",
-      "waypointRelativePos": 2.0,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "startFeeder"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 2.0,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "shoot"
               }
             }
           ]
@@ -169,7 +68,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -62.02052561151982,
+    "rotation": 1.7899106082462277,
     "rotateFast": false
   },
   "reversed": false,

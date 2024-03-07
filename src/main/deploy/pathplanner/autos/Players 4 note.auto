@@ -12,9 +12,21 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "shoot"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Right Side First Note and Second"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "PlayerRightNoteReturn"
           }
         },
         {
@@ -56,13 +68,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Right side 4th note Pt 1"
+            "pathName": "PlayerCenterNote"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Right side 4th note return"
+            "pathName": "PlayerCenterNoteReturn"
           }
         },
         {

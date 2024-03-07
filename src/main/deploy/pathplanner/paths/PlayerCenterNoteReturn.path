@@ -3,41 +3,41 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.57,
-        "y": 0.74
+        "x": 8.270256540513081,
+        "y": 4.124382094918037
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.19999152123839,
-        "y": 0.7612043754757987
+        "x": 7.270256540513081,
+        "y": 4.124382094918037
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "MidFieldCenterNote"
     },
     {
       "anchor": {
-        "x": 6.54354154862156,
-        "y": 0.858424024540357
+        "x": 2.3204900255954373,
+        "y": 3.0587522713506967
       },
       "prevControl": {
-        "x": 7.671394594428955,
-        "y": 0.5547712814383654
+        "x": 3.3204900255954373,
+        "y": 3.0587522713506967
       },
       "nextControl": {
-        "x": 5.517379496297456,
-        "y": 1.134698423243001
+        "x": 1.3204900255954373,
+        "y": 3.0587522713506967
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 0.6582127857550991,
+        "x": 0.66,
         "y": 4.461828723942754
       },
       "prevControl": {
-        "x": 3.4847892772708637,
-        "y": 1.2531017369727058
+        "x": 1.057521345811924,
+        "y": 3.709970496864071
       },
       "nextControl": null,
       "isLocked": false,
@@ -49,7 +49,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 1.75,
+      "waypointRelativePos": 0.9,
       "command": {
         "type": "sequential",
         "data": {
@@ -74,7 +74,7 @@
             {
               "type": "named",
               "data": {
-                "name": "startFeeder"
+                "name": "shoot"
               }
             }
           ]
@@ -89,8 +89,8 @@
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
-    "velocity": 0.0,
-    "rotation": -59.931417178137515,
+    "velocity": 0,
+    "rotation": -58.27597948994481,
     "rotateFast": false
   },
   "reversed": false,
