@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.19999152123839,
-        "y": 0.7612043754757987
+        "x": 8.19938443112195,
+        "y": 0.74
       },
       "isLocked": false,
       "linkedName": null
@@ -20,12 +20,12 @@
         "y": 0.858424024540357
       },
       "prevControl": {
-        "x": 7.671394594428955,
-        "y": 0.5547712814383654
+        "x": 7.262040197097484,
+        "y": 0.6546706764650934
       },
       "nextControl": {
-        "x": 5.517379496297456,
-        "y": 1.134698423243001
+        "x": 5.882456380297378,
+        "y": 1.0458959379457238
       },
       "isLocked": false,
       "linkedName": null
@@ -36,8 +36,8 @@
         "y": 4.461828723942754
       },
       "prevControl": {
-        "x": 3.4847892772708637,
-        "y": 1.2531017369727058
+        "x": 1.1587817002126464,
+        "y": 3.594817931412683
       },
       "nextControl": null,
       "isLocked": false,
@@ -48,7 +48,7 @@
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "New Event Marker",
+      "name": "Start Launcher",
       "waypointRelativePos": 1.75,
       "command": {
         "type": "sequential",
@@ -63,28 +63,11 @@
           ]
         }
       }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 2.0,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "startFeeder"
-              }
-            }
-          ]
-        }
-      }
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 4.6,
-    "maxAcceleration": 5.8,
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },

@@ -20,12 +20,12 @@
         "y": 3.3547605556749573
       },
       "prevControl": {
-        "x": 1.396628939376013,
-        "y": 3.53752151667997
+        "x": 2.5377082626500838,
+        "y": 3.329649110193409
       },
       "nextControl": {
-        "x": 4.323479416189603,
-        "y": 3.2659580703776796
+        "x": 4.34321330181122,
+        "y": 3.3843613841073843
       },
       "isLocked": false,
       "linkedName": null
@@ -40,7 +40,7 @@
         "y": 4.124382094918037
       },
       "nextControl": {
-        "x": 6.9382192610539075,
+        "x": 6.788996893378403,
         "y": 4.124382094918037
       },
       "isLocked": false,
@@ -78,8 +78,8 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.85,
-      "rotationDegrees": 0.0,
+      "waypointRelativePos": 0.9,
+      "rotationDegrees": 0,
       "rotateFast": false
     }
   ],
@@ -98,7 +98,7 @@
   ],
   "eventMarkers": [
     {
-      "name": "New Event Marker",
+      "name": "Start Intake",
       "waypointRelativePos": 2.75,
       "command": {
         "type": "sequential",

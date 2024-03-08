@@ -78,12 +78,6 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "leftAutonGyroReset"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "Left Midfield 2"

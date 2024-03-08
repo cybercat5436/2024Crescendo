@@ -5,7 +5,7 @@
       "x": 0.6582127857550991,
       "y": 4.461828723942754
     },
-    "rotation": -62.40270413135626
+    "rotation": -60.0
   },
   "command": {
     "type": "sequential",
@@ -27,6 +27,12 @@
           "type": "path",
           "data": {
             "pathName": "PlayerRightNoteReturn"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "startFeeder"
           }
         },
         {
@@ -56,6 +62,12 @@
         {
           "type": "named",
           "data": {
+            "name": "startFeeder"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
             "name": "stopShooter"
           }
         },
@@ -75,6 +87,12 @@
           "type": "path",
           "data": {
             "pathName": "PlayerCenterNoteReturn"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "startFeeder"
           }
         },
         {

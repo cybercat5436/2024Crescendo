@@ -36,8 +36,8 @@
         "y": 4.461828723942754
       },
       "prevControl": {
-        "x": 1.057521345811924,
-        "y": 3.709970496864071
+        "x": 1.0852393484856568,
+        "y": 3.725292566988109
       },
       "nextControl": null,
       "isLocked": false,
@@ -48,7 +48,7 @@
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "New Event Marker",
+      "name": "Start Launcher",
       "waypointRelativePos": 0.9,
       "command": {
         "type": "sequential",
@@ -58,23 +58,6 @@
               "type": "named",
               "data": {
                 "name": "startLauncher"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 2.0,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "shoot"
               }
             }
           ]
@@ -90,7 +73,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -58.27597948994481,
+    "rotation": -60.0,
     "rotateFast": false
   },
   "reversed": false,

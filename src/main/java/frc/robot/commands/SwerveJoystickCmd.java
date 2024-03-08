@@ -100,9 +100,12 @@ public class SwerveJoystickCmd extends Command {
             // xSpeed = limeLightGrid.getVisionTargetAreaError() * kLimelightForward;
             // ySpeed = -limeLightGrid.getVisionTargetHorizontalError() * kLimelightHorizontal;
             //theta = swerveSubsystem.getHeading() - Math.atan2(xSpdFunction.get(), ySpdFunction.get())*(180.0/Math.PI);
+
             txFront = limeLightFront.getVisionTargetHorizontalError();
             rx = (ySpeed*Math.sin(swerveSubsystem.getHeading()*(Math.PI/180.0))+xSpeed*(Math.cos(swerveSubsystem.getHeading()*(Math.PI/180.0))));
-            ry = -1*txFront * kLimelightHorizontal;
+            // ry = -1*txFront * kLimelightHorizontal; //translational
+            turningSpeed = -1*txFront*kLimelightTurning;//rotational
+
         }
 
  

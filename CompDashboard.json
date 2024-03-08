@@ -480,15 +480,15 @@
               "_showGlyph": false
             }
           },
-          "3,0": {
+          "1,0": {
             "size": [
-              4,
+              6,
               4
             ],
             "content": {
               "_type": "Camera Stream",
-              "_source0": "camera_server://limelight-front",
-              "_title": "limelight-front",
+              "_source0": "camera_server://limelight-rear",
+              "_title": "limelight-rear",
               "_glyph": 148,
               "_showGlyph": false,
               "Crosshair/Show crosshair": true,
