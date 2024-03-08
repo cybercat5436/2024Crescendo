@@ -36,21 +36,21 @@ public class AutoClimbCommand extends Command {
     double rollAngle = swerveSubsystem.getRollDegrees();
     double rollError = this.targetAngle - rollAngle;
     // System.out.println("roll error: " + rollError);
-    double kP = 0.05;
-    double climbSpeed = Math.abs(leftSpeedFunction.getAsDouble()) > 0.2 ? 0.15 : 0.0;
+    double kP = 0.1;
+    double climbSpeed = Math.abs(leftSpeedFunction.getAsDouble()) > 0.6 ? 0.15 : 0.0;
     climbSpeed = Math.signum(leftSpeedFunction.getAsDouble()) * climbSpeed;
 
     double balanceSpeed = Math.abs(kP*rollError);
-    balanceSpeed = Math.min(balanceSpeed, 0.15);
+    balanceSpeed = Math.min(balanceSpeed, 0.2);
 
     double rightSpeed = 0.0;
     double leftSpeed = 0.0;
     if(rollError>0){
-      leftSpeed = climbSpeed - balanceSpeed;
-      rightSpeed = climbSpeed + balanceSpeed;
-    } else if(rollError<0){
-      rightSpeed = climbSpeed - balanceSpeed;
       leftSpeed = climbSpeed + balanceSpeed;
+      rightSpeed = climbSpeed - balanceSpeed;
+    } else if(rollError<0){
+      rightSpeed = climbSpeed + balanceSpeed;
+      leftSpeed = climbSpeed - balanceSpeed;
     }else{
       leftSpeed = (0);
       rightSpeed = (0);
