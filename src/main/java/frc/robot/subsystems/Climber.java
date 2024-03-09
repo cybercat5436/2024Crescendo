@@ -125,7 +125,7 @@ public class Climber extends SubsystemBase {
       isSuperStructureRaised = true;
       CommandScheduler.getInstance().schedule(raiseSuperStructureCommand);
       System.out.println("Auto raised superstructure L: " + leftEncoderValue +
-      "R: " + rightEncoderValue + " compared to trigger: " + encoderTrigger);
+        "R: " + rightEncoderValue + " compared to trigger: " + encoderTrigger);
     } 
   }
 
