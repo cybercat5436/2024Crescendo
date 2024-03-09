@@ -88,5 +88,7 @@ public class SuperStructure extends SubsystemBase {
     // TODO Auto-generated method stub
     super.initSendable(builder);
     builder.addDoubleProperty("Motor Position", () -> superStructure.getPosition().getValueAsDouble(), null);
+    builder.addDoubleProperty("Longshot pos", () -> longShotPosition, (value) -> this.longShotPosition = value);
+
   }
 }
