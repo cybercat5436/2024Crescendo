@@ -130,7 +130,7 @@ public class RobotContainer {
         )
       );
 
-       secondaryController.x().whileTrue((new AutoClimbCommand(climber, swerveSubsystem, ()-> secondaryController.getLeftY())).repeatedly())
+       secondaryController.x().whileTrue((new AutoClimbCommand(climber, swerveSubsystem, ()-> -secondaryController.getLeftY())).repeatedly())
         .onFalse(new InstantCommand(()-> climber.climberStop()));
 
 

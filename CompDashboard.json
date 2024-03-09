@@ -400,6 +400,19 @@
               "_glyph": 148,
               "_showGlyph": false
             }
+          },
+          "4,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/AutoClimbCommand",
+              "_title": "AutoClimbCommand",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
           }
         }
       }
