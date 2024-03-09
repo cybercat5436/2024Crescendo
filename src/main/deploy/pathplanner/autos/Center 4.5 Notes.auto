@@ -102,27 +102,9 @@
           }
         },
         {
-          "type": "path",
-          "data": {
-            "pathName": "Center Midfield Return"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "startFeeder"
-          }
-        },
-        {
           "type": "named",
           "data": {
             "name": "stopIntake"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "stopShooter"
           }
         }
       ]
