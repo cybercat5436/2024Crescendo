@@ -51,9 +51,11 @@ public class RobotContainer {
     private SendableChooser<Command> autonChooser = new SendableChooser<>();
 
     // swerve subsystem must be instantiated before climber
-    private final Climber climber = new Climber();
-    private final Launcher launcher = new Launcher();
     private final SuperStructure superStructure = new SuperStructure();
+    // superstructure must be instantiated before climber
+    private final Climber climber = new Climber(new InstantCommand(() -> superStructure.rotateToAmp()));
+    private final Launcher launcher = new Launcher();
+    
 
     private SequentialCommandGroup shootCommand = new SequentialCommandGroup(
     new InstantCommand(()->launcher.startLauncher(0.8)).repeatedly().withTimeout(0.6))

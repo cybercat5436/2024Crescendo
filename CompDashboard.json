@@ -505,7 +505,7 @@
       }
     },
     {
-      "title": "Tab 4",
+      "title": "Diagnostics",
       "autoPopulate": false,
       "autoPopulatePrefix": "",
       "widgetPane": {
@@ -514,7 +514,60 @@
         "hgap": 16.0,
         "vgap": 16.0,
         "titleType": 0,
-        "tiles": {}
+        "tiles": {
+          "3,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Climber/Left Climber Position",
+              "_title": "SmartDashboard/Climber/Left Climber Position",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "4,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Climber/Right Climber Position",
+              "_title": "SmartDashboard/Climber/Right Climber Position",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "5,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Climber/encoderTrigger",
+              "_title": "SmartDashboard/Climber/encoderTrigger",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "6,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Toggle Button",
+              "_source0": "network_table:///SmartDashboard/Climber/isSuperStructureRaised",
+              "_title": "SmartDashboard/Climber/isSuperStructureRaised",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          }
+        }
       }
     }
   ],

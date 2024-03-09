@@ -12,6 +12,8 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.util.sendable.SendableRegistry;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 /**
@@ -27,11 +29,14 @@ public class Climber extends SubsystemBase {
  private DutyCycleOut rightClimberRequest;
  private DutyCycleOut leftClimberRequest;
  private double climberEncoderLimit = 0.5;
+ private boolean isSuperStructureRaised = false;
+ private double encoderTrigger = 5;
+ private Command raiseSuperStructureCommand;
 
  
  
   /** Creates a new Climber. */
-  public Climber() {
+  public Climber(Command raiseSuperStructureCommand) {
    // climberUpper.clearStickyFaults();
     //climberLower.clearStickyFaults();
 
@@ -55,7 +60,7 @@ public class Climber extends SubsystemBase {
     leftClimberMotor.setInverted(true);
     this.rightClimberRequest = new DutyCycleOut(0.0);
     this.leftClimberRequest = new DutyCycleOut(0.0);
-
+    this.raiseSuperStructureCommand = raiseSuperStructureCommand;
     SendableRegistry.addLW(this, this.getClass().getSimpleName(), this.getClass().getSimpleName());
     SmartDashboard.putData(this);
   }
@@ -115,6 +120,11 @@ public class Climber extends SubsystemBase {
     // This method will be called once per scheduler run
     rightEncoderValue = rightClimberMotor.getPosition().getValueAsDouble();
     leftEncoderValue = leftClimberMotor.getPosition().getValueAsDouble();
+    boolean encoderTriggerReached = rightEncoderValue > encoderTrigger || leftEncoderValue > encoderTrigger;
+    if(!isSuperStructureRaised && encoderTriggerReached) {
+      isSuperStructureRaised = true;
+      CommandScheduler.getInstance().schedule(raiseSuperStructureCommand);
+    } 
   }
 
   @Override
@@ -123,6 +133,8 @@ public class Climber extends SubsystemBase {
     super.initSendable(builder);
     builder.addDoubleProperty("Left Climber Position", () -> leftEncoderValue, null);
     builder.addDoubleProperty("Right Climber Position", () -> rightEncoderValue, null);
+    builder.addBooleanProperty("isSuperStructureRaised", () -> isSuperStructureRaised, (value) -> this.isSuperStructureRaised = value);
+    builder.addDoubleProperty("encoderTrigger", () -> encoderTrigger, (value) -> this.encoderTrigger = value);
   }
 
 }
