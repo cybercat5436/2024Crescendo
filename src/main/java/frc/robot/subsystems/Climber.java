@@ -30,7 +30,7 @@ public class Climber extends SubsystemBase {
  private DutyCycleOut leftClimberRequest;
  private double climberEncoderLimit = 0.5;
  private boolean isSuperStructureRaised = false;
- private double encoderTrigger = 5;
+ private double encoderTrigger = 10;
  private Command raiseSuperStructureCommand;
 
  
@@ -124,6 +124,8 @@ public class Climber extends SubsystemBase {
     if(!isSuperStructureRaised && encoderTriggerReached) {
       isSuperStructureRaised = true;
       CommandScheduler.getInstance().schedule(raiseSuperStructureCommand);
+      System.out.println("Auto raised superstructure L: " + leftEncoderValue +
+      "R: " + rightEncoderValue + " compared to trigger: " + encoderTrigger);
     } 
   }
 
