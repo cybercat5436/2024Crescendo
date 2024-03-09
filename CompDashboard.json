@@ -509,62 +509,98 @@
       "autoPopulate": false,
       "autoPopulatePrefix": "",
       "widgetPane": {
-        "gridSize": 128.0,
+        "gridSize": 64.0,
         "showGrid": true,
         "hgap": 16.0,
         "vgap": 16.0,
         "titleType": 0,
         "tiles": {
-          "3,2": {
+          "10,1": {
             "size": [
-              1,
-              1
+              4,
+              3
             ],
             "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Climber/Left Climber Position",
-              "_title": "SmartDashboard/Climber/Left Climber Position",
-              "_glyph": 148,
-              "_showGlyph": false
+              "_type": "Grid Layout",
+              "_title": "Turning Motor Encoders",
+              "_glyph": 149,
+              "_showGlyph": false,
+              "Layout/Number of columns": 2,
+              "Layout/Number of rows": 2,
+              "Layout/Label position": "TOP",
+              "_children": {
+                "0,0": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/FRONT_LEFT/Turning Encoder",
+                  "_title": "FL",
+                  "_glyph": 148,
+                  "_showGlyph": false
+                },
+                "0,1": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/BACK_LEFT/Turning Encoder",
+                  "_title": "BL",
+                  "_glyph": 148,
+                  "_showGlyph": false
+                },
+                "1,0": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/BACK_RIGHT/Turning Encoder",
+                  "_title": "FR",
+                  "_glyph": 148,
+                  "_showGlyph": false
+                },
+                "1,1": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/FRONT_RIGHT/Turning Encoder",
+                  "_title": "BR",
+                  "_glyph": 148,
+                  "_showGlyph": false
+                }
+              }
             }
           },
-          "4,2": {
+          "7,1": {
             "size": [
-              1,
-              1
+              2,
+              5
             ],
             "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Climber/Right Climber Position",
-              "_title": "SmartDashboard/Climber/Right Climber Position",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "5,2": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Climber/encoderTrigger",
-              "_title": "SmartDashboard/Climber/encoderTrigger",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "6,2": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Toggle Button",
-              "_source0": "network_table:///SmartDashboard/Climber/isSuperStructureRaised",
-              "_title": "SmartDashboard/Climber/isSuperStructureRaised",
-              "_glyph": 148,
-              "_showGlyph": false
+              "_type": "Subsystem Layout",
+              "_title": "Climber",
+              "_glyph": 149,
+              "_showGlyph": false,
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/Climber/Right Climber Position",
+                  "_title": "R",
+                  "_glyph": 148,
+                  "_showGlyph": false
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/Climber/Left Climber Position",
+                  "_title": "L",
+                  "_glyph": 148,
+                  "_showGlyph": true
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/Climber/encoderTrigger",
+                  "_title": "Trigger",
+                  "_glyph": 148,
+                  "_showGlyph": false
+                },
+                {
+                  "_type": "Toggle Switch",
+                  "_source0": "network_table:///SmartDashboard/Climber/isSuperStructureRaised",
+                  "_title": "Flag",
+                  "_glyph": 148,
+                  "_showGlyph": false
+                }
+              ]
             }
           }
         }
