@@ -23,7 +23,7 @@ public class SuperStructure extends SubsystemBase {
   private TalonFX superStructure;
   MotionMagicVoltage m_motmag = new MotionMagicVoltage(0);
   private double ampPosition = 9.2;
-  private double longShotPosition = 3.0;
+  private double longShotPosition = 1.3;
   // 9.2
   public SuperStructure() {
 
@@ -88,5 +88,7 @@ public class SuperStructure extends SubsystemBase {
     // TODO Auto-generated method stub
     super.initSendable(builder);
     builder.addDoubleProperty("Motor Position", () -> superStructure.getPosition().getValueAsDouble(), null);
+    builder.addDoubleProperty("Longshot pos", () -> longShotPosition, (value) -> this.longShotPosition = value);
+
   }
 }

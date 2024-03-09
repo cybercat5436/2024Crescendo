@@ -170,7 +170,7 @@ public class RobotContainer {
           System.out.println("<----   Starting Launcher...");
           launcher.startLauncher(1.0);
         }),
-        Commands.waitSeconds(0.75),
+        Commands.waitSeconds(1.25),
         new InstantCommand(()->{
           System.out.println("<---  Rotating to LongShot Position...");
           superStructure.rotateToLongShot();
@@ -184,6 +184,7 @@ public class RobotContainer {
         new InstantCommand(()->{
           System.out.println("<---   Rotating back down to speaker position...");
           superStructure.rotateToSpeaker();
+          launcher.stop();
         }));
       SmartDashboard.putData(longShotCommand);
       secondaryController.povUp().onTrue(longShotCommand);
