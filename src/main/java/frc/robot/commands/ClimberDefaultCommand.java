@@ -34,8 +34,8 @@ public class ClimberDefaultCommand extends Command {
   @Override
   public void execute() {
     // System.out.println("Climber is climbing");
-      climber.moveLeftClimber(leftSpeedFunction.getAsDouble()*0.8, overrideFunction.getAsBoolean());
-      climber.moveRightClimber(rightSpeedFuction.getAsDouble()*0.8, overrideFunction.getAsBoolean());
+      climber.moveLeftClimber(leftSpeedFunction.getAsDouble()*1.0, overrideFunction.getAsBoolean());
+      climber.moveRightClimber(rightSpeedFuction.getAsDouble()*1.0, overrideFunction.getAsBoolean());
      // System.out.println(upperSpeedFunction.getAsDouble());
       //System.out.println(lowerSpeedFunction.getAsDouble());
       

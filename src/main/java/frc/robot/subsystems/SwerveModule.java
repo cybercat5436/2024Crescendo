@@ -81,7 +81,7 @@ public class SwerveModule implements Sendable{
     turningMotor.restoreFactoryDefaults();
 
     driveMotor.setSmartCurrentLimit(100, 100);
-    turningMotor.setSmartCurrentLimit(60, 60);
+    turningMotor.setSmartCurrentLimit(40, 40);
 
     driveMotor.setInverted(driveMotorReversed);
     turningMotor.setInverted(turningMotorReversed);
