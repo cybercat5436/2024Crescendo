@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.7319122330552369,
-      "y": 4.499325921728767
+      "x": 0.6727105761903848,
+      "y": 4.459858150485532
     },
-    "rotation": 60.0
+    "rotation": -63.82471001824006
   },
   "command": {
     "type": "sequential",
@@ -20,13 +20,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Amp 1st Midfield Alt"
+            "pathName": "Playerside path 1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "1st Midfield"
+            "pathName": "Playerside path 1 pt2 "
           }
         },
         {
@@ -36,45 +36,27 @@
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "2nd Midfield"
+            "name": "stopShooter"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "startFeeder"
+            "name": "stopIntake"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "3rd Midfield"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "startFeeder"
+            "pathName": "Playerside path 2 pt 1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "4th Midfield"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "startFeeder"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "5th Midfield"
+            "pathName": "Playerside path 2 pt 2"
           }
         },
         {
