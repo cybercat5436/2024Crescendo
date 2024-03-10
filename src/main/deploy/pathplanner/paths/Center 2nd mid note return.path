@@ -1,0 +1,135 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 8.401,
+        "y": 5.76
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 7.924758235217682,
+        "y": 5.76
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 7.697973857486177,
+        "y": 5.76
+      },
+      "prevControl": {
+        "x": 8.359102392743088,
+        "y": 5.76
+      },
+      "nextControl": {
+        "x": 6.697973857486216,
+        "y": 5.76
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 6.030460522459509,
+        "y": 6.235907856431097
+      },
+      "prevControl": {
+        "x": 6.801855370513683,
+        "y": 5.927349917209428
+      },
+      "nextControl": {
+        "x": 5.635782810027162,
+        "y": 6.393778941404036
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 4.34321330181122,
+        "y": 6.235907856431097
+      },
+      "prevControl": {
+        "x": 4.745096019518958,
+        "y": 6.45813232693773
+      },
+      "nextControl": {
+        "x": 3.941330584103477,
+        "y": 6.013683385924463
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 1.4,
+        "y": 5.55
+      },
+      "prevControl": {
+        "x": 2.1350139700279414,
+        "y": 5.693758230593384
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "start Launcher",
+      "waypointRelativePos": 2.6,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "startLauncher"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "start feeder",
+      "waypointRelativePos": 4.0,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "startFeeder"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.8,
+    "maxAcceleration": 8.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": null,
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": false
+}

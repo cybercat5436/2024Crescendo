@@ -3,53 +3,75 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.4,
-        "y": 5.545221859674489
+        "x": 0.66,
+        "y": 4.46
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.7320792978021595,
-        "y": 5.022380931199351
+        "x": 1.66,
+        "y": 4.46
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Playerside start"
     },
     {
       "anchor": {
-        "x": 6.6520779195404565,
-        "y": 4.124382094918037
+        "x": 5.1424356694867255,
+        "y": 1.7563158203239486
       },
       "prevControl": {
-        "x": 6.1520779195404565,
-        "y": 4.124382094918037
+        "x": 4.1424356694867255,
+        "y": 1.7563158203239486
       },
       "nextControl": {
-        "x": 7.1520779195404565,
-        "y": 4.124382094918037
+        "x": 6.1424356694867255,
+        "y": 1.7563158203239486
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 8.122252398350952,
-        "y": 4.124382094918037
+        "x": 7.826244114026691,
+        "y": 2.476602645512984
       },
       "prevControl": {
-        "x": 7.622252398350952,
-        "y": 4.124382094918037
+        "x": 7.3266651105634635,
+        "y": 2.4560887648784346
+      },
+      "nextControl": {
+        "x": 8.325823117489918,
+        "y": 2.4971165261475337
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 8.82280533791837,
+        "y": 2.476602645512984
+      },
+      "prevControl": {
+        "x": 8.72280533791837,
+        "y": 2.476602645512984
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": null
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1,
+      "rotationDegrees": 0.0,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "intake",
-      "waypointRelativePos": 1.35,
+      "name": "Intake",
+      "waypointRelativePos": 2.05,
       "command": {
         "type": "sequential",
         "data": {
@@ -63,21 +85,11 @@
           ]
         }
       }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": []
-        }
-      }
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 5.0,
-    "maxAcceleration": 6.0,
+    "maxVelocity": 5.6,
+    "maxAcceleration": 5.8,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
@@ -89,7 +101,7 @@
   "reversed": false,
   "folder": null,
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": -60.0,
     "velocity": 0
   },
   "useDefaultConstraints": false

@@ -20,13 +20,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Left path"
+            "pathName": "Amp 1st Midfield Alt"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Left Return"
+            "pathName": "1st Midfield"
           }
         },
         {
@@ -36,27 +36,9 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "stopIntake"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "stopShooter"
-          }
-        },
-        {
           "type": "path",
           "data": {
-            "pathName": "To left Middle Note"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Far left return"
+            "pathName": "2nd Midfield"
           }
         },
         {
@@ -66,27 +48,33 @@
           }
         },
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "stopIntake"
+            "pathName": "3rd Midfield"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "stopShooter"
+            "name": "startFeeder"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Left Midfield 2"
+            "pathName": "4th Midfield"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "startFeeder"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Left Midfield 2 Return"
+            "pathName": "5th Midfield"
           }
         },
         {

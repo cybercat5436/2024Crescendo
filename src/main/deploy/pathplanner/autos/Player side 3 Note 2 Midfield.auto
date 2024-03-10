@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.7319122330552369,
-      "y": 4.499325921728767
+      "x": 0.6727105761903848,
+      "y": 4.459858150485532
     },
-    "rotation": 60.0
+    "rotation": -63.82471001824006
   },
   "command": {
     "type": "sequential",
@@ -20,13 +20,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Left path"
+            "pathName": "Playerside path 1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Left Return"
+            "pathName": "Playerside path 1 pt2 "
           }
         },
         {
@@ -38,31 +38,7 @@
         {
           "type": "named",
           "data": {
-            "name": "stopIntake"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
             "name": "stopShooter"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "To left Middle Note"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Far left return"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "startFeeder"
           }
         },
         {
@@ -72,21 +48,15 @@
           }
         },
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "stopShooter"
+            "pathName": "Playerside path 2 pt 1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Left Midfield 2"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Left Midfield 2 Return"
+            "pathName": "Playerside path 2 pt 2"
           }
         },
         {
