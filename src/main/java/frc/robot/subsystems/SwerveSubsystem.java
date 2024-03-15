@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import com.ctre.phoenix6.configs.Pigeon2Configuration;
 import com.ctre.phoenix6.hardware.Pigeon2;
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.path.PathConstraints;
+import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
@@ -28,6 +30,7 @@ import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.util.sendable.SendableRegistry;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.AutoConstants;
@@ -323,6 +326,19 @@ public class SwerveSubsystem extends SubsystemBase{
 
     return xSpeed;
 }
+
+    public Command testCommand(){
+        return AutoBuilder.pathfindThenFollowPath(
+            PathPlannerPath.fromPathFile("C:\\Users\\timbo\\Desktop\\2024 FRC\\code\\2024Crescendo\\src\\main\\deploy\\pathplanner\\paths\\LivePathPlanningtest.path"),
+            new PathConstraints(3.0,
+                 3.0, 
+                3*Math.PI, 
+                4*Math.PI),
+            0.0
+            );
+    }
+
+
 
     public void stopModules(){
     ChassisSpeeds chassisSpeeds;
