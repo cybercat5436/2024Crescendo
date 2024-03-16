@@ -45,33 +45,51 @@
                     }
                   ]
                 }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "GetCentertoSpeaker"
+                }
               },
               {
-                "type": "parallel",
+                "type": "wait",
                 "data": {
-                  "commands": [
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "GetCentertoSpeaker"
-                      }
-                    },
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 0.6
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "startLauncher"
-                      }
-                    }
-                  ]
+                  "waitTime": 0.3
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "startLauncher"
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "startFeeder"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "stopShooter"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "stopIntake"
           }
         }
       ]
