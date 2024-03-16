@@ -38,22 +38,15 @@
                       }
                     },
                     {
-                      "type": "sequential",
+                      "type": "wait",
                       "data": {
-                        "commands": [
-                          {
-                            "type": "wait",
-                            "data": {
-                              "waitTime": 0.25
-                            }
-                          },
-                          {
-                            "type": "named",
-                            "data": {
-                              "name": "intakeFeedIn"
-                            }
-                          }
-                        ]
+                        "waitTime": 0.25
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "intakeFeedIn"
                       }
                     }
                   ]
@@ -63,15 +56,28 @@
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "startLauncher"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "GetCentertoSpeaker"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "GetCentertoSpeaker"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 0.3
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "startLauncher"
+                }
+              }
+            ]
           }
         },
         {
@@ -83,13 +89,13 @@
         {
           "type": "named",
           "data": {
-            "name": "stopIntake"
+            "name": "stopShooter"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "stopShooter"
+            "name": "stopIntake"
           }
         }
       ]

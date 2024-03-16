@@ -16,7 +16,7 @@ public class Util {
     public Command getPath(Pose2d targetPose){
         // Create the constraints to use while pathfinding
      PathConstraints constraints = new PathConstraints(
-      3.0, 4.0, Units.degreesToRadians(540), Units.degreesToRadians(720));
+      3.0, 3.0, Units.degreesToRadians(540), Units.degreesToRadians(720));
       // Since AutoBuilder is configured, we can use it to build pathfinding commands
      return AutoBuilder.pathfindToPose(
      targetPose,constraints,0.0, // Goal end velocity in meters/sec
