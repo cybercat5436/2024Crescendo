@@ -29,6 +29,7 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.util.sendable.SendableRegistry;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -328,8 +329,12 @@ public class SwerveSubsystem extends SubsystemBase{
 }
 
     public Command testCommand(){
+        String pathName = "LivePathPlanningtest";
+        //String filePath = Filesystem.getDeployDirectory().toPath().resolve(pathName).toString();
+        //System.out.println("FileName" + filePath);
+        System.out.println("PathName" + PathPlannerPath.fromPathFile(pathName));
         return AutoBuilder.pathfindThenFollowPath(
-            PathPlannerPath.fromPathFile("C:\\Users\\timbo\\Desktop\\2024 FRC\\code\\2024Crescendo\\src\\main\\deploy\\pathplanner\\paths\\LivePathPlanningtest.path"),
+            PathPlannerPath.fromPathFile(pathName),
             new PathConstraints(3.0,
                  3.0, 
                 3*Math.PI, 

@@ -11,6 +11,7 @@ import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.path.PathPlannerPath;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -56,6 +57,7 @@ public class RobotContainer {
     // superstructure must be instantiated before climber
     private final Climber climber = new Climber(new InstantCommand(() -> superStructure.rotateToAmp()));
     private final Launcher launcher = new Launcher();
+    private final Util util = new Util();
     
 
     private SequentialCommandGroup shootCommand = new SequentialCommandGroup(
@@ -225,6 +227,8 @@ public class RobotContainer {
     NamedCommands.registerCommand("resetGyro", new AutonResetGyro(swerveSubsystem));
     NamedCommands.registerCommand("raceTest", new RaceTest());
     NamedCommands.registerCommand("LivePathTest", swerveSubsystem.testCommand());
+    NamedCommands.registerCommand("GetCenterPath", util.getPath(new Pose2d(3.5,5.5,Rotation2d.fromDegrees(0.0))));
+    NamedCommands.registerCommand("GetCentertoSpeaker", util.getPath(new Pose2d(1.40,5.5,Rotation2d.fromDegrees(180.0))));
   }
 
   /**
