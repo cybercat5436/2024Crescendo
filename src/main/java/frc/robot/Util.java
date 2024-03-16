@@ -18,11 +18,10 @@ public class Util {
      PathConstraints constraints = new PathConstraints(
       3.0, 4.0, Units.degreesToRadians(540), Units.degreesToRadians(720));
       // Since AutoBuilder is configured, we can use it to build pathfinding commands
-     Command pathfindingCommand = AutoBuilder.pathfindToPose(
+     return AutoBuilder.pathfindToPose(
      targetPose,constraints,0.0, // Goal end velocity in meters/sec
      0.0 // Rotation delay distance in meters. This is how far the robot should travel before attempting to rotate.
     );
-    return pathfindingCommand;
     }
 
 
