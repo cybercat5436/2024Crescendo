@@ -4,8 +4,7 @@
   "holonomicMode": true,
   "pathFolders": [],
   "autoFolders": [
-    "New Folder",
-    "New New Folder"
+    "NoteDetector"
   ],
   "defaultMaxVel": 3.0,
   "defaultMaxAccel": 3.0,

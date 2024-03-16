@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -23,6 +25,11 @@ public class Robot extends TimedRobot {
   public static Robot robot;
 
   private Timer timer = new Timer();
+
+  private NetworkTableInstance networkTable = NetworkTableInstance.getDefault();
+  private NetworkTableEntry redEntry = networkTable.getEntry("colorsensor/redValue");
+  private NetworkTableEntry distanceEntry = networkTable.getEntry("colorsensor/distanceValue");
+  private int count = 0;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -57,6 +64,9 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+    distanceEntry.setInteger(1000 + count);
+    redEntry.setInteger(count++);
+
   }
 
   /** This function is called once each time the robot enters Disabled mode. */

@@ -5,6 +5,8 @@
 package frc.robot;
 
 import java.util.List;
+import java.util.Optional;
+
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
@@ -12,6 +14,9 @@ import com.pathplanner.lib.path.PathPlannerPath;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -20,6 +25,7 @@ import frc.robot.commands.AutoAlign;
 import frc.robot.commands.AutoClimbCommand;
 import frc.robot.commands.AutonResetGyro;
 import frc.robot.commands.ClimberDefaultCommand;
+import frc.robot.commands.NoteDetectorCommand;
 import frc.robot.commands.RaceTest;
 import frc.robot.commands.SwerveJoystickCmd;
 import frc.robot.subsystems.Climber;
@@ -231,6 +237,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("LivePathTest", swerveSubsystem.testCommand());
     NamedCommands.registerCommand("GetCenterPath", util.getPath(new Pose2d(3.5,5.5,Rotation2d.fromDegrees(0.0))));
     NamedCommands.registerCommand("GetCentertoSpeaker", util.getPath(new Pose2d(1.40,5.5,Rotation2d.fromDegrees(180.0))));
+    NamedCommands.registerCommand("NoteDetector", new NoteDetectorCommand(noteDetector));
   }
 
   /**
@@ -243,8 +250,13 @@ public class RobotContainer {
     String poseString = "Unknown";
     
     try {
+
       poseString = PathPlannerAuto.getStaringPoseFromAutoFile(autonName).toString();
       System.out.println("StartingPose from Auto: " + poseString);
+
+      List<PathPlannerPath> paths = PathPlannerAuto.getPathGroupFromAutoFile(autonName);
+      System.out.println("First Position + flipped: " + getFirstPosition(paths).toString());
+
 
     } catch (RuntimeException e){
       // Exception thrown if starting pose is null in PathPlanner Auton file
@@ -252,9 +264,20 @@ public class RobotContainer {
       
       // get a list of all paths present in the auton file
       List<PathPlannerPath> paths = PathPlannerAuto.getPathGroupFromAutoFile(autonName);
+
+      // figure out if path flipping has to happen
+      boolean shouldFlip = false;
+      Optional<Alliance> alliance = DriverStation.getAlliance();
+      if(alliance.isPresent()){
+        if(alliance.get() == DriverStation.Alliance.Red){
+          shouldFlip = true;
+        }
+      }
+
       // make sure the list isn't empty
       if(!paths.isEmpty()){
         PathPlannerPath firstPath = paths.get(0);
+        if (shouldFlip) firstPath.flipPath();
         Pose2d initialPose = firstPath.getPreviewStartingHolonomicPose();
         System.out.println("Starting pose from first path: " + initialPose);
         System.out.println("Setting robot pose...");
@@ -270,7 +293,29 @@ public class RobotContainer {
     System.out.println("Exiting setStartingPoseIfMissing with robot pose: " + poseString);
   }
 
+  private Translation2d getFirstPosition(List<PathPlannerPath> paths){
 
+      // figure out if path flipping has to happen
+      boolean shouldFlip = false;
+      Optional<Alliance> alliance = DriverStation.getAlliance();
+      if(alliance.isPresent()){
+        if(alliance.get() == DriverStation.Alliance.Red){
+          shouldFlip = true;
+        }
+      }
+
+      Translation2d startPosition = new Translation2d();
+        // make sure the list isn't empty
+      if(!paths.isEmpty()){
+        PathPlannerPath firstPath = paths.get(0);
+        if (shouldFlip) {
+          firstPath = firstPath.flipPath();
+        }
+        startPosition = firstPath.getAllPathPoints().get(0).position;
+      }
+
+      return startPosition;
+    }
 
 }
   
