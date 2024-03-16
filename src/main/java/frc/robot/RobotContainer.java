@@ -17,6 +17,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -58,6 +59,7 @@ public class RobotContainer {
     private final NoteDetector noteDetector = new NoteDetector();
     private final CommandXboxController primaryController = new CommandXboxController(1);
     private final CommandXboxController secondaryController = new CommandXboxController(0);
+    private final XboxController rumbleController = new XboxController(3);
     private SendableChooser<Command> autonChooser = new SendableChooser<>();
 
     // swerve subsystem must be instantiated before climber
@@ -66,15 +68,15 @@ public class RobotContainer {
     private final Climber climber = new Climber(new InstantCommand(() -> superStructure.rotateToAmp()));
     private final Launcher launcher = new Launcher();
     private final Util util = new Util();
-    
+  
 
     private SequentialCommandGroup shootCommand = new SequentialCommandGroup(
     new InstantCommand(()->launcher.startLauncher(0.8)).repeatedly().withTimeout(1.0))
     .andThen(new InstantCommand(()->launcher.startFeeder()).repeatedly().withTimeout(0.3))
     .andThen(new InstantCommand(()->launcher.stop()));
     
-
-
+    
+      
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
         
@@ -106,12 +108,14 @@ public class RobotContainer {
       primaryController.leftBumper().onTrue(new InstantCommand(()->intake.intakeFeedOut()))
         .onFalse(new InstantCommand(()->intake.stopIntake()));
       
+        
+
 
       Trigger primaryRightTrigger = new Trigger(() -> primaryController.getHID().getRightTriggerAxis()> 0.2);
       Trigger primaryStart = new Trigger(()-> primaryController.getHID().getStartButton());
       Trigger primaryYTrigger = new Trigger(() -> primaryController.getHID().getYButton());
       Trigger primaryXTrigger = new Trigger(() -> primaryController.getHID().getXButton());
-
+      
 
       //Swerve Bindings
       swerveSubsystem.setDefaultCommand(new SwerveJoystickCmd(
@@ -128,9 +132,13 @@ public class RobotContainer {
       primaryController.back().onTrue(new InstantCommand(()->swerveSubsystem.zeroHeading(0))); //Manually Zero Gyro
 
       // primaryXTrigger.whileTrue(new AutoAlign(swerveSubsystem, limeLight).repeatedly())
-      //   .onFalse(new InstantCommand(()->swerveSubsystem.stopModules()));
-
-      
+    //.onFalse(new InstantCommand(()->swerveSubsystem.stopModules()));
+    // primaryController.setRumble(GenericHID.RumbleType.kRightRumble, 1.0);
+    //  primaryController.a().onTrue(new Command(primaryController.setRumble(RumbleType.kLeftRumble, 1.0)));
+    //  primaryController.a().onTrue(new Command(primaryController.setRumble(RumbleType.kRightRumble, 1.0)));
+    System.out.println("About to rumble");
+    rumbleController.setRumble(GenericHID.RumbleType.kBothRumble, 1.0);
+System.out.println("Rumble started...");
 
       // Climber bindings
       climber.setDefaultCommand(
@@ -140,6 +148,7 @@ public class RobotContainer {
           () -> secondaryController.getHID().getLeftBumper()
         )
       );
+
 
        secondaryController.x().whileTrue((new AutoClimbCommand(climber, swerveSubsystem, ()-> -secondaryController.getLeftY())).repeatedly())
         .onFalse(new InstantCommand(()-> climber.climberStop()));
@@ -205,6 +214,7 @@ public class RobotContainer {
       .whileFalse(new InstantCommand(()->launcher.stop()));
     
     }
+   
 
     public SwerveSubsystem getSwerveSubsystem(){
       return swerveSubsystem;
