@@ -413,6 +413,71 @@
               "_glyph": 148,
               "_showGlyph": false
             }
+          },
+          "5,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/FRONT_LEFT/Power From Module",
+              "_title": "FRONT_LEFT/Power From Module",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "6,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/FRONT_LEFT/FRONT_LEFT Desired Drive Power",
+              "_title": "FRONT_LEFT/FRONT_LEFT Desired Drive Power",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "7,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/FRONT_RIGHT/Power From Module",
+              "_title": "FRONT_RIGHT/Power From Module",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "8,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/FRONT_RIGHT/FRONT_RIGHT Desired Drive Power",
+              "_title": "FRONT_RIGHT/FRONT_RIGHT Desired Drive Power",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "9,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/BACK_LEFT/Power From Module",
+              "_title": "BACK_LEFT/Power From Module",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
           }
         }
       }
@@ -614,6 +679,45 @@
                   "_showGlyph": false
                 }
               ]
+            }
+          },
+          "10,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Red ",
+              "_title": "/SmartDashboard/Red ",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "11,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Distance",
+              "_title": "SmartDashboard/Distance",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "11,5": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Toggle Switch",
+              "_source0": "network_table:///SmartDashboard/isRedDetected",
+              "_title": "SmartDashboard/isRedDetected",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           }
         }
