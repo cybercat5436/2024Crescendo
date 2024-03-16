@@ -25,9 +25,11 @@ public class AutonResetGyro extends Command {
   public void initialize() {
     double headingDegrees = swerveSubsystem.getOdometry().getPoseMeters().getRotation().getDegrees();
     var alliance = DriverStation.getAlliance();
-    if(alliance.isPresent())
-      if(alliance.get()==DriverStation.Alliance.Red)
+    if(alliance.isPresent()){
+      if(alliance.get()==DriverStation.Alliance.Red){
         headingDegrees+=180;
+      }
+    }
     swerveSubsystem.zeroHeading(headingDegrees);
   }
 

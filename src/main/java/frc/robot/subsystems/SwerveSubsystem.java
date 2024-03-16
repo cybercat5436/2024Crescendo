@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import com.ctre.phoenix6.configs.Pigeon2Configuration;
 import com.ctre.phoenix6.hardware.Pigeon2;
@@ -35,6 +36,7 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.util.sendable.SendableRegistry;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -335,7 +337,7 @@ public class SwerveSubsystem extends SubsystemBase{
 
     public Command testCommand(){
         return AutoBuilder.pathfindThenFollowPath(
-            PathPlannerPath.fromPathFile("C:\\Users\\timbo\\Desktop\\2024 FRC\\code\\2024Crescendo\\src\\main\\deploy\\pathplanner\\paths\\LivePathPlanningtest.path"),
+            PathPlannerPath.fromPathFile("LivePathPlanningtest"),
             new PathConstraints(3.0,
                  3.0, 
                 3*Math.PI, 
@@ -345,24 +347,47 @@ public class SwerveSubsystem extends SubsystemBase{
     }
 
     public Command returnToCenterSubWoofer(){
-        // First construct a path on the fly to center of subwoofer
+        // Create the starting and end locations
+        // Note that pathflipping must be handled manually since starting point is current odometry position, which will already have flipped during first path
         Translation2d currenttTranslation2d = this.getPose().getTranslation();
         Translation2d endTranslation2d = new Translation2d(1.4, 5.55);
+        double travelRotation = 180;  // for waypoint tangencies
+        double endHeading= 0;       // heading at end of path
+
+
+        // figure out if path flipping has to happen
+        boolean shouldFlip = false;
+        Optional<Alliance> alliance = DriverStation.getAlliance();
+        if(alliance.isPresent()){
+          if(alliance.get() == DriverStation.Alliance.Red){
+            shouldFlip = true;
+          }
+        }
+
+        // apply flipping for red alliance
+        if (shouldFlip) {
+            endTranslation2d = new Translation2d(15.14, 5.55);
+            travelRotation = 0;
+            endHeading = 180;
+        }
+
+        // First construct a path on the fly to center of subwoofer
         
         // Create a list of bezier points from poses. Each pose represents one waypoint.
         // The rotation component of the pose should be the direction of travel. Do not use holonomic rotation.
         List<Translation2d> bezierPoints = PathPlannerPath.bezierFromPoses(
-                new Pose2d(currenttTranslation2d, Rotation2d.fromDegrees(180)),  // This may need to be -135 for amp note, 135 for player note
-                new Pose2d(endTranslation2d, Rotation2d.fromDegrees(180))
+                new Pose2d(currenttTranslation2d, Rotation2d.fromDegrees(travelRotation)),  // This may need to be -135 for amp note, 135 for player note
+                new Pose2d(endTranslation2d, Rotation2d.fromDegrees(travelRotation))
         );
 
         PathConstraints constraints = new PathConstraints(3.0, 3.0, 1.25 * Math.PI, 1.75 * Math.PI); // The constraints for this path. If using a differential drivetrain, the angular constraints have no effect.
 
         // Create the path using the bezier points created above
+        // this is the shortest constructor, but doesn't allow for Events
         // PathPlannerPath path = new PathPlannerPath(
         //         bezierPoints,
         //         constraints,
-        //         new GoalEndState(0.0, Rotation2d.fromDegrees(0)) // Goal end state. You can set a holonomic rotation here. If using a differential drivetrain, the rotation will have no effect.
+        //         new GoalEndState(0.0, Rotation2d.fromDegrees(endHeading)) // Goal end state. You can set a holonomic rotation here. If using a differential drivetrain, the rotation will have no effect.
         // );
 
         EventMarker startLauncher = new EventMarker(0.25, NamedCommands.getCommand("startLauncher"));
@@ -373,25 +398,24 @@ public class SwerveSubsystem extends SubsystemBase{
             Collections.emptyList(), // constraint zones
             List.of(startLauncher), 
             constraints,
-            new GoalEndState(0.0, Rotation2d.fromDegrees(0)), // Goal end state. You can set a holonomic rotation here. If using a differential drivetrain, the rotation will have no effect.
+            new GoalEndState(0.0, Rotation2d.fromDegrees(endHeading)), // Goal end state. You can set a holonomic rotation here. If using a differential drivetrain, the rotation will have no effect.
             false  //Should the robot follow the path reversed (differential drive only)
         );
 
         // Prevent the path from being flipped if the coordinates are already correct
-        path.preventFlipping =false;
+        path.preventFlipping = true;
 
         // Create a path following command using AutoBuilder. This will also trigger event markers.
         return AutoBuilder.followPath(path); 
     }
 
 
-
     public void stopModules(){
-    ChassisSpeeds chassisSpeeds;
-    chassisSpeeds = new ChassisSpeeds(0, 0, 0);
-    SwerveModuleState[] moduleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
-    this.setModuleStates(moduleStates);
-}
+        ChassisSpeeds chassisSpeeds;
+        chassisSpeeds = new ChassisSpeeds(0, 0, 0);
+        SwerveModuleState[] moduleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
+        this.setModuleStates(moduleStates);
+    }
 
 
     /**

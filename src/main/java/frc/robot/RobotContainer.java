@@ -5,12 +5,17 @@
 package frc.robot;
 
 import java.util.List;
+import java.util.Optional;
+
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.path.PathPlannerPath;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -244,8 +249,13 @@ public class RobotContainer {
     String poseString = "Unknown";
     
     try {
+
       poseString = PathPlannerAuto.getStaringPoseFromAutoFile(autonName).toString();
       System.out.println("StartingPose from Auto: " + poseString);
+
+      List<PathPlannerPath> paths = PathPlannerAuto.getPathGroupFromAutoFile(autonName);
+      System.out.println("First Position + flipped: " + getFirstPosition(paths).toString());
+
 
     } catch (RuntimeException e){
       // Exception thrown if starting pose is null in PathPlanner Auton file
@@ -253,9 +263,20 @@ public class RobotContainer {
       
       // get a list of all paths present in the auton file
       List<PathPlannerPath> paths = PathPlannerAuto.getPathGroupFromAutoFile(autonName);
+
+      // figure out if path flipping has to happen
+      boolean shouldFlip = false;
+      Optional<Alliance> alliance = DriverStation.getAlliance();
+      if(alliance.isPresent()){
+        if(alliance.get() == DriverStation.Alliance.Red){
+          shouldFlip = true;
+        }
+      }
+
       // make sure the list isn't empty
       if(!paths.isEmpty()){
         PathPlannerPath firstPath = paths.get(0);
+        if (shouldFlip) firstPath.flipPath();
         Pose2d initialPose = firstPath.getPreviewStartingHolonomicPose();
         System.out.println("Starting pose from first path: " + initialPose);
         System.out.println("Setting robot pose...");
@@ -271,7 +292,29 @@ public class RobotContainer {
     System.out.println("Exiting setStartingPoseIfMissing with robot pose: " + poseString);
   }
 
+  private Translation2d getFirstPosition(List<PathPlannerPath> paths){
 
+      // figure out if path flipping has to happen
+      boolean shouldFlip = false;
+      Optional<Alliance> alliance = DriverStation.getAlliance();
+      if(alliance.isPresent()){
+        if(alliance.get() == DriverStation.Alliance.Red){
+          shouldFlip = true;
+        }
+      }
+
+      Translation2d startPosition = new Translation2d();
+        // make sure the list isn't empty
+      if(!paths.isEmpty()){
+        PathPlannerPath firstPath = paths.get(0);
+        if (shouldFlip) {
+          firstPath = firstPath.flipPath();
+        }
+        startPosition = firstPath.getAllPathPoints().get(0).position;
+      }
+
+      return startPosition;
+    }
 
 }
   
