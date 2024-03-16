@@ -365,7 +365,7 @@ public class SwerveSubsystem extends SubsystemBase{
         //         new GoalEndState(0.0, Rotation2d.fromDegrees(0)) // Goal end state. You can set a holonomic rotation here. If using a differential drivetrain, the rotation will have no effect.
         // );
 
-        EventMarker startLauncher = new EventMarker(0.5, NamedCommands.getCommand("startLauncher"));
+        EventMarker startLauncher = new EventMarker(0.25, NamedCommands.getCommand("startLauncher"));
 
         PathPlannerPath path = new PathPlannerPath(
             bezierPoints,

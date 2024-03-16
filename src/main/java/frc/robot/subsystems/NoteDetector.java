@@ -26,6 +26,10 @@ public class NoteDetector extends SubsystemBase {
   /** Creates a new NoteDetector. */
   public NoteDetector() {}
 
+  public boolean getIsNoteDetected(){
+    return isNoteDetected;
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

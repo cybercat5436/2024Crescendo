@@ -19,6 +19,7 @@ import frc.robot.commands.AutoAlign;
 import frc.robot.commands.AutoClimbCommand;
 import frc.robot.commands.AutonResetGyro;
 import frc.robot.commands.ClimberDefaultCommand;
+import frc.robot.commands.NoteDetectorCommand;
 import frc.robot.commands.RaceTest;
 import frc.robot.commands.SwerveJoystickCmd;
 import frc.robot.subsystems.Climber;
@@ -227,6 +228,10 @@ public class RobotContainer {
     NamedCommands.registerCommand("resetGyro", new AutonResetGyro(swerveSubsystem));
     NamedCommands.registerCommand("raceTest", new RaceTest());
     NamedCommands.registerCommand("LivePathTest", swerveSubsystem.testCommand());
+    NamedCommands.registerCommand("returnToCenterSubWoofer", swerveSubsystem.returnToCenterSubWoofer());
+    NamedCommands.registerCommand("detectNote", new NoteDetectorCommand(noteDetector));
+
+
   }
 
   /**
