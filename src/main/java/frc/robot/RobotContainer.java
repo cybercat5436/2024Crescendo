@@ -56,10 +56,9 @@ public class RobotContainer {
     private final LimeLight limeLightRear = new LimeLight("limelight-rear");
     private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
     private final Intake intake = new Intake();
-    private final NoteDetector noteDetector = new NoteDetector();
     private final CommandXboxController primaryController = new CommandXboxController(1);
     private final CommandXboxController secondaryController = new CommandXboxController(0);
-    private final XboxController rumbleController = new XboxController(3);
+    private final NoteDetector noteDetector = new NoteDetector(primaryController, primaryController);
     private SendableChooser<Command> autonChooser = new SendableChooser<>();
 
     // swerve subsystem must be instantiated before climber
@@ -136,13 +135,14 @@ public class RobotContainer {
     // primaryController.setRumble(GenericHID.RumbleType.kRightRumble, 1.0);
     //  primaryController.a().onTrue(new Command(primaryController.setRumble(RumbleType.kLeftRumble, 1.0)));
     //  primaryController.a().onTrue(new Command(primaryController.setRumble(RumbleType.kRightRumble, 1.0)));
-    System.out.println("About to rumble");
-    rumbleController.setRumble(GenericHID.RumbleType.kBothRumble, 1.0);
-System.out.println("Rumble started...");
+    // System.out.println("About to rumble");
+    
+    
+    // System.out.println("Rumble started...");
 
       // Climber bindings
       climber.setDefaultCommand(
-        new ClimberDefaultCommand(climber, 
+        new ClimberDefaultCommand(climber,
           () -> -secondaryController.getLeftY(), 
           () -> -secondaryController.getRightY(),
           () -> secondaryController.getHID().getLeftBumper()

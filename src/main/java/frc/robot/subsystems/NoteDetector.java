@@ -8,9 +8,12 @@ import com.revrobotics.ColorSensorV3;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 public class NoteDetector extends SubsystemBase {
   private ColorSensorV3 colorSensor = new ColorSensorV3(I2C.Port.kMXP);
@@ -22,9 +25,15 @@ public class NoteDetector extends SubsystemBase {
   private NetworkTableInstance networkTableInstance = NetworkTableInstance.getDefault();
   private NetworkTableEntry redEntry = networkTableInstance.getEntry("colorsensor/redValue");
   private NetworkTableEntry distanceEntry = networkTableInstance.getEntry("colorsensor/distanceValue");
-  
+  private CommandXboxController primaryController;
+  private CommandXboxController secondaryController;
+  private Timer timer;
   /** Creates a new NoteDetector. */
-  public NoteDetector() {}
+  public NoteDetector(CommandXboxController primaryController, CommandXboxController secondaryController) {
+    this.primaryController = primaryController;
+    this.secondaryController = secondaryController;
+    this.timer = new Timer();
+  }
 
   public boolean getIsNoteDetected(){
     return isNoteDetected;
@@ -49,6 +58,22 @@ public class NoteDetector extends SubsystemBase {
     SmartDashboard.putNumber("RedNetworkTable", redEntry.getInteger(-1));
     SmartDashboard.putNumber("DistanceNetworkTable", distanceEntry.getInteger(-1));
 
-  
+  if(isNoteDetected) {
+    timer.reset();
+    timer.start();
+    secondaryController.getHID().setRumble(RumbleType.kBothRumble, 1.0);
+    primaryController.getHID().setRumble(RumbleType.kBothRumble, 1.0);
+    } 
+    if(timer.get()> 0.5 && isNoteDetected) {
+    secondaryController.getHID().setRumble(RumbleType.kBothRumble, 0.4);
+    primaryController.getHID().setRumble(RumbleType.kBothRumble, 0.3);
+    timer.stop();
+    } 
+    if(!isNoteDetected) {
+    secondaryController.getHID().setRumble(RumbleType.kBothRumble, 0);
+    primaryController.getHID().setRumble(RumbleType.kBothRumble, 0);
+    }
+
   }
+  
 }
