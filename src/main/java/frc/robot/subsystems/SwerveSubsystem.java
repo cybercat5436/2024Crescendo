@@ -157,8 +157,8 @@ public class SwerveSubsystem extends SubsystemBase{
 
 
         
-        pidgey.getYaw().setUpdateFrequency(50);
-        pidgey.getGravityVectorZ().setUpdateFrequency(50);
+        pidgey.getYaw().setUpdateFrequency(100);
+        pidgey.getGravityVectorZ().setUpdateFrequency(100);
 
 
         /* Speed up signals to an appropriate rate */
@@ -476,7 +476,7 @@ public class SwerveSubsystem extends SubsystemBase{
 
     @Override
     public void periodic() {
-        odometry.update(getRotation2d(), getModulePositions());
+        // odometry.update(getRotation2d(), getModulePositions());
     }
 
     @Override

@@ -20,12 +20,12 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 public class NoteDetector extends SubsystemBase {
   private ColorSensorV3 colorSensor = new ColorSensorV3(I2C.Port.kMXP);
-  private double redThreshold = 700;
-  private double distanceThreshold = 270; 
+  private double redThreshold = 1200;
+  private double distanceThreshold = 300; 
   private boolean isNoteDetected = false; 
   private boolean isRumbleActive = false;
   private int successiveReadings = 0; 
-  private int successiveReadingsThreshold = 5;
+  private int successiveReadingsThreshold = 3;
   private NetworkTableInstance networkTableInstance = NetworkTableInstance.getDefault();
   private NetworkTableEntry redEntry = networkTableInstance.getEntry("colorsensor/redValue");
   private NetworkTableEntry distanceEntry = networkTableInstance.getEntry("colorsensor/distanceValue");

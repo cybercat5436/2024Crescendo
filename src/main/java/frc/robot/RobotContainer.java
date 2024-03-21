@@ -27,6 +27,7 @@ import frc.robot.commands.AutoClimbCommand;
 import frc.robot.commands.AutonResetGyro;
 import frc.robot.commands.ClimberDefaultCommand;
 import frc.robot.commands.NoteDetectorCommand;
+import frc.robot.commands.NoteNotDetected;
 import frc.robot.commands.RaceTest;
 import frc.robot.commands.SwerveJoystickCmd;
 import frc.robot.subsystems.Climber;
@@ -246,8 +247,11 @@ public class RobotContainer {
     NamedCommands.registerCommand("raceTest", new RaceTest());
     NamedCommands.registerCommand("LivePathTest", swerveSubsystem.testCommand());
     NamedCommands.registerCommand("GetCenterPath", util.getPath(new Pose2d(3.5,5.5,Rotation2d.fromDegrees(0.0))));
-    NamedCommands.registerCommand("GetCentertoSpeaker", util.getPath(new Pose2d(1.40,5.5,Rotation2d.fromDegrees(180.0))));
+    NamedCommands.registerCommand("GetCentertoSpeaker", util.getPath(new Pose2d(1.40,5.5,Rotation2d.fromDegrees(0.0))));
     NamedCommands.registerCommand("NoteDetector", new NoteDetectorCommand(noteDetector));
+    NamedCommands.registerCommand("detectNote", new NoteDetectorCommand(noteDetector));
+    NamedCommands.registerCommand("returnToCenterSubWoofer", swerveSubsystem.returnToCenterSubWoofer());
+    NamedCommands.registerCommand("NoteNotDetected", new NoteNotDetected(noteDetector));
   }
 
   /**
