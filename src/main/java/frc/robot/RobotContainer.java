@@ -58,7 +58,7 @@ public class RobotContainer {
     private final Intake intake = new Intake();
     private final CommandXboxController primaryController = new CommandXboxController(1);
     private final CommandXboxController secondaryController = new CommandXboxController(0);
-    private final NoteDetector noteDetector = new NoteDetector(primaryController, primaryController);
+    private final NoteDetector noteDetector = new NoteDetector(primaryController, secondaryController);
     private SendableChooser<Command> autonChooser = new SendableChooser<>();
 
     // swerve subsystem must be instantiated before climber
