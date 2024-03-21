@@ -52,16 +52,16 @@ public class NoteDetector extends SubsystemBase {
     }
     if(isNoteDetected) {
     timer.start();
-    startRumble(primaryController, secondaryController, 1.0);
+    startRumble(1.0);
     isRumbleActive = true;
     System.out.println("Notedetected and rumble set");
     } 
     if(timer.get()> 0.5 && isNoteDetected) {
-    startRumble(primaryController, secondaryController, 0.4);
-    timer.stop();
+    startRumble(0.4);
     } 
     if(!isNoteDetected && isRumbleActive) {
-    stopRumble(primaryController, secondaryController);
+    timer.stop();
+    stopRumble();
     isRumbleActive = false;
     System.out.println("Note not detected");  
     
@@ -69,13 +69,13 @@ public class NoteDetector extends SubsystemBase {
 
   }
 
-  public void startRumble(CommandXboxController primaryController, CommandXboxController secondaryController, double intensity){
+  public void startRumble(double intensity){
     secondaryController.getHID().setRumble(RumbleType.kBothRumble, intensity);
     primaryController.getHID().setRumble(RumbleType.kBothRumble, intensity);
 
   }
 
-  public void stopRumble(CommandXboxController primaryController, CommandXboxController secondaryController){
+  public void stopRumble(){
     secondaryController.getHID().setRumble(RumbleType.kBothRumble, 0);
     primaryController.getHID().setRumble(RumbleType.kBothRumble, 0);
   }
