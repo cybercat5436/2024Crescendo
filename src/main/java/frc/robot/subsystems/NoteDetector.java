@@ -20,8 +20,8 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 public class NoteDetector extends SubsystemBase {
   private ColorSensorV3 colorSensor = new ColorSensorV3(I2C.Port.kMXP);
-  private double redThreshold = 1200;
-  private double distanceThreshold = 300; 
+  private double redThreshold = 350;
+  private double distanceThreshold = 150; 
   private boolean isNoteDetected = false; 
   private boolean isRumbleActive = false;
   private int successiveReadings = 0; 
@@ -46,16 +46,15 @@ public class NoteDetector extends SubsystemBase {
   }
 
   public void manageRumble(){
-    System.out.println("Manage Rumble");
+    // System.out.println("Manage Rumble");
     if(isNoteDetected && !isRumbleActive){
       timer.reset();
+      timer.start();
+      startRumble(1.0);
+      isRumbleActive = true;
+      // System.out.println("Notedetected and rumble set");
     }
-    if(isNoteDetected) {
-    timer.start();
-    startRumble(1.0);
-    isRumbleActive = true;
-    System.out.println("Notedetected and rumble set");
-    } 
+   
     if(timer.get()> 0.5 && isNoteDetected) {
     startRumble(0.4);
     } 
@@ -63,7 +62,7 @@ public class NoteDetector extends SubsystemBase {
     timer.stop();
     stopRumble();
     isRumbleActive = false;
-    System.out.println("Note not detected");  
+    // System.out.println("Note not detected");  
     
     }
 
