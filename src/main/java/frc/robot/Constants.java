@@ -41,7 +41,7 @@ public final class Constants {
         public static final int FRONT_LEFT_DRIVE = 8;
         public static final int FRONT_RIGHT_DRIVE = 3;
         public static final int BACK_LEFT_DRIVE = 6;
-        public static final int BACK_RIGHT_DRIVE = 4;
+        public static final int BACK_RIGHT_DRIVE = 4 ;
         public static final int FRONT_LEFT_TURN = 7;
         public static final int FRONT_RIGHT_TURN = 10;
         public static final int BACK_LEFT_TURN = 5;
@@ -75,7 +75,7 @@ public final class Constants {
     public static final double kFrontLeftDriveAbsoluteEncoderOffsetRotations = 0.347900 ;
         public static final double kFrontRightDriveAbsoluteEncoderOffsetRotations = -0.413574;
         public static final double kBackLeftDriveAbsoluteEncoderOffsetRotations = 0.164307 ;
-        public static final double kBackRightDriveAbsoluteEncoderOffsetRotations = -0.071045 ;
+        public static final double kBackRightDriveAbsoluteEncoderOffsetRotations = 0.332764;
         
         
     }
