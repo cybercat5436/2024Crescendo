@@ -69,8 +69,8 @@ public class SwerveModule implements Sendable{
     cancoderConfigurator = cancoder.getConfigurator();
     cancoderConfigurator.apply(new MagnetSensorConfigs().withMagnetOffset(absoluteEncoderOffsetRotations));
 
-    driveMotor.setPeriodicFramePeriod(PeriodicFrame.kStatus2, 10);
-    turningMotor.setPeriodicFramePeriod(PeriodicFrame.kStatus2, 10);
+    driveMotor.setPeriodicFramePeriod(PeriodicFrame.kStatus2, 20);
+    turningMotor.setPeriodicFramePeriod(PeriodicFrame.kStatus2, 20);
 
 
 
