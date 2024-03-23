@@ -3,25 +3,57 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.6332428049471499,
-        "y": 6.640452511674254
+        "x": 1.4,
+        "y": 5.55
       },
       "prevControl": null,
       "nextControl": {
-        "x": 0.9631757180902122,
-        "y": 7.211913080327247
+        "x": 1.4524172901489496,
+        "y": 5.55
       },
       "isLocked": false,
-      "linkedName": "Amp Start"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.813006710178897,
-        "y": 7.014791090923124
+        "x": 2.1806215367066955,
+        "y": 4.016816935203058
       },
       "prevControl": {
-        "x": 2.4775306546114013,
-        "y": 6.9950572053015065
+        "x": 1.8406798207561508,
+        "y": 4.0105217182410104
+      },
+      "nextControl": {
+        "x": 2.710530682159015,
+        "y": 4.0266300675262485
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.8012958736331153,
+        "y": 4.016816935203058
+      },
+      "prevControl": {
+        "x": 2.5512958736331153,
+        "y": 4.016816935203058
+      },
+      "nextControl": {
+        "x": 3.0512958736331153,
+        "y": 4.016816935203058
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 1.401,
+        "y": 5.555
+      },
+      "prevControl": {
+        "x": 1.541867611156771,
+        "y": 5.348465944389345
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,8 +62,13 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.5,
-      "rotationDegrees": 0,
+      "waypointRelativePos": 1,
+      "rotationDegrees": 0.0,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 2.5,
+      "rotationDegrees": 0.0,
       "rotateFast": false
     }
   ],
@@ -39,7 +76,7 @@
   "eventMarkers": [
     {
       "name": "Start Intake",
-      "waypointRelativePos": 0.65,
+      "waypointRelativePos": 0.85,
       "command": {
         "type": "parallel",
         "data": {
@@ -56,7 +93,7 @@
     },
     {
       "name": "Start Launcher",
-      "waypointRelativePos": 0.8,
+      "waypointRelativePos": 2.45,
       "command": {
         "type": "parallel",
         "data": {
@@ -73,8 +110,8 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 4.75,
+    "maxAcceleration": 5.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
@@ -86,8 +123,8 @@
   "reversed": false,
   "folder": null,
   "previewStartingState": {
-    "rotation": 60.0,
+    "rotation": 0,
     "velocity": 0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

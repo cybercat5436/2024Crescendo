@@ -20,13 +20,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "MidNote1"
+            "pathName": "MidNote1 Fast"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "MidNote2"
+            "pathName": "MidNote2 Fast"
           }
         },
         {
@@ -50,7 +50,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "TopAlt"
+            "pathName": "TopAlt Fast"
           }
         },
         {
@@ -74,7 +74,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "BotAlt 2"
+            "pathName": "BotAlt 2 Fast"
           }
         },
         {
