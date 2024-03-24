@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.57,
-        "y": 0.7377827023842345
+        "x": 8.867509204347936,
+        "y": 0.772915212021579
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.19938443112195,
-        "y": 0.7377827023842345
+        "x": 8.496893635469887,
+        "y": 0.772915212021579
       },
       "isLocked": false,
       "linkedName": "Playerside midfied note"
