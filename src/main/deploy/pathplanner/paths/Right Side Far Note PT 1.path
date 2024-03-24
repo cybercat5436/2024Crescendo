@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.66,
-        "y": 4.473539560488536
+        "x": 0.8700494324065587,
+        "y": 4.558527578593619
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.3743610292926718,
-        "y": 3.7591785311958636
+        "x": 1.5842272814049714,
+        "y": 3.844349729595206
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Right side far note start"
     },
     {
       "anchor": {
-        "x": 6.948086203864717,
-        "y": 0.7377827023842345
+        "x": 5.63578281002716,
+        "y": 1.0952306519997665
       },
       "prevControl": {
-        "x": 6.018308034165813,
-        "y": 0.7377827023842345
+        "x": 4.775128305575675,
+        "y": 1.3869779416443384
       },
       "nextControl": {
-        "x": 7.590049439781733,
-        "y": 0.7377827023842345
+        "x": 6.800082061702586,
+        "y": 0.7005529395674177
       },
       "isLocked": false,
       "linkedName": null
@@ -41,15 +41,21 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Playerside midfied note"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.3,
+      "rotationDegrees": 0,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [
     {
       "name": "Intake",
-      "waypointRelativePos": 0.75,
+      "waypointRelativePos": 1.25,
       "command": {
         "type": "sequential",
         "data": {
@@ -66,8 +72,8 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 4.0,
+    "maxAcceleration": 6.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },

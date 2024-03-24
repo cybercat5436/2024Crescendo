@@ -4,15 +4,15 @@
     {
       "anchor": {
         "x": 8.57,
-        "y": 0.74
+        "y": 0.7377827023842345
       },
       "prevControl": null,
       "nextControl": {
         "x": 8.19938443112195,
-        "y": 0.74
+        "y": 0.7377827023842345
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Playerside midfied note"
     },
     {
       "anchor": {
@@ -32,12 +32,12 @@
     },
     {
       "anchor": {
-        "x": 0.6582127857550991,
-        "y": 4.461828723942754
+        "x": 0.8700494324065587,
+        "y": 4.558527578593619
       },
       "prevControl": {
-        "x": 1.1587817002126464,
-        "y": 3.594817931412683
+        "x": 1.679986949710509,
+        "y": 3.970073527245221
       },
       "nextControl": null,
       "isLocked": false,
@@ -66,8 +66,8 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 4.4,
+    "maxAcceleration": 5.7,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },

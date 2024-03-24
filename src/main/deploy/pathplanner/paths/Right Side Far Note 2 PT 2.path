@@ -1,0 +1,74 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 8.191320998026612,
+        "y": 2.4272679314589416
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 7.285013210989962,
+        "y": 2.004649669718242
+      },
+      "isLocked": false,
+      "linkedName": "Team Rush Cooperation "
+    },
+    {
+      "anchor": {
+        "x": 4.935229870459742,
+        "y": 1.4997753072429225
+      },
+      "prevControl": {
+        "x": 5.910039639518416,
+        "y": 1.2767373863689737
+      },
+      "nextControl": {
+        "x": 3.9604201014010676,
+        "y": 1.7228132281168702
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 0.7516461186768542,
+        "y": 4.4499912076747234
+      },
+      "prevControl": {
+        "x": 1.2516461186768537,
+        "y": 3.583965803890285
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1.25,
+      "rotationDegrees": -60.0,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 4.0,
+    "maxAcceleration": 5.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -60.0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": null,
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": false
+}

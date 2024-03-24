@@ -3,61 +3,72 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.270256540513081,
-        "y": 4.124382094918037
+        "x": 0.8700494324065587,
+        "y": 4.558527578593619
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.270256540513081,
-        "y": 4.124382094918037
+        "x": 1.3700494324065589,
+        "y": 3.69250217480918
       },
       "isLocked": false,
-      "linkedName": "MidFieldCenterNote"
+      "linkedName": "Right side far note start"
     },
     {
       "anchor": {
-        "x": 2.3204900255954373,
-        "y": 3.0587522713506967
+        "x": 4.254410816513942,
+        "y": 1.7069811062699047
       },
       "prevControl": {
-        "x": 3.3204900255954373,
-        "y": 3.0587522713506967
+        "x": 2.7678305670072887,
+        "y": 1.9695311847225305
       },
       "nextControl": {
-        "x": 1.3204900255954373,
-        "y": 3.0587522713506967
+        "x": 5.740991066020595,
+        "y": 1.4444310278172772
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 0.8700494324065587,
-        "y": 4.558527578593619
+        "x": 8.191320998026612,
+        "y": 2.4272679314589416
       },
       "prevControl": {
-        "x": 1.2952887808922153,
-        "y": 3.8219914216389737
+        "x": 7.251628377240703,
+        "y": 2.0852477881332727
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Right side far note start"
+      "linkedName": "Team Rush Cooperation "
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.3,
+      "rotationDegrees": 13.84824724371924,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 0.9,
+      "rotationDegrees": 0.0,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "Start Launcher",
+      "name": "intake",
       "waypointRelativePos": 0.9,
       "command": {
-        "type": "sequential",
+        "type": "parallel",
         "data": {
           "commands": [
             {
               "type": "named",
               "data": {
-                "name": "startLauncher"
+                "name": "intakeFeedIn"
               }
             }
           ]
@@ -66,20 +77,20 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 4.6,
+    "maxVelocity": 4.4,
     "maxAcceleration": 5.8,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -60.0,
+    "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,
   "folder": null,
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": -60.0,
     "velocity": 0
   },
   "useDefaultConstraints": false

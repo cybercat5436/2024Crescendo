@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.6582127857550991,
-      "y": 4.461828723942754
+      "x": 0.87,
+      "y": 4.56
     },
     "rotation": -60.0
   },
@@ -63,6 +63,24 @@
           "type": "named",
           "data": {
             "name": "startFeeder"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "stopShooter"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "stopIntake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Right Side Far Note 2 PT 1"
           }
         },
         {
