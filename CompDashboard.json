@@ -519,60 +519,36 @@
               "_showGlyph": false
             }
           },
-          "7,1": {
+          "8,2": {
             "size": [
-              1,
-              1
+              2,
+              2
             ],
             "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/SwerveSubsystem/Heading/Yaw [Deg]: ",
-              "_title": "/SmartDashboard/SwerveSubsystem/Heading/Yaw [Deg]: ",
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/isNoteDetected",
+              "_title": "SmartDashboard/isNoteDetected",
               "_glyph": 148,
-              "_showGlyph": false
+              "_showGlyph": false,
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
             }
           },
-          "7,2": {
+          "0,0": {
             "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///FMSInfo/MatchNumber",
-              "_title": "/FMSInfo/MatchNumber",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "7,0": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///FMSInfo/IsRedAlliance",
-              "_title": "IsRed",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "1,0": {
-            "size": [
-              6,
+              8,
               4
             ],
             "content": {
               "_type": "Camera Stream",
-              "_source0": "camera_server://limelight-rear",
-              "_title": "limelight-rear",
+              "_source0": "camera_server://limelight-front",
+              "_title": "limelight-front",
               "_glyph": 148,
               "_showGlyph": false,
               "Crosshair/Show crosshair": true,
               "Crosshair/Crosshair color": "#FFFFFFFF",
               "Controls/Show controls": true,
-              "Controls/Rotation": "NONE",
+              "Controls/Rotation": "HALF",
               "compression": -1.0,
               "fps": -1,
               "imageWidth": -1,
@@ -694,19 +670,6 @@
               "_showGlyph": false
             }
           },
-          "11,5": {
-            "size": [
-              2,
-              2
-            ],
-            "content": {
-              "_type": "Toggle Switch",
-              "_source0": "network_table:///SmartDashboard/isRedDetected",
-              "_title": "SmartDashboard/isRedDetected",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
           "10,4": {
             "size": [
               2,
@@ -718,6 +681,21 @@
               "_title": "/SmartDashboard/Red",
               "_glyph": 148,
               "_showGlyph": false
+            }
+          },
+          "9,6": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/isNoteDetected",
+              "_title": "SmartDashboard/isNoteDetected",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
             }
           }
         }

@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.867509204347936,
-        "y": 0.772915212021579
+        "x": 8.715268329252778,
+        "y": 0.7612043754757987
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.496893635469887,
-        "y": 0.772915212021579
+        "x": 8.344652760374728,
+        "y": 0.7612043754757987
       },
       "isLocked": false,
       "linkedName": "Playerside midfied note"
@@ -66,8 +66,8 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 4.4,
-    "maxAcceleration": 5.7,
+    "maxVelocity": 4.5,
+    "maxAcceleration": 5.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
