@@ -32,16 +32,16 @@
     },
     {
       "anchor": {
-        "x": 8.122252398350952,
-        "y": 4.124382094918037
+        "x": 8.410786579062458,
+        "y": 4.12
       },
       "prevControl": {
-        "x": 7.622252398350952,
-        "y": 4.124382094918037
+        "x": 7.910786579062458,
+        "y": 4.12
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "MidFieldCenterNote"
     }
   ],
   "rotationTargets": [],
@@ -61,16 +61,6 @@
               }
             }
           ]
-        }
-      }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": []
         }
       }
     }

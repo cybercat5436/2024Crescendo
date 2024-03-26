@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.12,
+        "x": 8.410786579062458,
         "y": 4.12
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.579317184311971,
+        "x": 7.87010376337443,
         "y": 4.098792791023527
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "MidFieldCenterNote"
     },
     {
       "anchor": {
