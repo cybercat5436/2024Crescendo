@@ -34,6 +34,7 @@ import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LimeLight;
 import frc.robot.subsystems.NoteDetector;
+import frc.robot.subsystems.PoseUpdater;
 import frc.robot.subsystems.Launcher;
 import frc.robot.subsystems.SuperStructure;
 import frc.robot.subsystems.SwerveSubsystem;
@@ -57,6 +58,7 @@ public class RobotContainer {
     private final LimeLight limeLightRear = new LimeLight("limelight-rear");
     private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
     private final Intake intake = new Intake();
+    private final PoseUpdater poseUpdater = new PoseUpdater(limeLightFront, swerveSubsystem);
     private final CommandXboxController primaryController = new CommandXboxController(1);
     private final CommandXboxController secondaryController = new CommandXboxController(0);
     private final NoteDetector noteDetector = new NoteDetector(primaryController, secondaryController);
