@@ -14,6 +14,12 @@
         {
           "type": "named",
           "data": {
+            "name": "startLauncher"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
             "name": "disablePoseUpdater"
           }
         },
@@ -21,6 +27,12 @@
           "type": "path",
           "data": {
             "pathName": "PL to PLMidField PoseUpdater"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": null
           }
         },
         {
@@ -56,6 +68,6 @@
       ]
     }
   },
-  "folder": "PoseUpdater",
+  "folder": null,
   "choreoAuto": false
 }

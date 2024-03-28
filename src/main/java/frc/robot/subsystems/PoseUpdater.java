@@ -35,6 +35,7 @@ public class PoseUpdater extends SubsystemBase {
   public boolean isLockedOut = false;   // odometry updates can be locked out for a period of time after updating
   public int cyclesSinceLocked = 0;
   public final int CYCLE_LOCKOUT = 25;
+  public double totalAdjustment = 0;
 
   public PoseUpdater(LimeLight limeLightFront, SwerveSubsystem swerveSubsystem) {
     this.limeLightFront = limeLightFront;
@@ -91,6 +92,7 @@ public class PoseUpdater extends SubsystemBase {
     System.out.println("inside update odometry");
     Pose2d currentPose = swerveSubsystem.getOdometry().getPoseMeters();
     Translation2d translationAdjustment = new Translation2d(0, offsetValue);
+    totalAdjustment += offsetValue;
     Translation2d translation2d = currentPose.getTranslation().plus(translationAdjustment);
     
     // These are from Tuesday, when the x coordinate was changing.  Note:  Rotation being set to 0
@@ -103,7 +105,21 @@ public class PoseUpdater extends SubsystemBase {
     // Pose2d newPose = new Pose2d(translation2d, currentPose.getRotation());
     // swerveSubsystem.resetOdometry(newPose);
   }
-  
+  public void undoTotalAdjustment() {
+
+    System.out.println("inside undoTotalAdjustment");
+    Pose2d currentPose = swerveSubsystem.getOdometry().getPoseMeters();
+    Translation2d translationTotalAdjustment = new Translation2d(0,-totalAdjustment);
+    Translation2d translation2d = currentPose.getTranslation().plus(translationTotalAdjustment);
+
+    Pose2d newPose = new Pose2d(translation2d, currentPose.getRotation());
+    printInfo(currentPose, newPose);
+    swerveSubsystem.getOdometry().resetPosition(swerveSubsystem.getRotation2d(), swerveSubsystem.getModulePositions(), newPose);
+  }
+  public void resetTotalAdjustment() {
+    totalAdjustment = 0;
+
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
@@ -155,6 +171,7 @@ public class PoseUpdater extends SubsystemBase {
 
 
   private void printInfo(Pose2d currentPose, Pose2d newPose){
+    System.out.println(String.format("Adjusting by %.2f",yError));
     System.out.println(String.format("PoseUpdater:: tx: %.2f ta: %.2f with yError: %.2f and distance: %.2f", tx, ta, yError, distanceEstimate));
     System.out.println(String.format("Updating from: %s\nUpdating to:   %s", currentPose.toString(), newPose.toString()));
   }
