@@ -173,23 +173,12 @@ public class RobotContainer {
       // SuperStructure bindings
       secondaryController.y().onTrue(new InstantCommand(()->superStructure.rotateToAmp()));
       secondaryController.a().onTrue(new InstantCommand(()->superStructure.rotateToSpeaker()));
-      // Command longShotCommand = new InstantCommand(()->{
-      //     System.out.println("<----   Starting Launcher...");
-      //     launcher.startLauncher(1.0);
-      //   }).repeatedly().withTimeout(0.75)
-      //   .andThen(new InstantCommand(()->{
-      //     System.out.println("<---  Rotating to LongShot Position...");
-      //     superStructure.rotateToLongShot();
-      //   })).repeatedly().withTimeout(1.5)
-      //   .andThen(new InstantCommand(()->{
-      //     System.out.println("<---   Staring Feeder...");
-      //     launcher.startFeeder(1.0);
-      //   })).repeatedly().withTimeout(0.2)
-      //   .andThen(new InstantCommand(()->{
-      //     System.out.println("<---   Rotating back down to speaker position...");
-      //     superStructure.rotateToSpeaker();
-      //   }));
 
+      // Amp bindings
+      secondaryController.rightBumper().whileTrue(new InstantCommand(()->launcher.scoreAmp()).repeatedly())
+      .whileFalse(new InstantCommand(()->launcher.stop()));
+
+      // Construct LongShot
       Command longShotCommand = Commands.sequence(
         new InstantCommand(()->{
           System.out.println("<----   Starting Launcher...");
@@ -211,7 +200,9 @@ public class RobotContainer {
           superStructure.rotateToSpeaker();
           launcher.stop();
         }));
+
       SmartDashboard.putData(longShotCommand);
+      // bind longshot to secondary controller
       secondaryController.povUp().onTrue(longShotCommand);
 
       Command shiftOdometry = new InstantCommand(() -> {
@@ -231,16 +222,15 @@ public class RobotContainer {
 
       SmartDashboard.putData("Update 0.1", new InstantCommand(() -> poseUpdater.updateOdometry(0.1)));
 
+      // tests of poseUpdater
       System.out.println("ta = 1 => " + poseUpdater.getDistanceEstimate(1));
       System.out.println("ta = 20 => " + poseUpdater.getDistanceEstimate(20));
       System.out.println("ta = 100 => " + poseUpdater.getDistanceEstimate(100));
       System.out.println("tx:19 d:0.5 => " + poseUpdater.calculateYError(19, 0.5));
-      
       System.out.println("tx:8 d:0.25 => " + poseUpdater.calculateYError(8, 0.25));
 
-      // Amp bindings
-      secondaryController.rightBumper().whileTrue(new InstantCommand(()->launcher.scoreAmp()).repeatedly())
-      .whileFalse(new InstantCommand(()->launcher.stop()));
+
+
     
     }
    
@@ -280,6 +270,8 @@ public class RobotContainer {
     NamedCommands.registerCommand("detectNote", new NoteDetectorCommand(noteDetector));
     NamedCommands.registerCommand("returnToCenterSubWoofer", swerveSubsystem.returnToCenterSubWoofer());
     NamedCommands.registerCommand("NoteNotDetected", new NoteNotDetected(noteDetector));
+    NamedCommands.registerCommand("disablePoseUpdater", new InstantCommand(() -> poseUpdater.isEnabled = false));
+    NamedCommands.registerCommand("enablePoseUpdater", new InstantCommand(() -> poseUpdater.isEnabled = true));
   }
 
   /**
