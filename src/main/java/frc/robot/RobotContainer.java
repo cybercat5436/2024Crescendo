@@ -272,6 +272,8 @@ public class RobotContainer {
     NamedCommands.registerCommand("NoteNotDetected", new NoteNotDetected(noteDetector));
     NamedCommands.registerCommand("disablePoseUpdater", new InstantCommand(() -> poseUpdater.isEnabled = false));
     NamedCommands.registerCommand("enablePoseUpdater", new InstantCommand(() -> poseUpdater.isEnabled = true));
+    NamedCommands.registerCommand("resetTotalAdjustment", new InstantCommand(() -> poseUpdater.resetTotalAdjustment()));
+    NamedCommands.registerCommand("undoTotalAdjustment", new InstantCommand(() -> poseUpdater.undoTotalAdjustment()));
   }
 
   /**
