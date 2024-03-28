@@ -20,12 +20,14 @@
       "/SmartDashboard/InstantCommand": "Command",
       "/SmartDashboard/Intake": "Subsystem",
       "/SmartDashboard/ManualEncoderCalibration": "Command",
+      "/SmartDashboard/NoteDetector": "Subsystem",
       "/SmartDashboard/Orienter": "Subsystem",
       "/SmartDashboard/PoseUpdater": "Subsystem",
       "/SmartDashboard/SequentialCommandGroup": "Command",
       "/SmartDashboard/Simple Shift": "Command",
       "/SmartDashboard/SuperStructure": "Subsystem",
-      "/SmartDashboard/SwerveSubsystem": "Subsystem"
+      "/SmartDashboard/SwerveSubsystem": "Subsystem",
+      "/SmartDashboard/Update 0.1": "Command"
     },
     "windows": {
       "/SmartDashboard/Complex Shift": {
@@ -34,6 +36,11 @@
         }
       },
       "/SmartDashboard/Simple Shift": {
+        "window": {
+          "visible": true
+        }
+      },
+      "/SmartDashboard/Update 0.1": {
         "window": {
           "visible": true
         }
