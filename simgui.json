@@ -1,19 +1,83 @@
 {
+  "HALProvider": {
+    "Other Devices": {
+      "SPARK MAX [6]": {
+        "header": {
+          "open": true
+        }
+      }
+    }
+  },
   "NTProvider": {
     "types": {
       "/FMSInfo": "FMSInfo",
       "/SmartDashboard/AbsoluteEncoderCalibration": "Command",
+      "/SmartDashboard/AutoClimbCommand": "Command",
       "/SmartDashboard/Auton Chooser": "String Chooser",
       "/SmartDashboard/Claw": "Subsystem",
+      "/SmartDashboard/Climber": "Subsystem",
+      "/SmartDashboard/Complex Shift": "Command",
       "/SmartDashboard/InstantCommand": "Command",
       "/SmartDashboard/Intake": "Subsystem",
       "/SmartDashboard/ManualEncoderCalibration": "Command",
       "/SmartDashboard/Orienter": "Subsystem",
+      "/SmartDashboard/PoseUpdater": "Subsystem",
       "/SmartDashboard/SequentialCommandGroup": "Command",
+      "/SmartDashboard/Simple Shift": "Command",
+      "/SmartDashboard/SuperStructure": "Subsystem",
       "/SmartDashboard/SwerveSubsystem": "Subsystem"
+    },
+    "windows": {
+      "/SmartDashboard/Complex Shift": {
+        "window": {
+          "visible": true
+        }
+      },
+      "/SmartDashboard/Simple Shift": {
+        "window": {
+          "visible": true
+        }
+      }
+    }
+  },
+  "NetworkTables": {
+    "transitory": {
+      "SmartDashboard": {
+        "SwerveSubsystem": {
+          "Heading": {
+            "open": true
+          },
+          "double[]##v_/SmartDashboard/SwerveSubsystem/WheelPos": {
+            "open": true
+          },
+          "open": true
+        },
+        "open": true
+      }
     }
   },
   "NetworkTables Info": {
+    "Server": {
+      "open": true
+    },
     "visible": true
+  },
+  "Plot": {
+    "Plot <0>": {
+      "plots": [
+        {
+          "backgroundColor": [
+            0.0,
+            0.0,
+            0.0,
+            0.8500000238418579
+          ],
+          "height": 338
+        }
+      ],
+      "window": {
+        "visible": false
+      }
+    }
   }
 }

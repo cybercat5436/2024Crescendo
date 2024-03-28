@@ -8,6 +8,8 @@ import com.revrobotics.ColorSensorV3;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.util.sendable.SendableBuilder;
+import edu.wpi.first.util.sendable.SendableRegistry;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
@@ -33,12 +35,20 @@ public class NoteDetector extends SubsystemBase {
   private CommandXboxController secondaryController;
 
   private Timer timer;
+  private double redValue;
+  private double distanceValue;
+
+
   /** Creates a new NoteDetector. */
   public NoteDetector(CommandXboxController primaryController, CommandXboxController secondaryController) {
     this.primaryController = primaryController;
     this.secondaryController = secondaryController;
    
     this.timer = new Timer();
+
+    //Register the sendables
+    SendableRegistry.addLW(this, this.getClass().getSimpleName(), this.getClass().getSimpleName());
+    SmartDashboard.putData(this);
   }
 
   public boolean getIsNoteDetected(){
@@ -56,14 +66,13 @@ public class NoteDetector extends SubsystemBase {
     }
    
     if(timer.get()> 0.5 && isNoteDetected) {
-    startRumble(0.4);
+      startRumble(0.4);
     } 
     if(!isNoteDetected && isRumbleActive) {
-    timer.stop();
-    stopRumble();
-    isRumbleActive = false;
-    // System.out.println("Note not detected");  
-    
+      timer.stop();
+      stopRumble();
+      isRumbleActive = false;
+      // System.out.println("Note not detected");  
     }
 
   }
@@ -81,11 +90,8 @@ public class NoteDetector extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
-    double redValue = colorSensor.getRed();
-    double distanceValue = colorSensor.getProximity();
-    SmartDashboard.putNumber("Red", redValue);
-    SmartDashboard.putNumber("Distance",distanceValue);
+    redValue = colorSensor.getRed();
+    distanceValue = colorSensor.getProximity();
     boolean isNoteDetectedThisCycle = redValue> redThreshold && distanceValue > distanceThreshold; 
     if (isNoteDetectedThisCycle){
       successiveReadings++;
@@ -93,36 +99,25 @@ public class NoteDetector extends SubsystemBase {
       successiveReadings =0;
     }
     isNoteDetected = successiveReadings >= successiveReadingsThreshold; 
-    SmartDashboard.putBoolean("isNoteDetected", isNoteDetected);
 
-    SmartDashboard.putNumber("RedNetworkTable", redEntry.getInteger(-1));
-    SmartDashboard.putNumber("DistanceNetworkTable", distanceEntry.getInteger(-1));
+    // SmartDashboard.putNumber("RedNetworkTable", redEntry.getInteger(-1));
+    // SmartDashboard.putNumber("DistanceNetworkTable", distanceEntry.getInteger(-1));
 
     if (DriverStation.isTeleopEnabled()){
       manageRumble();
     }
 
-  // if(isNoteDetected) {
-  //   //timer.reset();
-  //   timer.start();
-  //   // secondaryController.getHID().setRumble(RumbleType.kBothRumble, 1.0);
-  //   // primaryController.getHID().setRumble(RumbleType.kBothRumble, 1.0);
-   
-  //   ps4controller.getHID().setRumble(RumbleType.kLeftRumble, 1.0);
-  //   System.out.println("Notedetected and rumble set");
-  //   } 
-  //   if(timer.get()> 0.5 && isNoteDetected) {
-  //   // secondaryController.getHID().setRumble(RumbleType.kBothRumble, 0.4);
-  //   // primaryController.getHID().setRumble(RumbleType.kBothRumble, 0.3);
-  //   ps4controller.getHID().setRumble(RumbleType.kBothRumble, 0.4);
-  //   timer.stop();
-  //   } 
-  //   if(!isNoteDetected) {
-  //   secondaryController.getHID().setRumble(RumbleType.kBothRumble, 0);
-  //   primaryController.getHID().setRumble(RumbleType.kBothRumble, 0);
-  //   System.out.println("Note not detected");
-  //   }
-
   }
+
+  @Override
+  public void initSendable(SendableBuilder builder) {
+    // TODO Auto-generated method stub
+    super.initSendable(builder);
+    builder.addDoubleProperty("Red", () -> redValue, null);
+    builder.addDoubleProperty("Distance", () -> distanceValue, null);
+    builder.addBooleanProperty("isNoteDetected", () -> isNoteDetected, null);
+  }
+
+  
   
 }

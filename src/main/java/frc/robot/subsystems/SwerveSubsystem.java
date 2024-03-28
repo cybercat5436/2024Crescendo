@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import com.ctre.phoenix6.configs.Pigeon2Configuration;
 import com.ctre.phoenix6.hardware.Pigeon2;
@@ -476,7 +477,9 @@ public class SwerveSubsystem extends SubsystemBase{
 
     @Override
     public void periodic() {
+
         odometry.update(getRotation2d(), getModulePositions());
+
     }
 
     @Override
@@ -491,6 +494,10 @@ public class SwerveSubsystem extends SubsystemBase{
         builder.addStringProperty("Odometry Position", () -> this.odometry.getPoseMeters().toString(), null);
         builder.addDoubleProperty("Heading/Yaw [Deg]: ", () -> this.getHeading(), null);
         builder.addDoubleProperty("Gyro Roll Degrees", () -> getRollDegrees(), null);
+        // Stream.of(this.getModulePositions()).mapToDouble(mp -> mp.distanceMeters).toArray();
+        builder.addDoubleArrayProperty("WheelPos", 
+            () -> Stream.of(this.getModulePositions()).mapToDouble(mp -> mp.distanceMeters).toArray(), null);
+
 
     }
 

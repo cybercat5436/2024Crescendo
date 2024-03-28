@@ -14,7 +14,9 @@ import com.pathplanner.lib.path.PathPlannerPath;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.units.Angle;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
@@ -211,6 +213,21 @@ public class RobotContainer {
         }));
       SmartDashboard.putData(longShotCommand);
       secondaryController.povUp().onTrue(longShotCommand);
+
+      Command shiftOdometry = new InstantCommand(() -> {
+        System.out.println("Shifting y coordinate of odometry providing only pose");
+        swerveSubsystem.resetOdometry(
+        new Pose2d(swerveSubsystem.getPose().getTranslation().plus(new Translation2d(0.0,0.5)),
+         swerveSubsystem.getPose().getRotation()));
+        });
+      SmartDashboard.putData("Simple Shift", shiftOdometry);
+
+      swerveSubsystem.resetOdometry(new Pose2d(1.0, 2.0, new Rotation2d(45)));
+      Command shiftOdometry2 = new InstantCommand(() -> {
+        System.out.println("Shifting y coordinate of odometry providing wheel positions and pose");
+        poseUpdater.updateOdometry(0.5);
+      });
+      SmartDashboard.putData("Complex Shift", shiftOdometry2);
 
       // Amp bindings
       secondaryController.rightBumper().whileTrue(new InstantCommand(()->launcher.scoreAmp()).repeatedly())
