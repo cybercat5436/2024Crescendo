@@ -478,7 +478,7 @@ public class SwerveSubsystem extends SubsystemBase{
     @Override
     public void periodic() {
 
-        odometry.update(getRotation2d(), getModulePositions());
+       odometry.update(getRotation2d(), getModulePositions());
 
     }
 

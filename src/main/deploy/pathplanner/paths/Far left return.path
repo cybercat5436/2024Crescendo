@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.58,
-        "y": 7.45
+        "x": 8.82280533791837,
+        "y": 7.449541822160567
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.175578828080734,
-        "y": 7.36073933686329
+        "x": 8.418384165999104,
+        "y": 7.360281159023857
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Amp midfield note"
     },
     {
       "anchor": {
-        "x": 0.63,
-        "y": 6.64
+        "x": 0.8404486039741327,
+        "y": 6.4924483695121245
       },
       "prevControl": {
-        "x": 1.4142324175887684,
-        "y": 6.779045136744688
+        "x": 1.624681021562901,
+        "y": 6.631493506256812
       },
       "nextControl": null,
       "isLocked": false,
@@ -62,8 +62,8 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 4.0,
+    "maxAcceleration": 4.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
@@ -78,5 +78,5 @@
     "rotation": 0,
     "velocity": 0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

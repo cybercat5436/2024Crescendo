@@ -569,7 +569,7 @@
         "vgap": 16.0,
         "titleType": 0,
         "tiles": {
-          "10,1": {
+          "11,0": {
             "size": [
               4,
               3
@@ -614,88 +614,131 @@
               }
             }
           },
-          "7,1": {
+          "5,7": {
             "size": [
               2,
-              5
+              1
             ],
             "content": {
-              "_type": "Subsystem Layout",
-              "_title": "Climber",
-              "_glyph": 149,
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/PoseUpdater/Distance Estimate",
+              "_title": "SmartDashboard/PoseUpdater/Distance Estimate",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "5,6": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/PoseUpdater/Y Error",
+              "_title": "SmartDashboard/PoseUpdater/Y Error",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "7,6": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Toggle Switch",
+              "_source0": "network_table:///SmartDashboard/PoseUpdater/isEnabled",
+              "_title": "SmartDashboard/PoseUpdater/isEnabled",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "15,0": {
+            "size": [
+              4,
+              4
+            ],
+            "content": {
+              "_type": "Graph",
+              "_source0": "network_table:///SmartDashboard/PoseUpdater/tx-ta",
+              "_title": "SmartDashboard/PoseUpdater/tx-ta",
+              "_glyph": 148,
               "_showGlyph": false,
-              "Layout/Label position": "BOTTOM",
-              "_children": [
-                {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Climber/Right Climber Position",
-                  "_title": "R",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                },
-                {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Climber/Left Climber Position",
-                  "_title": "L",
-                  "_glyph": 148,
-                  "_showGlyph": true
-                },
-                {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Climber/encoderTrigger",
-                  "_title": "Trigger",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                },
-                {
-                  "_type": "Toggle Switch",
-                  "_source0": "network_table:///SmartDashboard/Climber/isSuperStructureRaised",
-                  "_title": "Flag",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                }
-              ]
+              "Graph/Visible time": 30.0,
+              "Graph/X-axis auto scrolling": true,
+              "Y-axis/Automatic bounds": true,
+              "Y-axis/Upper bound": 1.0,
+              "Y-axis/Lower bound": -1.0,
+              "Y-axis/Unit": "ul",
+              "Visible data/SmartDashboard/PoseUpdater/tx-ta[0]": true,
+              "Visible data/SmartDashboard/PoseUpdater/tx-ta[1]": true
             }
           },
-          "12,4": {
+          "5,5": {
             "size": [
-              3,
+              7,
               1
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Distance",
-              "_title": "SmartDashboard/Distance",
+              "_source0": "network_table:///SmartDashboard/SwerveSubsystem/Odometry Position",
+              "_title": "SmartDashboard/SwerveSubsystem/Odometry Position",
               "_glyph": 148,
               "_showGlyph": false
             }
           },
-          "10,4": {
+          "14,7": {
             "size": [
               2,
               1
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Red",
-              "_title": "/SmartDashboard/Red",
+              "_source0": "network_table:///SmartDashboard/NoteDetector/Distance",
+              "_title": "SmartDashboard/NoteDetector/Distance",
               "_glyph": 148,
               "_showGlyph": false
             }
           },
-          "9,6": {
+          "14,6": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/NoteDetector/Red",
+              "_title": "SmartDashboard/NoteDetector/Red",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "16,6": {
             "size": [
               2,
               2
             ],
             "content": {
               "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/isNoteDetected",
-              "_title": "SmartDashboard/isNoteDetected",
+              "_source0": "network_table:///SmartDashboard/NoteDetector/isNoteDetected",
+              "_title": "SmartDashboard/NoteDetector/isNoteDetected",
               "_glyph": 148,
               "_showGlyph": false,
               "Colors/Color when true": "#7CFC00FF",
               "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "5,4": {
+            "size": [
+              3,
+              1
+            ],
+            "content": {
+              "_type": "ComboBox Chooser",
+              "_source0": "network_table:///SmartDashboard/Auton Chooser",
+              "_title": "SmartDashboard/Auton Chooser",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           }
         }

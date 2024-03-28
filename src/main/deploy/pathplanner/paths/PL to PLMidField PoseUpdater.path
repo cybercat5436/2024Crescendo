@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.65,
-        "y": 6.55
+        "x": 0.8404486039741327,
+        "y": 6.4924483695121245
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.1500000000000001,
-        "y": 7.416025403784438
+        "x": 1.3404486039741323,
+        "y": 7.358473773296563
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Left Midfield 1 Return End"
     },
     {
       "anchor": {
-        "x": 8.58,
+        "x": 8.82280533791837,
         "y": 7.449541822160567
       },
       "prevControl": {
-        "x": 7.58,
+        "x": 7.8228053379183695,
         "y": 7.449541822160567
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Amp midfield note"
     }
   ],
   "rotationTargets": [
@@ -102,8 +102,8 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 4.0,
+    "maxAcceleration": 4.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
@@ -118,5 +118,5 @@
     "rotation": 60.0,
     "velocity": 0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

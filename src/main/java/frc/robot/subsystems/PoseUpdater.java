@@ -31,10 +31,10 @@ public class PoseUpdater extends SubsystemBase {
 
   public double yError = 0.0;
   public double distanceEstimate = 0.0;
-  public boolean isEnabled = true;   // can be to prevent updates during certain periods in auton
+  public boolean isEnabled = false;   // can be to prevent updates during certain periods in auton
   public boolean isLockedOut = false;   // odometry updates can be locked out for a period of time after updating
   public int cyclesSinceLocked = 0;
-  public final int CYCLE_LOCKOUT = 8;
+  public final int CYCLE_LOCKOUT = 25;
 
   public PoseUpdater(LimeLight limeLightFront, SwerveSubsystem swerveSubsystem) {
     this.limeLightFront = limeLightFront;
@@ -88,13 +88,14 @@ public class PoseUpdater extends SubsystemBase {
 
   public void updateOdometry(double offsetValue) {
     // Transform2d transform2d = new Transform2d(new Translation2d(0,yError),new Rotation2d());
+    System.out.println("inside update odometry");
     Pose2d currentPose = swerveSubsystem.getOdometry().getPoseMeters();
     Translation2d translationAdjustment = new Translation2d(0, offsetValue);
     Translation2d translation2d = currentPose.getTranslation().plus(translationAdjustment);
     
     // These are from Tuesday, when the x coordinate was changing.  Note:  Rotation being set to 0
-    Pose2d newPose = new Pose2d(translation2d, new Rotation2d());
-    // Pose2d newPose = new Pose2d(translation2d, currentPose.getRotation());
+   // Pose2d newPose = new Pose2d(translation2d, new Rotation2d());
+    Pose2d newPose = new Pose2d(translation2d, currentPose.getRotation());
     printInfo(currentPose, newPose);
     swerveSubsystem.getOdometry().resetPosition(swerveSubsystem.getRotation2d(), swerveSubsystem.getModulePositions(), newPose);
     
@@ -165,7 +166,7 @@ public class PoseUpdater extends SubsystemBase {
     builder.addDoubleArrayProperty("tx-ta", () -> new double[] {tx, ta}, null);
     builder.addDoubleProperty("Y Error", () -> yError, null);
     builder.addDoubleProperty("Distance Estimate", () -> distanceEstimate, null);
-    builder.addBooleanProperty("isEnabled", () -> isEnabled, (value) -> isEnabled = value);
+    builder.addBooleanProperty("isEnabled", () -> isEnabled, null);
   }
 
 }
