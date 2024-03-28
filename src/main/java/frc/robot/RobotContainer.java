@@ -234,9 +234,9 @@ public class RobotContainer {
       System.out.println("ta = 1 => " + poseUpdater.getDistanceEstimate(1));
       System.out.println("ta = 20 => " + poseUpdater.getDistanceEstimate(20));
       System.out.println("ta = 100 => " + poseUpdater.getDistanceEstimate(100));
-      System.out.println("tx:19 d:0.5 => " + poseUpdater.getYError(19, 0.5));
+      System.out.println("tx:19 d:0.5 => " + poseUpdater.calculateYError(19, 0.5));
       
-      System.out.println("tx:8 d:0.25 => " + poseUpdater.getYError(8, 0.25));
+      System.out.println("tx:8 d:0.25 => " + poseUpdater.calculateYError(8, 0.25));
 
       // Amp bindings
       secondaryController.rightBumper().whileTrue(new InstantCommand(()->launcher.scoreAmp()).repeatedly())

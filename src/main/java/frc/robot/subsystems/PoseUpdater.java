@@ -57,7 +57,6 @@ public class PoseUpdater extends SubsystemBase {
     double x1=14, x2=32, y1=0.5, y2=0.25;
     double m = (y2-y1) / (x2-x1);  //slope
     double d = (ta-x1) * m + y1;
-    System.out.println("Raw d: " + d);
 
     // Bound distance 0 <= d <= y1
     d = Math.min(y1, d);  // don't let number exceed y1
@@ -65,7 +64,10 @@ public class PoseUpdater extends SubsystemBase {
     return d;
     // return -0.013*ta + .682; //equation from testing
   }
-  public double getYError(double tx, double distanceEstimate) {
+
+  public double calculateYError(double tx, double distanceEstimate) {
+    // this calculates and returns yError but doesn't set the instance variable
+
     // Side(left = +, right = -)
     // 24Cm side, .5m away: Tx = 19
     // 18Cm side, .25m away: Tx = 8
@@ -78,6 +80,8 @@ public class PoseUpdater extends SubsystemBase {
 
     double yError = (tx * sensitivity) / 100;
     return yError;
+    
+    // old formula
     // double slope = -3.96*distanceEstimate + 3.2;
     // return (slope*tx)/100;
   }
@@ -140,11 +144,12 @@ public class PoseUpdater extends SubsystemBase {
   }
 
   public double calculateYError(){
-      ta = taLocal.getDouble(0);
-      tx = txLocal.getDouble(0);
-      distanceEstimate = getDistanceEstimate(ta);
-      yError = getYError(tx, distanceEstimate);
-      return yError;
+    // this sets yError instance variable
+    ta = taLocal.getDouble(0);
+    tx = txLocal.getDouble(0);
+    distanceEstimate = getDistanceEstimate(ta);
+    yError = calculateYError(tx, distanceEstimate);
+    return yError;
   }
 
 
