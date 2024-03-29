@@ -14,7 +14,13 @@
         {
           "type": "named",
           "data": {
-            "name": "startLauncher"
+            "name": "shoot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "resetTotalAdjustment"
           }
         },
         {
@@ -27,12 +33,6 @@
           "type": "path",
           "data": {
             "pathName": "PL to PLMidField PoseUpdater"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": null
           }
         },
         {
@@ -68,6 +68,6 @@
       ]
     }
   },
-  "folder": null,
+  "folder": "PoseUpdater",
   "choreoAuto": false
 }

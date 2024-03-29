@@ -569,7 +569,7 @@
         "vgap": 16.0,
         "titleType": 0,
         "tiles": {
-          "11,0": {
+          "8,0": {
             "size": [
               4,
               3
@@ -627,19 +627,6 @@
               "_showGlyph": false
             }
           },
-          "5,6": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/PoseUpdater/Y Error",
-              "_title": "SmartDashboard/PoseUpdater/Y Error",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
           "7,6": {
             "size": [
               2,
@@ -653,7 +640,7 @@
               "_showGlyph": false
             }
           },
-          "15,0": {
+          "12,0": {
             "size": [
               4,
               4
@@ -728,7 +715,7 @@
               "Colors/Color when false": "#8B0000FF"
             }
           },
-          "5,4": {
+          "5,3": {
             "size": [
               3,
               1
@@ -737,6 +724,19 @@
               "_type": "ComboBox Chooser",
               "_source0": "network_table:///SmartDashboard/Auton Chooser",
               "_title": "SmartDashboard/Auton Chooser",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "5,6": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/PoseUpdater/Y Error",
+              "_title": "SmartDashboard/PoseUpdater/Y Error",
               "_glyph": 148,
               "_showGlyph": false
             }

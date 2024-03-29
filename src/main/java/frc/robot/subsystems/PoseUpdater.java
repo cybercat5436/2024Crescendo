@@ -34,7 +34,7 @@ public class PoseUpdater extends SubsystemBase {
   public boolean isEnabled = false;   // can be to prevent updates during certain periods in auton
   public boolean isLockedOut = false;   // odometry updates can be locked out for a period of time after updating
   public int cyclesSinceLocked = 0;
-  public final int CYCLE_LOCKOUT = 25;
+  public final int CYCLE_LOCKOUT = 5;
   public double totalAdjustment = 0;
 
   public PoseUpdater(LimeLight limeLightFront, SwerveSubsystem swerveSubsystem) {
@@ -51,11 +51,11 @@ public class PoseUpdater extends SubsystemBase {
 
 
   public double getDistanceEstimate(double ta) {
-    // 1m: Ta = 4.2
-    // .75m: Ta= 5.8-6.2
-    // .5m: Ta = 12-16
-    // .25m: Ta = 28-36
-    double x1=14, x2=32, y1=0.5, y2=0.25;
+    // 3m: Ta = 0.5
+    // 1.5m: Ta = 1.4
+    // .75m: Ta = 4.7
+   
+    double x1=1.4, x2=4.7, y1=1.5, y2=0.75;
     double m = (y2-y1) / (x2-x1);  //slope
     double d = (ta-x1) * m + y1;
 
@@ -70,14 +70,15 @@ public class PoseUpdater extends SubsystemBase {
     // this calculates and returns yError but doesn't set the instance variable
 
     // Side(left = +, right = -)
-    // 24Cm side, .5m away: Tx = 19
-    // 18Cm side, .25m away: Tx = 8
-    double s1=24/19, s2=18/8, d1=0.5, d2=0.25;
-    double mSens = (s2-s1) / (d2/d1);  // sensitity slope as function of distance
+    // 109Cm side, 3m away: Tx = 16.6
+    // 104Cm side, 1.5m away: Tx = 30.7
+    // 55Cm side, .75m away: Tx = 27.5
+    double s1=104/30.7, s2=55/27.5, d1=1.5, d2=0.75;
+    double mSens = (s2-s1) / (d2-d1);  // sensitity slope as function of distance
     double sensitivity = mSens * (distanceEstimate - d1);
     // bound sensitivity 1 < s < 2.25
-    sensitivity = Math.min(2.25, sensitivity);
-    sensitivity = Math.max(1.0, sensitivity);
+    // sensitivity = Math.min(2.25, sensitivity);
+    // sensitivity = Math.max(1.0, sensitivity);
 
     double yError = (tx * sensitivity) / 100;
     return yError;
@@ -111,12 +112,12 @@ public class PoseUpdater extends SubsystemBase {
     Pose2d currentPose = swerveSubsystem.getOdometry().getPoseMeters();
     Translation2d translationTotalAdjustment = new Translation2d(0,-totalAdjustment);
     Translation2d translation2d = currentPose.getTranslation().plus(translationTotalAdjustment);
-
     Pose2d newPose = new Pose2d(translation2d, currentPose.getRotation());
     printInfo(currentPose, newPose);
     swerveSubsystem.getOdometry().resetPosition(swerveSubsystem.getRotation2d(), swerveSubsystem.getModulePositions(), newPose);
   }
   public void resetTotalAdjustment() {
+    System.out.println("Total Adjustment zeroed.....");
     totalAdjustment = 0;
 
   }
@@ -171,7 +172,8 @@ public class PoseUpdater extends SubsystemBase {
 
 
   private void printInfo(Pose2d currentPose, Pose2d newPose){
-    System.out.println(String.format("Adjusting by %.2f",yError));
+    double adjustment = currentPose.getY() - newPose.getY();
+    System.out.println(String.format("Adjusting by %.2f",adjustment));
     System.out.println(String.format("PoseUpdater:: tx: %.2f ta: %.2f with yError: %.2f and distance: %.2f", tx, ta, yError, distanceEstimate));
     System.out.println(String.format("Updating from: %s\nUpdating to:   %s", currentPose.toString(), newPose.toString()));
   }
@@ -184,6 +186,7 @@ public class PoseUpdater extends SubsystemBase {
     builder.addDoubleProperty("Y Error", () -> yError, null);
     builder.addDoubleProperty("Distance Estimate", () -> distanceEstimate, null);
     builder.addBooleanProperty("isEnabled", () -> isEnabled, null);
+    builder.addDoubleProperty("totalAdjustment",() -> totalAdjustment, null);
   }
 
 }
