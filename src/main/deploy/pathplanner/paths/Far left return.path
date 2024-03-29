@@ -41,12 +41,6 @@
             {
               "type": "named",
               "data": {
-                "name": "undoTotalAdjustment"
-              }
-            },
-            {
-              "type": "named",
-              "data": {
                 "name": "startLauncher"
               }
             }
@@ -67,7 +61,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": null,
+  "folder": "PoseUpdater",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

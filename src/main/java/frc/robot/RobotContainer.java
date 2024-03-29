@@ -87,6 +87,9 @@ public class RobotContainer {
       // Configure the button bindings        
       configureButtonBindings();
 
+      // Test camera calc
+      testCameraCalcs();
+
       // Register Named Commands for Path Planner
       registerNamedCommands();
       
@@ -221,17 +224,27 @@ public class RobotContainer {
       SmartDashboard.putData("Complex Shift", shiftOdometry2);
 
       SmartDashboard.putData("Update 0.1", new InstantCommand(() -> poseUpdater.updateOdometry(0.1)));
-
-      // tests of poseUpdater
-      System.out.println("ta = 1 => " + poseUpdater.getDistanceEstimate(1));
-      System.out.println("ta = 20 => " + poseUpdater.getDistanceEstimate(20));
-      System.out.println("ta = 100 => " + poseUpdater.getDistanceEstimate(100));
-      System.out.println("tx:19 d:0.5 => " + poseUpdater.calculateYError(19, 0.5));
-      System.out.println("tx:8 d:0.25 => " + poseUpdater.calculateYError(8, 0.25));
-
-
-
     
+    }
+
+    public void testCameraCalcs(){
+      // tests of poseUpdater
+      System.out.println("ta = 0.5 => " + poseUpdater.getDistanceEstimate(0.5) + " is 3.0?");
+      System.out.println("ta = 1.4 => " + poseUpdater.getDistanceEstimate(1.4) + " is 1.5?");
+      System.out.println("ta = 4.7 => " + poseUpdater.getDistanceEstimate(4.7)+ " is 0.75?");
+      System.out.println("ta = 0.1 => " + poseUpdater.getDistanceEstimate(0.1)+ " is 3.0?");
+      System.out.println("ta = 15 => " + poseUpdater.getDistanceEstimate(15)+ " is 0.0?");
+
+
+      testOffsetCalc(10, 1.5, 0.34);
+      testOffsetCalc(10, 0.75, 0.2);
+      testOffsetCalc(10, 3.0, 0.66);
+
+    }
+
+    public void testOffsetCalc(double tx, double d, double answer){
+      System.out.println(String.format(
+        "tx:%.1f d:%.1f => %.2f near %.2f ??",tx, d, poseUpdater.calculateYError(tx, d), answer));
     }
    
 

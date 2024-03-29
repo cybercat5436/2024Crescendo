@@ -30,6 +30,11 @@
       "/SmartDashboard/Update 0.1": "Command"
     },
     "windows": {
+      "/SmartDashboard/Auton Chooser": {
+        "window": {
+          "visible": true
+        }
+      },
       "/SmartDashboard/Complex Shift": {
         "window": {
           "visible": true

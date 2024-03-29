@@ -32,7 +32,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "PL to PLMidField PoseUpdater"
+            "pathName": "Amp to AmpMidField PoseUpdater"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "undoTotalAdjustment"
           }
         },
         {
