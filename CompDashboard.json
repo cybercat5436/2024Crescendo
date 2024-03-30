@@ -548,7 +548,7 @@
               "Crosshair/Show crosshair": true,
               "Crosshair/Crosshair color": "#FFFFFFFF",
               "Controls/Show controls": true,
-              "Controls/Rotation": "HALF",
+              "Controls/Rotation": "NONE",
               "compression": -1.0,
               "fps": -1,
               "imageWidth": -1,
@@ -737,6 +737,32 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/PoseUpdater/Y Error",
               "_title": "SmartDashboard/PoseUpdater/Y Error",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "9,4": {
+            "size": [
+              3,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/PoseUpdater/totalAdjustment",
+              "_title": "SmartDashboard/PoseUpdater/totalAdjustment",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "5,1": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/SuperStructure/Longshot pos",
+              "_title": "/SmartDashboard/SuperStructure/Longshot pos",
               "_glyph": 148,
               "_showGlyph": false
             }

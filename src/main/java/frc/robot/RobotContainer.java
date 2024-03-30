@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -185,9 +186,12 @@ public class RobotContainer {
       Command longShotCommand = Commands.sequence(
         new InstantCommand(()->{
           System.out.println("<----   Starting Launcher...");
+          intake.intakeFeedIn();
           launcher.startLauncher(1.0);
         }),
-        Commands.waitSeconds(1.25),
+        Commands.waitSeconds(0.3),
+        new InstantCommand(() -> launcher.startFeeder(0.15)),
+        Commands.waitSeconds(0.1),
         new InstantCommand(()->{
           System.out.println("<---  Rotating to LongShot Position...");
           superStructure.rotateToLongShot();
@@ -197,16 +201,34 @@ public class RobotContainer {
           System.out.println("<---   Staring Feeder...");
           launcher.startFeeder(1.0);
         }),
-        Commands.waitSeconds(0.2),
+        Commands.waitSeconds(0.3),
         new InstantCommand(()->{
           System.out.println("<---   Rotating back down to speaker position...");
           superStructure.rotateToSpeaker();
           launcher.stop();
+          intake.stopIntake();
         }));
 
       SmartDashboard.putData(longShotCommand);
       // bind longshot to secondary controller
       secondaryController.povUp().onTrue(longShotCommand);
+
+      // move the note from intake to launcher
+      secondaryController.povDown().onTrue(
+        Commands.sequence(
+          new InstantCommand(() -> intake.intakeFeedIn()),
+          new InstantCommand(() -> launcher.startFeeder(0.3)),
+          Commands.waitSeconds(1.2),
+          new InstantCommand(() -> launcher.startFeeder(-0.2)),
+          new InstantCommand(() -> intake.stopIntake()),
+          Commands.waitSeconds(0.2),
+          new InstantCommand(() -> launcher.stopFeeder())
+        )
+      );
+
+      secondaryController.back().whileTrue(
+        new InstantCommand(() -> launcher.startFeeder(-0.2))
+      ).onFalse(new InstantCommand(() -> launcher.stopFeeder()));
 
       Command shiftOdometry = new InstantCommand(() -> {
         System.out.println("Shifting y coordinate of odometry providing only pose");

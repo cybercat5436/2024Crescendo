@@ -37,8 +37,9 @@ public class PoseUpdater extends SubsystemBase {
   public boolean isEnabled = false;   // can be to prevent updates during certain periods in auton
   public boolean isLockedOut = false;   // odometry updates can be locked out for a period of time after updating
   public int cyclesSinceLocked = 0;
-  public final int CYCLE_LOCKOUT = 12;  // 50 cycles per second
+  public final int CYCLE_LOCKOUT = 20;  // 50 cycles per second
   public double totalAdjustment = 0;
+  public int numAdjustments = 0;
 
   public PoseUpdater(LimeLight limeLightFront, SwerveSubsystem swerveSubsystem) {
     this.limeLightFront = limeLightFront;
@@ -79,7 +80,7 @@ public class PoseUpdater extends SubsystemBase {
 
     // Calibration data
     // ------------------------
-    // Side(left = +, right = -)
+    // Robot Side(left = -, right = +)
     // 109Cm side, 3m away: Tx = 16.6
     // 104Cm side, 1.5m away: Tx = 30.7
     // 55Cm side, .75m away: Tx = 27.5
@@ -110,21 +111,31 @@ public class PoseUpdater extends SubsystemBase {
     // Transform2d transform2d = new Transform2d(new Translation2d(0,yError),new Rotation2d());
     System.out.println("inside update odometry");
     Pose2d currentPose = swerveSubsystem.getOdometry().getPoseMeters();
+    numAdjustments++;
     
     // figure out correct sign for error
-    boolean shouldInvert = true;  // assumes blue
+    boolean shouldInvert = false;  // assumes blue
     Optional<Alliance> alliance = DriverStation.getAlliance();
     if(alliance.isPresent()){
       if(alliance.get() == DriverStation.Alliance.Red){
-        shouldInvert = false;
+        shouldInvert = true;
       }
     }
     if (shouldInvert){
       offsetValue *= -1;
     }
 
-    Translation2d translationAdjustment = new Translation2d(0, offsetValue);
+    // clamp the total adjustment to 0.25m
+    double maxAdjustment = 0.25;
+    if ((totalAdjustment + offsetValue) > maxAdjustment){
+      offsetValue = maxAdjustment - totalAdjustment;
+    } else if ((totalAdjustment + offsetValue) < -maxAdjustment){
+      offsetValue = -maxAdjustment - totalAdjustment;
+    }
     totalAdjustment += offsetValue;
+    
+
+    Translation2d translationAdjustment = new Translation2d(0, offsetValue);
     Translation2d translation2d = currentPose.getTranslation().plus(translationAdjustment);
     
     // These are from Tuesday, when the x coordinate was changing.  Note:  Rotation being set to 0

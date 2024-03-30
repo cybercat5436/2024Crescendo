@@ -87,6 +87,8 @@ public void startLauncher(double percentage) {
   stopLauncher();
   // System.out.println("stop amp");
   }
+
+  
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

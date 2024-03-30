@@ -74,7 +74,7 @@ public final class Constants {
 
     public static final double kFrontLeftDriveAbsoluteEncoderOffsetRotations = 0.347900 ;
         public static final double kFrontRightDriveAbsoluteEncoderOffsetRotations = -0.413574;
-        public static final double kBackLeftDriveAbsoluteEncoderOffsetRotations = 0.164307 ;
+        public static final double kBackLeftDriveAbsoluteEncoderOffsetRotations = 0.168701 ;
         public static final double kBackRightDriveAbsoluteEncoderOffsetRotations = 0.332764;
         
         
