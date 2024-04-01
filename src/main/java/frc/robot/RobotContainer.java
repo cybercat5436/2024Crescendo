@@ -18,6 +18,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.units.Angle;
+import edu.wpi.first.units.Units;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
@@ -273,6 +274,15 @@ public class RobotContainer {
       System.out.println(String.format("Distance Test: %.2f should be 8.54", 
         new Translation2d(8, 3).getDistance(new Translation2d(5, -5))));
 
+      Pose2d ampCorner = new Pose2d(0.92, 6.143, Rotation2d.fromDegrees(0));
+      var botW = Constants.DriveConstants.kTrackWidth;
+      var botL = Constants.DriveConstants.kWheelBase;
+      var bumpT = Units.Meters.convertFrom(2.5, Units.Inches);
+      Pose2d cornerOfBotOffset = new Pose2d((botL / 2) + bumpT, botW / 2,Rotation2d.fromDegrees(0)).rotateBy(Rotation2d.fromDegrees(60));
+      Translation2d startTranslation2d = ampCorner.getTranslation().plus(cornerOfBotOffset.getTranslation());
+
+      System.out.println(String.format("Speaker starting position %s", 
+        startTranslation2d.toString()));
 
     }
 
