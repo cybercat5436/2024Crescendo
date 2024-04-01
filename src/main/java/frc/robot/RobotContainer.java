@@ -18,6 +18,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.units.Angle;
+import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
@@ -59,7 +60,7 @@ public class RobotContainer {
     public boolean halfSpeed = false;
     private final LimeLight limeLightFront = new LimeLight("limelight-front");
     private final LimeLight limeLightRear = new LimeLight("limelight-rear");
-    private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
+    private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem(limeLightRear);
     private final Intake intake = new Intake();
     private final PoseUpdater poseUpdater = new PoseUpdater(limeLightFront, swerveSubsystem);
     private final CommandXboxController primaryController = new CommandXboxController(1);
@@ -84,6 +85,7 @@ public class RobotContainer {
       
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
+      DataLogManager.start();
         
       // Configure the button bindings        
       configureButtonBindings();
@@ -261,6 +263,16 @@ public class RobotContainer {
       testOffsetCalc(10, 1.5, 0.34);
       testOffsetCalc(10, 0.75, 0.2);
       testOffsetCalc(10, 3.0, 0.66);
+
+      System.out.println(String.format("Distance Test: %.2f should be 3.0", 
+        new Translation2d(3.0, 0.0).getDistance(new Translation2d())));
+
+      System.out.println(String.format("Distance Test: %.2f should be 12.73", 
+        new Translation2d(9.0, 9.0).getDistance(new Translation2d())));
+
+      System.out.println(String.format("Distance Test: %.2f should be 8.54", 
+        new Translation2d(8, 3).getDistance(new Translation2d(5, -5))));
+
 
     }
 

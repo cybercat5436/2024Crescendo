@@ -110,7 +110,7 @@ public class PoseUpdater extends SubsystemBase {
   public void updateOdometry(double offsetValue) {
     // Transform2d transform2d = new Transform2d(new Translation2d(0,yError),new Rotation2d());
     System.out.println("inside update odometry");
-    Pose2d currentPose = swerveSubsystem.getOdometry().getPoseMeters();
+    Pose2d currentPose = swerveSubsystem.getSwerveDrivePoseEstimator().getEstimatedPosition();
     numAdjustments++;
     
     // figure out correct sign for error
@@ -142,7 +142,7 @@ public class PoseUpdater extends SubsystemBase {
    // Pose2d newPose = new Pose2d(translation2d, new Rotation2d());
     Pose2d newPose = new Pose2d(translation2d, currentPose.getRotation());
     printInfo(currentPose, newPose);
-    swerveSubsystem.getOdometry().resetPosition(swerveSubsystem.getRotation2d(), swerveSubsystem.getModulePositions(), newPose);
+    swerveSubsystem.getSwerveDrivePoseEstimator().resetPosition(swerveSubsystem.getRotation2d(), swerveSubsystem.getModulePositions(), newPose);
     
     // This is proposed method where rotation is preserved from pose
     // Pose2d newPose = new Pose2d(translation2d, currentPose.getRotation());
@@ -151,12 +151,12 @@ public class PoseUpdater extends SubsystemBase {
   public void undoTotalAdjustment() {
 
     System.out.println("inside undoTotalAdjustment");
-    Pose2d currentPose = swerveSubsystem.getOdometry().getPoseMeters();
+    Pose2d currentPose = swerveSubsystem.getSwerveDrivePoseEstimator().getEstimatedPosition();
     Translation2d translationTotalAdjustment = new Translation2d(0, -totalAdjustment);
     Translation2d translation2d = currentPose.getTranslation().plus(translationTotalAdjustment);
     Pose2d newPose = new Pose2d(translation2d, currentPose.getRotation());
     printInfo(currentPose, newPose);
-    swerveSubsystem.getOdometry().resetPosition(swerveSubsystem.getRotation2d(), swerveSubsystem.getModulePositions(), newPose);
+    swerveSubsystem.getSwerveDrivePoseEstimator().resetPosition(swerveSubsystem.getRotation2d(), swerveSubsystem.getModulePositions(), newPose);
   }
   public void resetTotalAdjustment() {
     System.out.println("Total Adjustment zeroed.....");

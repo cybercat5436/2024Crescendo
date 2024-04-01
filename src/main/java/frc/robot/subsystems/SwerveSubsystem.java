@@ -26,16 +26,19 @@ import com.revrobotics.CANSparkBase.IdleMode;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
+import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
-import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.util.sendable.SendableRegistry;
+import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
@@ -43,8 +46,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.LimelightHelpers;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.LimelightHelpers.PoseEstimate;
 import frc.robot.enums.WheelPosition;
 
 /** Add your docs here. */
@@ -67,8 +72,6 @@ public class SwerveSubsystem extends SubsystemBase{
     private double targetPitch = 0;
     private double saturatedPitch = -10;
     private double balanceRoll = 0.0;
-
-
 
     private final SwerveModule frontLeft = new SwerveModule(
         WheelPosition.FRONT_LEFT,
@@ -126,12 +129,15 @@ public class SwerveSubsystem extends SubsystemBase{
 
 
     //idk if this is the gyro we have 
-    private final Pigeon2 pidgey = new Pigeon2(Constants.RoboRioPortConfig.PIGEON2, Constants.RoboRioPortConfig.Canivore);
-    private final SwerveDriveOdometry odometry = new SwerveDriveOdometry(
+    public final Pigeon2 pidgey = new Pigeon2(Constants.RoboRioPortConfig.PIGEON2, Constants.RoboRioPortConfig.Canivore);
+
+    private final SwerveDrivePoseEstimator swerveDrivePoseEstimator = new SwerveDrivePoseEstimator(
         DriveConstants.kDriveKinematics,
         new Rotation2d(0),
         getModulePositions(),
         new Pose2d(0, 0, new Rotation2d(0)));
+
+    PoseEstimate visionPoseEstimate;
 
  
     private double kPXController =  AutoConstants.kPXController;
@@ -141,7 +147,16 @@ public class SwerveSubsystem extends SubsystemBase{
     PIDController yController;
     ProfiledPIDController thetaController;
 
-    public SwerveSubsystem(){
+    // Add the commanded chassis speeds during auton to network table
+    private NetworkTableEntry targetRobothassisSpeed = NetworkTableInstance.getDefault().getTable(
+        "SmartDashboard/" + this.getClass().getSimpleName()).getEntry(
+        "Target Chassis Speed");
+
+    private LimeLight limeLightRear;
+    
+
+    public SwerveSubsystem(LimeLight limeLightRear){
+        this.limeLightRear = limeLightRear;
         new Thread(() -> {
             try {
                 Thread.sleep(1000);
@@ -216,11 +231,12 @@ public class SwerveSubsystem extends SubsystemBase{
     }
 
     public Pose2d getPose(){
-        return odometry.getPoseMeters();
+        // return odometry.getPoseMeters();
+        return swerveDrivePoseEstimator.getEstimatedPosition();
     }
 
-    public SwerveDriveOdometry getOdometry(){
-        return odometry;
+    public SwerveDrivePoseEstimator getSwerveDrivePoseEstimator(){
+        return swerveDrivePoseEstimator;
     }
 
     public double getSaturatedPitch(){
@@ -253,7 +269,7 @@ public class SwerveSubsystem extends SubsystemBase{
     }
 
     public void resetOdometry(Pose2d pose){
-        odometry.resetPosition( getRotation2d(), getModulePositions(), pose);
+        swerveDrivePoseEstimator.resetPosition( getRotation2d(), getModulePositions(), pose);
     }
 
     public void resetEncoders(){
@@ -459,6 +475,9 @@ public class SwerveSubsystem extends SubsystemBase{
     public void driveRobotRelative(ChassisSpeeds chassisSpeeds){
         // Convert the chassis speeds to module states
         SwerveModuleState[] swerveModuleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
+        DataLogManager.log("driveRobotRelative: " + chassisSpeeds.toString());
+        targetRobothassisSpeed.setDoubleArray(new double[]{
+            chassisSpeeds.vxMetersPerSecond, chassisSpeeds.vyMetersPerSecond, chassisSpeeds.omegaRadiansPerSecond});
         // apply those states to the swerve modles
         this.setModuleStates(swerveModuleStates);
     }
@@ -477,9 +496,39 @@ public class SwerveSubsystem extends SubsystemBase{
 
     @Override
     public void periodic() {
+        // odometry update moved to special periodic defined in Robot::robotInit
+    }
 
-       odometry.update(getRotation2d(), getModulePositions());
+    public void updatePoseEstimatorWithVision(){
+        // intended to use April Tags positioned on Speaker
 
+        // First perform standard odometry update using gyro and module positions
+        swerveDrivePoseEstimator.update(getRotation2d(), getModulePositions());
+
+        // Adds a vision measurement to the Kalman Filter. This will correct the odometry pose estimate while still accounting for measurement noise.
+        // This method can be called as infrequently as you want, as long as you are calling update(edu.wpi.first.math.geometry.Rotation2d, 
+        //   edu.wpi.first.math.kinematics.SwerveModulePosition[]) every loop.
+        // To promote stability of the pose estimate and make it robust to bad vision data, we recommend only adding vision 
+        //   measurements that are already within one meter or so of the current pose estimate.
+
+        // 1) get the pose estimate from rear limelight
+        // 2) see if it is within 1m of odometry pose
+        // 3) if so, add it as a vision measurement
+        
+        // 1) get the pose estimate from rear limelight
+        visionPoseEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue(limeLightRear.networkTableName);
+        
+        // only continue if target is visible and poseEstimate is not null
+        if(!limeLightRear.getVisionTargetStatus() || visionPoseEstimate == null) return;
+        
+        // 2) see if it is within 1m of odometry pose
+        double offsetDistFromOdometry = swerveDrivePoseEstimator.getEstimatedPosition().getTranslation().getDistance(visionPoseEstimate.pose.getTranslation());
+        // don't include vision target if more than 1m off
+        if(offsetDistFromOdometry > 1) return;
+        
+        // 3) if so, add it as a vision measurement
+        // From https://docs.limelightvision.io/docs/docs-limelight/apis/limelight-lib#pose-estimation
+        swerveDrivePoseEstimator.addVisionMeasurement(visionPoseEstimate.pose, visionPoseEstimate.timestampSeconds);
     }
 
     @Override
@@ -491,14 +540,18 @@ public class SwerveSubsystem extends SubsystemBase{
         //  builder.addDoubleProperty("kPYController", () -> kPYController, (value) -> kPYController = value);
         //  builder.addDoubleProperty("kThetaController", () -> kPThetaController, (value) -> kPThetaController = value);
 
-        builder.addStringProperty("Odometry Position", () -> this.odometry.getPoseMeters().toString(), null);
+        builder.addStringProperty("Odometry Position", () -> this.swerveDrivePoseEstimator.getEstimatedPosition().toString(), null);
         builder.addDoubleProperty("Heading/Yaw [Deg]: ", () -> this.getHeading(), null);
         builder.addDoubleProperty("Gyro Roll Degrees", () -> getRollDegrees(), null);
         // Stream.of(this.getModulePositions()).mapToDouble(mp -> mp.distanceMeters).toArray();
         builder.addDoubleArrayProperty("WheelPos", 
             () -> Stream.of(this.getModulePositions()).mapToDouble(mp -> mp.distanceMeters).toArray(), null);
-
-
+        builder.addStringProperty("visionPose2d", 
+            () -> visionPoseEstimate == null ? "None" : visionPoseEstimate.pose.toString(), null);
+        builder.addDoubleArrayProperty("visionPose2dArray", 
+            () -> visionPoseEstimate == null ? new double[]{0,0,0} : new double[]{
+                visionPoseEstimate.pose.getX(), visionPoseEstimate.pose.getY(), visionPoseEstimate.pose.getRotation().getDegrees()
+            }, null);
     }
 
 }

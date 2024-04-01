@@ -54,6 +54,9 @@
   },
   "NetworkTables": {
     "transitory": {
+      "PathPlanner": {
+        "open": true
+      },
       "SmartDashboard": {
         "SwerveSubsystem": {
           "Heading": {

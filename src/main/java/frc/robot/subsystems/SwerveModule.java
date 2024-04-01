@@ -69,10 +69,8 @@ public class SwerveModule implements Sendable{
     cancoderConfigurator = cancoder.getConfigurator();
     cancoderConfigurator.apply(new MagnetSensorConfigs().withMagnetOffset(absoluteEncoderOffsetRotations));
 
-    driveMotor.setPeriodicFramePeriod(PeriodicFrame.kStatus2, 20);
-    turningMotor.setPeriodicFramePeriod(PeriodicFrame.kStatus2, 20);
-
-
+    // control refresh rate of position, moved to robot class
+    // setPositionPeriodicFramePeriod(0.2);
 
     driveMotor.clearFaults();
     turningMotor.clearFaults();
@@ -135,6 +133,13 @@ public class SwerveModule implements Sendable{
     spinEncoder.setPosition(0);
   }
   */
+
+  public void setPositionPeriodicFramePeriod(int ms){
+    // periodic frame status 2 controls position of motor for SparkMaxFlex
+    // default rate is 20 ms
+    driveMotor.setPeriodicFramePeriod(PeriodicFrame.kStatus2, ms);
+    turningMotor.setPeriodicFramePeriod(PeriodicFrame.kStatus2, ms);
+  }
 
   public void resetDriveEncoders() {
     driveEncoder.setPosition(0.0);

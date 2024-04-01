@@ -91,14 +91,14 @@ public final class Constants {
         //kWheelBase: Distance between front and back of the robot
         //public static final double kWheelBase = Units.inchesToMeters(23.5);
         public static final double kWheelBase = 0.645;
-        public static final double kSpinRadius = Math.sqrt(Math.pow(kTrackWidth, 2) + Math.pow(kWheelBase,2)) / 2.0;
+        public static final double kSpinRadius = Math.sqrt(Math.pow(kTrackWidth, 2) + Math.pow(kWheelBase,2)) / 2.0;  // 0.416 with w=0.524 and h=0.645
         public static final SwerveDriveKinematics kDriveKinematics = new SwerveDriveKinematics(
                 new Translation2d(kWheelBase / 2, kTrackWidth / 2),
                 new Translation2d(kWheelBase / 2, -kTrackWidth / 2),
                 new Translation2d(-kWheelBase / 2, kTrackWidth / 2),
                 new Translation2d(-kWheelBase / 2, -kTrackWidth / 2));
 
-        public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = kRotateDriveMaxSpeedMetersPerSecond/kSpinRadius;//3.78;
+        public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = kRotateDriveMaxSpeedMetersPerSecond/kSpinRadius;  // 14.0 with sp = 5.82 and r = 0.416;
 
         //public static final double kLimelightHorizontal = 0.0667;
         //public static final double kLimelightForward = 0.0833; //CHANGE
@@ -112,11 +112,11 @@ public final class Constants {
         public static final double kMaxSpeedMetersPerSecond = DriveConstants.kPhysicalMaxSpeedMetersPerSecond;
         public static final double kMaxAngularSpeedRadiansPerSecond = 
                 DriveConstants.kPhysicalMaxAngularSpeedRadiansPerSecond / 2.0;
-        public static final double kMaxAccelerationMetersPerSecondSquared = 3;
+        public static final double kMaxAccelerationMetersPerSecondSquared = 6.5; // was 3;
         public static final double kMaxAngularAccelerationRadiansPerSecondSquared = kMaxAngularSpeedRadiansPerSecond * 2.0;  // half a second to accelerate to full speed
         //used to be 1.5
-        public static final double kPXController = 2.9;
-        public static final double kPYController = 2.9;
+        public static final double kPXController = 5.0; // was 2.9;
+        public static final double kPYController = 5.0; // was 2.9;
 
         //Test with 2.9 * 2, which was set in swervesubsystem auton
         public static final double kPThetaController = 5.0;

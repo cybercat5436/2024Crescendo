@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class LimeLight extends SubsystemBase {
   public NetworkTable tableLimelight;
+  public String networkTableName;
   public NetworkTableEntry txLocal; //horizontal error
   public NetworkTableEntry tyLocal; //vertical error
   public NetworkTableEntry taLocal; //area error
@@ -28,6 +29,7 @@ public class LimeLight extends SubsystemBase {
   public double spinThreshold = 75;
 
   public LimeLight(String networkTableName) {
+    this.networkTableName = networkTableName;
     tableLimelight = NetworkTableInstance.getDefault().getTable(networkTableName);
     txLocal = tableLimelight.getEntry("tx"); // communicates horizontal degree offset from target
     tyLocal = tableLimelight.getEntry("ty"); // communicates verticle degree offset from target
@@ -36,7 +38,6 @@ public class LimeLight extends SubsystemBase {
     tsLocal = tableLimelight.getEntry("ts"); // communicates skew offset from target
     tzLocal = tableLimelight.getEntry("tz");
     tLongLocal = tableLimelight.getEntry("tlong");
-  
 }
 
 @Override
