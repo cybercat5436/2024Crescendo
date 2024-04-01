@@ -42,10 +42,24 @@ public class Robot extends TimedRobot {
     robot = this;
     m_robotContainer = new RobotContainer();
     // timer.start();
-    // addPeriodic(()->{
-    //   m_robotContainer.getSwerveSubsystem().getOdometry().update(m_robotContainer.getSwerveSubsystem().getRotation2d(), m_robotContainer.getSwerveSubsystem().getModulePositions());    
-    // }, 
-    //   0.01, 0.0);
+
+    // Increase the refresh rate for swerve drive odometry.  Affects both motors in each swerve module plus pigeon
+    // Must add a special periodic function to affect the update (and turn off odometry update in subsystem)
+    
+    // Increase the refresh rate for swerve drive odometry.  Affects both motors in each swerve module plus pigeon
+    int targetPeriodMs = 10;
+    m_robotContainer.getSwerveSubsystem().getSwerveModules().forEach(m -> m.setPositionPeriodicFramePeriod(10));
+    
+    double targetFrequency = 1000.0 / targetPeriodMs;
+    m_robotContainer.getSwerveSubsystem().pidgey.getYaw().setUpdateFrequency(targetFrequency);
+    
+    
+    // Must add a special periodic function to affect the update
+    addPeriodic(()->{
+      m_robotContainer.getSwerveSubsystem().updatePoseEstimatorWithVision();    
+    }, 
+    0.01, 0.0);
+
   }
 
  

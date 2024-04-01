@@ -23,7 +23,7 @@ public class AutonResetGyro extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    double headingDegrees = swerveSubsystem.getOdometry().getPoseMeters().getRotation().getDegrees();
+    double headingDegrees = swerveSubsystem.getSwerveDrivePoseEstimator().getEstimatedPosition().getRotation().getDegrees();
     var alliance = DriverStation.getAlliance();
     if(alliance.isPresent()){
       if(alliance.get()==DriverStation.Alliance.Red){
