@@ -50,7 +50,7 @@ public class Robot extends TimedRobot {
     
     // Increase the refresh rate for swerve drive odometry.  Affects both motors in each swerve module plus pigeon
     int targetPeriodMs = 10;
-    m_robotContainer.getSwerveSubsystem().getSwerveModules().forEach(m -> m.setPositionPeriodicFramePeriod(10));
+    m_robotContainer.getSwerveSubsystem().getSwerveModules().forEach(m -> m.setPositionPeriodicFramePeriod(targetPeriodMs));
     
     double targetFrequency = 1000.0 / targetPeriodMs;
     m_robotContainer.getSwerveSubsystem().pidgey.getYaw().setUpdateFrequency(targetFrequency);
@@ -117,11 +117,17 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+
+
   }
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    // Decrease the refresh rate for swerve drive odometry.  Affects both motors in each swerve module plus pigeon
+    int targetPeriodMs = 20;
+    m_robotContainer.getSwerveSubsystem().getSwerveModules().forEach(m -> m.setPositionPeriodicFramePeriod(targetPeriodMs));
+  }
 
   @Override
   public void testInit() {

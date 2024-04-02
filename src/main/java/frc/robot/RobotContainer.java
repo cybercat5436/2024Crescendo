@@ -35,6 +35,7 @@ import frc.robot.commands.NoteDetectorCommand;
 import frc.robot.commands.NoteNotDetected;
 import frc.robot.commands.RaceTest;
 import frc.robot.commands.SwerveJoystickCmd;
+import frc.robot.subsystems.AprilTagVision;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LimeLight;
@@ -61,7 +62,8 @@ public class RobotContainer {
     public boolean halfSpeed = false;
     private final LimeLight limeLightFront = new LimeLight("limelight-front");
     private final LimeLight limeLightRear = new LimeLight("limelight-rear");
-    private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem(limeLightRear);
+    private final AprilTagVision aprilTagVision = new AprilTagVision(limeLightRear);
+    private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem(aprilTagVision);
     private final Intake intake = new Intake();
     private final PoseUpdater poseUpdater = new PoseUpdater(limeLightFront, swerveSubsystem);
     private final CommandXboxController primaryController = new CommandXboxController(1);
@@ -86,7 +88,7 @@ public class RobotContainer {
       
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
-      DataLogManager.start();
+      // DataLogManager.start();
         
       // Configure the button bindings        
       configureButtonBindings();
@@ -327,8 +329,10 @@ public class RobotContainer {
     NamedCommands.registerCommand("detectNote", new NoteDetectorCommand(noteDetector));
     NamedCommands.registerCommand("returnToCenterSubWoofer", swerveSubsystem.returnToCenterSubWoofer());
     NamedCommands.registerCommand("NoteNotDetected", new NoteNotDetected(noteDetector));
-    NamedCommands.registerCommand("disablePoseUpdater", new InstantCommand(() -> poseUpdater.isEnabled = false));
     NamedCommands.registerCommand("enablePoseUpdater", new InstantCommand(() -> poseUpdater.isEnabled = true));
+    NamedCommands.registerCommand("disablePoseUpdater", new InstantCommand(() -> poseUpdater.isEnabled = false));
+    NamedCommands.registerCommand("enableAprilTagVision", new InstantCommand(() -> aprilTagVision.isEnabled = true));
+    NamedCommands.registerCommand("disableAprilTagVision", new InstantCommand(() -> aprilTagVision.isEnabled = false));
     NamedCommands.registerCommand("resetTotalAdjustment", new InstantCommand(() -> poseUpdater.resetTotalAdjustment()));
     NamedCommands.registerCommand("undoTotalAdjustment", new InstantCommand(() -> poseUpdater.undoTotalAdjustment()));
   }

@@ -137,7 +137,7 @@ public class SwerveSubsystem extends SubsystemBase{
         getModulePositions(),
         new Pose2d(0, 0, new Rotation2d(0)));
 
-    PoseEstimate visionPoseEstimate;
+    public PoseEstimate visionPoseEstimate;
 
  
     private double kPXController =  AutoConstants.kPXController;
@@ -152,11 +152,11 @@ public class SwerveSubsystem extends SubsystemBase{
         "SmartDashboard/" + this.getClass().getSimpleName()).getEntry(
         "Target Chassis Speed");
 
-    private LimeLight limeLightRear;
+    private AprilTagVision aprilTagVision;
     
 
-    public SwerveSubsystem(LimeLight limeLightRear){
-        this.limeLightRear = limeLightRear;
+    public SwerveSubsystem(AprilTagVision aprilTagVision){
+        this.aprilTagVision = aprilTagVision;
         new Thread(() -> {
             try {
                 Thread.sleep(1000);
@@ -475,7 +475,7 @@ public class SwerveSubsystem extends SubsystemBase{
     public void driveRobotRelative(ChassisSpeeds chassisSpeeds){
         // Convert the chassis speeds to module states
         SwerveModuleState[] swerveModuleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
-        DataLogManager.log("driveRobotRelative: " + chassisSpeeds.toString());
+        // DataLogManager.log("driveRobotRelative: " + chassisSpeeds.toString());
         targetRobothassisSpeed.setDoubleArray(new double[]{
             chassisSpeeds.vxMetersPerSecond, chassisSpeeds.vyMetersPerSecond, chassisSpeeds.omegaRadiansPerSecond});
         // apply those states to the swerve modles
@@ -502,33 +502,14 @@ public class SwerveSubsystem extends SubsystemBase{
     public void updatePoseEstimatorWithVision(){
         // intended to use April Tags positioned on Speaker
 
-        // First perform standard odometry update using gyro and module positions
-        swerveDrivePoseEstimator.update(getRotation2d(), getModulePositions());
-
-        // Adds a vision measurement to the Kalman Filter. This will correct the odometry pose estimate while still accounting for measurement noise.
-        // This method can be called as infrequently as you want, as long as you are calling update(edu.wpi.first.math.geometry.Rotation2d, 
-        //   edu.wpi.first.math.kinematics.SwerveModulePosition[]) every loop.
-        // To promote stability of the pose estimate and make it robust to bad vision data, we recommend only adding vision 
-        //   measurements that are already within one meter or so of the current pose estimate.
-
-        // 1) get the pose estimate from rear limelight
-        // 2) see if it is within 1m of odometry pose
-        // 3) if so, add it as a vision measurement
-        
-        // 1) get the pose estimate from rear limelight
-        // visionPoseEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue(limeLightRear.networkTableName);
-        
-        // // only continue if target is visible and poseEstimate is not null
-        // if(!limeLightRear.getVisionTargetStatus() || visionPoseEstimate == null) return;
-        
-        // // 2) see if it is within 1m of odometry pose
-        // double offsetDistFromOdometry = swerveDrivePoseEstimator.getEstimatedPosition().getTranslation().getDistance(visionPoseEstimate.pose.getTranslation());
-        // // don't include vision target if more than 1m off
-        // if(offsetDistFromOdometry > 1) return;
-        
-        // // 3) if so, add it as a vision measurement
-        // // From https://docs.limelightvision.io/docs/docs-limelight/apis/limelight-lib#pose-estimation
-        // swerveDrivePoseEstimator.addVisionMeasurement(visionPoseEstimate.pose, visionPoseEstimate.timestampSeconds);
+        // Only update odometry during Auton
+        if(DriverStation.isAutonomousEnabled()){
+            // First perform standard odometry update using gyro and module positions
+            swerveDrivePoseEstimator.update(getRotation2d(), getModulePositions());
+    
+            // updated poseEstimate with vision info (when active inside AprilTagVision subsystem)
+            visionPoseEstimate = aprilTagVision.updatePoseEstimator(swerveDrivePoseEstimator);
+        }
     }
 
     @Override
