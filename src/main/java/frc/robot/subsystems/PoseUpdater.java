@@ -20,6 +20,9 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.LimelightHelpers;
+import frc.robot.LimelightHelpers.PoseEstimate;
+import frc.robot.enums.MidfieldNote;
 
 public class PoseUpdater extends SubsystemBase {
   /** Creates a new PoseUpdater. */
@@ -107,6 +110,57 @@ public class PoseUpdater extends SubsystemBase {
     
   }
 
+  private boolean isRed(){
+    boolean isRed = false;  // assumes blue
+    Optional<Alliance> alliance = DriverStation.getAlliance();
+    if(alliance.isPresent()){
+      if(alliance.get() == DriverStation.Alliance.Red){
+        isRed = true;
+      }
+    }
+    return isRed;
+  }
+
+  public PoseEstimate getPoseEstimateFromNote(MidfieldNote midfieldNote){
+    // this sets yError instance variable
+    ta = taLocal.getDouble(0);
+    tx = txLocal.getDouble(0);
+    double distanceEstimate = getDistanceEstimate(ta);
+    double yError = calculateYError(tx, distanceEstimate);
+    
+    
+    
+    // This is a projection of where the robot is relative to the note
+    // It assumes Blue alliance initially
+    // Note: if ring is left of robot, yError is negative.  To get proper sign, distance flips sign, yError does not
+
+    Translation2d translation2dRobotFromNote = new Translation2d(-distanceEstimate, yError);
+    
+    // figure out if translation2dRobotFromNote needs to be rotated because of alliance
+    if (isRed()) {
+      translation2dRobotFromNote = translation2dRobotFromNote.rotateBy(Rotation2d.fromDegrees(180));
+    }
+    // now add the translation to the known note position
+    Translation2d estimatedRobotPosition = midfieldNote.getTranslation2d().plus(translation2dRobotFromNote);
+
+    // create a pose estimate using that position and current robot heading
+    Rotation2d estimatedRotation2d = isRed() ? Rotation2d.fromDegrees(180) : Rotation2d.fromDegrees(0);
+    Pose2d estimatedPose = new Pose2d(estimatedRobotPosition, estimatedRotation2d);
+
+
+    double latency = LimelightHelpers.getLatency_Pipeline(limeLightFront.networkTableName);
+    double timestamp = (txLocal.getLastChange() / 1000000.0) - (latency/1000.0);
+    PoseEstimate poseEstimate = new PoseEstimate(estimatedPose, timestamp, latency, 1, ta, distanceEstimate, ta, null);
+
+    return poseEstimate;
+  }
+
+  /**
+   * This method is depricated
+   * This directly updates the odometry by a set value.
+   * @param offsetValue
+   */
+  @Deprecated
   public void updateOdometry(double offsetValue) {
     // Transform2d transform2d = new Transform2d(new Translation2d(0,yError),new Rotation2d());
     System.out.println("inside update odometry");
@@ -148,6 +202,8 @@ public class PoseUpdater extends SubsystemBase {
     // Pose2d newPose = new Pose2d(translation2d, currentPose.getRotation());
     // swerveSubsystem.resetOdometry(newPose);
   }
+
+
   public void undoTotalAdjustment() {
 
     System.out.println("inside undoTotalAdjustment");
@@ -169,8 +225,8 @@ public class PoseUpdater extends SubsystemBase {
     isTargetVisible = limeLightFront.getVisionTargetStatus();
     
     // Calculate error
-    if(isTargetVisible) {
-      
+    if(isTargetVisible && DriverStation.isAutonomousEnabled()) {
+
       calculateYError();
 
       // update pose if active  

@@ -37,6 +37,7 @@ import frc.robot.commands.NoteDetectorCommand;
 import frc.robot.commands.NoteNotDetected;
 import frc.robot.commands.RaceTest;
 import frc.robot.commands.SwerveJoystickCmd;
+import frc.robot.enums.MidfieldNote;
 import frc.robot.subsystems.AprilTagVision;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Intake;
@@ -287,6 +288,8 @@ public class RobotContainer {
 
       System.out.println(String.format("Speaker starting position %s", 
         startTranslation2d.toString()));
+
+      System.out.println("Midfield Note A: " + MidfieldNote.A.getTranslation2d().toString());
 
     }
 

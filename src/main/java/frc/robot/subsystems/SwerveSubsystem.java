@@ -56,6 +56,7 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.LimelightHelpers.PoseEstimate;
 import frc.robot.LimelightHelpers.PoseEstimate;
+import frc.robot.enums.MidfieldNote;
 import frc.robot.enums.WheelPosition;
 
 /** Add your docs here. */
@@ -163,6 +164,7 @@ public class SwerveSubsystem extends SubsystemBase{
 
     public SwerveSubsystem(AprilTagVision aprilTagVision){
         this.aprilTagVision = aprilTagVision;
+
         new Thread(() -> {
             try {
                 Thread.sleep(1000);
@@ -516,6 +518,8 @@ public class SwerveSubsystem extends SubsystemBase{
     
             // updated poseEstimate with vision info (when active inside AprilTagVision subsystem)
             visionPoseEstimate = aprilTagVision.updatePoseEstimator(swerveDrivePoseEstimator);
+
+            // poseEstimateFromNote = poseUpdater.getPoseEstimateFromNote(MidfieldNote.C);
         }
     }
 
@@ -546,6 +550,7 @@ public class SwerveSubsystem extends SubsystemBase{
             () -> visionPoseEstimate == null ? new double[]{0,0,0} : new double[]{
                 visionPoseEstimate.pose.getX(), visionPoseEstimate.pose.getY(), visionPoseEstimate.pose.getRotation().getDegrees()
             }, null);
+
     }
 
 }
