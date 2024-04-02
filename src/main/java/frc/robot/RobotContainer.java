@@ -218,10 +218,10 @@ public class RobotContainer {
         Commands.sequence(
           new InstantCommand(() -> intake.intakeFeedIn()),
           new InstantCommand(() -> launcher.startFeeder(0.3)),
-          Commands.waitSeconds(1.2),
+          Commands.waitSeconds(0.75),
           new InstantCommand(() -> launcher.startFeeder(-0.2)),
           new InstantCommand(() -> intake.stopIntake()),
-          Commands.waitSeconds(0.2),
+          Commands.waitSeconds(0.1),
           new InstantCommand(() -> launcher.stopFeeder())
         )
       );
