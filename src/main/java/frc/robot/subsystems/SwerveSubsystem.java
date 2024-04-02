@@ -516,19 +516,19 @@ public class SwerveSubsystem extends SubsystemBase{
         // 3) if so, add it as a vision measurement
         
         // 1) get the pose estimate from rear limelight
-        visionPoseEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue(limeLightRear.networkTableName);
+        // visionPoseEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue(limeLightRear.networkTableName);
         
-        // only continue if target is visible and poseEstimate is not null
-        if(!limeLightRear.getVisionTargetStatus() || visionPoseEstimate == null) return;
+        // // only continue if target is visible and poseEstimate is not null
+        // if(!limeLightRear.getVisionTargetStatus() || visionPoseEstimate == null) return;
         
-        // 2) see if it is within 1m of odometry pose
-        double offsetDistFromOdometry = swerveDrivePoseEstimator.getEstimatedPosition().getTranslation().getDistance(visionPoseEstimate.pose.getTranslation());
-        // don't include vision target if more than 1m off
-        if(offsetDistFromOdometry > 1) return;
+        // // 2) see if it is within 1m of odometry pose
+        // double offsetDistFromOdometry = swerveDrivePoseEstimator.getEstimatedPosition().getTranslation().getDistance(visionPoseEstimate.pose.getTranslation());
+        // // don't include vision target if more than 1m off
+        // if(offsetDistFromOdometry > 1) return;
         
-        // 3) if so, add it as a vision measurement
-        // From https://docs.limelightvision.io/docs/docs-limelight/apis/limelight-lib#pose-estimation
-        swerveDrivePoseEstimator.addVisionMeasurement(visionPoseEstimate.pose, visionPoseEstimate.timestampSeconds);
+        // // 3) if so, add it as a vision measurement
+        // // From https://docs.limelightvision.io/docs/docs-limelight/apis/limelight-lib#pose-estimation
+        // swerveDrivePoseEstimator.addVisionMeasurement(visionPoseEstimate.pose, visionPoseEstimate.timestampSeconds);
     }
 
     @Override
