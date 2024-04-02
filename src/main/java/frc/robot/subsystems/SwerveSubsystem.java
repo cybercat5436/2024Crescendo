@@ -27,6 +27,7 @@ import com.revrobotics.CANSparkBase.IdleMode;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
+import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -36,8 +37,11 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.util.sendable.SendableRegistry;
+import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
@@ -47,8 +51,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.LimelightHelpers;
+import frc.robot.LimelightHelpers;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.LimelightHelpers.PoseEstimate;
 import frc.robot.LimelightHelpers.PoseEstimate;
 import frc.robot.enums.WheelPosition;
 
@@ -129,6 +135,9 @@ public class SwerveSubsystem extends SubsystemBase{
 
 
     //idk if this is the gyro we have 
+    public final Pigeon2 pidgey = new Pigeon2(Constants.RoboRioPortConfig.PIGEON2, Constants.RoboRioPortConfig.Canivore);
+
+    private final SwerveDrivePoseEstimator swerveDrivePoseEstimator = new SwerveDrivePoseEstimator(
     public final Pigeon2 pidgey = new Pigeon2(Constants.RoboRioPortConfig.PIGEON2, Constants.RoboRioPortConfig.Canivore);
 
     private final SwerveDrivePoseEstimator swerveDrivePoseEstimator = new SwerveDrivePoseEstimator(
@@ -233,8 +242,12 @@ public class SwerveSubsystem extends SubsystemBase{
     public Pose2d getPose(){
         // return odometry.getPoseMeters();
         return swerveDrivePoseEstimator.getEstimatedPosition();
+        // return odometry.getPoseMeters();
+        return swerveDrivePoseEstimator.getEstimatedPosition();
     }
 
+    public SwerveDrivePoseEstimator getSwerveDrivePoseEstimator(){
+        return swerveDrivePoseEstimator;
     public SwerveDrivePoseEstimator getSwerveDrivePoseEstimator(){
         return swerveDrivePoseEstimator;
     }
@@ -269,6 +282,7 @@ public class SwerveSubsystem extends SubsystemBase{
     }
 
     public void resetOdometry(Pose2d pose){
+        swerveDrivePoseEstimator.resetPosition( getRotation2d(), getModulePositions(), pose);
         swerveDrivePoseEstimator.resetPosition( getRotation2d(), getModulePositions(), pose);
     }
 
@@ -527,6 +541,12 @@ public class SwerveSubsystem extends SubsystemBase{
         // Stream.of(this.getModulePositions()).mapToDouble(mp -> mp.distanceMeters).toArray();
         builder.addDoubleArrayProperty("WheelPos", 
             () -> Stream.of(this.getModulePositions()).mapToDouble(mp -> mp.distanceMeters).toArray(), null);
+        builder.addStringProperty("visionPose2d", 
+            () -> visionPoseEstimate == null ? "None" : visionPoseEstimate.pose.toString(), null);
+        builder.addDoubleArrayProperty("visionPose2dArray", 
+            () -> visionPoseEstimate == null ? new double[]{0,0,0} : new double[]{
+                visionPoseEstimate.pose.getX(), visionPoseEstimate.pose.getY(), visionPoseEstimate.pose.getRotation().getDegrees()
+            }, null);
         builder.addStringProperty("visionPose2d", 
             () -> visionPoseEstimate == null ? "None" : visionPoseEstimate.pose.toString(), null);
         builder.addDoubleArrayProperty("visionPose2dArray", 
