@@ -288,25 +288,6 @@ public class RobotContainer {
       System.out.println(String.format("Speaker starting position %s", 
         startTranslation2d.toString()));
 
-      System.out.println(String.format("Distance Test: %.2f should be 3.0", 
-        new Translation2d(3.0, 0.0).getDistance(new Translation2d())));
-
-      System.out.println(String.format("Distance Test: %.2f should be 12.73", 
-        new Translation2d(9.0, 9.0).getDistance(new Translation2d())));
-
-      System.out.println(String.format("Distance Test: %.2f should be 8.54", 
-        new Translation2d(8, 3).getDistance(new Translation2d(5, -5))));
-
-      Pose2d ampCorner = new Pose2d(0.92, 6.143, Rotation2d.fromDegrees(0));
-      var botW = Constants.DriveConstants.kTrackWidth;
-      var botL = Constants.DriveConstants.kWheelBase;
-      var bumpT = Units.Meters.convertFrom(2.5, Units.Inches);
-      Pose2d cornerOfBotOffset = new Pose2d((botL / 2) + bumpT, botW / 2,Rotation2d.fromDegrees(0)).rotateBy(Rotation2d.fromDegrees(60));
-      Translation2d startTranslation2d = ampCorner.getTranslation().plus(cornerOfBotOffset.getTranslation());
-
-      System.out.println(String.format("Speaker starting position %s", 
-        startTranslation2d.toString()));
-
     }
 
     public void testOffsetCalc(double tx, double d, double answer){

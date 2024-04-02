@@ -138,9 +138,6 @@ public class SwerveSubsystem extends SubsystemBase{
     public final Pigeon2 pidgey = new Pigeon2(Constants.RoboRioPortConfig.PIGEON2, Constants.RoboRioPortConfig.Canivore);
 
     private final SwerveDrivePoseEstimator swerveDrivePoseEstimator = new SwerveDrivePoseEstimator(
-    public final Pigeon2 pidgey = new Pigeon2(Constants.RoboRioPortConfig.PIGEON2, Constants.RoboRioPortConfig.Canivore);
-
-    private final SwerveDrivePoseEstimator swerveDrivePoseEstimator = new SwerveDrivePoseEstimator(
         DriveConstants.kDriveKinematics,
         new Rotation2d(0),
         getModulePositions(),
@@ -242,12 +239,8 @@ public class SwerveSubsystem extends SubsystemBase{
     public Pose2d getPose(){
         // return odometry.getPoseMeters();
         return swerveDrivePoseEstimator.getEstimatedPosition();
-        // return odometry.getPoseMeters();
-        return swerveDrivePoseEstimator.getEstimatedPosition();
     }
 
-    public SwerveDrivePoseEstimator getSwerveDrivePoseEstimator(){
-        return swerveDrivePoseEstimator;
     public SwerveDrivePoseEstimator getSwerveDrivePoseEstimator(){
         return swerveDrivePoseEstimator;
     }
