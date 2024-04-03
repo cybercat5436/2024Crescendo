@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
+import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 
@@ -24,6 +25,9 @@ public class SuperStructure extends SubsystemBase {
   MotionMagicVoltage m_motmag = new MotionMagicVoltage(0);
   private double ampPosition = 9.2;
   private double longShotPosition = 2.0;
+  final VoltageOut m_request = new VoltageOut(0);
+
+
   // 9.2
   public SuperStructure() {
 
@@ -76,6 +80,9 @@ public class SuperStructure extends SubsystemBase {
     m_motmag.Slot = 0;
     superStructure.setControl(m_motmag.withPosition(longShotPosition));
 
+  }
+  public void stopSuperStructure() {
+    superStructure.setControl(m_request.withOutput(0));
   }
   @Override
   public void periodic() {
