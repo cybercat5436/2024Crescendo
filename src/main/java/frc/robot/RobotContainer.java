@@ -290,7 +290,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("intakeFeedIn", new InstantCommand(()->intake.intakeFeedIn()));
     NamedCommands.registerCommand("stopIntake", new InstantCommand(()->intake.stopIntake()));
     NamedCommands.registerCommand("startLauncher", new InstantCommand(()->launcher.startLauncher(0.7)).repeatedly());
-    NamedCommands.registerCommand("startFeeder", new InstantCommand(()->launcher.startFeeder()).repeatedly().withTimeout(0.2));
+    NamedCommands.registerCommand("startFeeder", new InstantCommand(()->launcher.startFeeder()).repeatedly().withTimeout(0.3));
     NamedCommands.registerCommand("stopShooter", new InstantCommand(()->launcher.stop()));
     NamedCommands.registerCommand("shoot", shootCommand);
     NamedCommands.registerCommand("leftAutonGyroReset", new InstantCommand(()->swerveSubsystem.zeroHeading(60)));
