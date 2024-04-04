@@ -569,51 +569,6 @@
         "vgap": 16.0,
         "titleType": 0,
         "tiles": {
-          "8,0": {
-            "size": [
-              4,
-              3
-            ],
-            "content": {
-              "_type": "Grid Layout",
-              "_title": "Turning Motor Encoders",
-              "_glyph": 149,
-              "_showGlyph": false,
-              "Layout/Number of columns": 2,
-              "Layout/Number of rows": 2,
-              "Layout/Label position": "TOP",
-              "_children": {
-                "0,0": {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/FRONT_LEFT/Turning Encoder",
-                  "_title": "FL",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                },
-                "0,1": {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/BACK_LEFT/Turning Encoder",
-                  "_title": "BL",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                },
-                "1,0": {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/BACK_RIGHT/Turning Encoder",
-                  "_title": "FR",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                },
-                "1,1": {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/FRONT_RIGHT/Turning Encoder",
-                  "_title": "BR",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                }
-              }
-            }
-          },
           "5,7": {
             "size": [
               2,
@@ -715,10 +670,10 @@
               "Colors/Color when false": "#8B0000FF"
             }
           },
-          "5,3": {
+          "4,3": {
             "size": [
               3,
-              1
+              2
             ],
             "content": {
               "_type": "ComboBox Chooser",
@@ -765,6 +720,51 @@
               "_title": "/SmartDashboard/SuperStructure/Longshot pos",
               "_glyph": 148,
               "_showGlyph": false
+            }
+          },
+          "7,0": {
+            "size": [
+              3,
+              3
+            ],
+            "content": {
+              "_type": "Grid Layout",
+              "_title": "Grid Layout",
+              "_glyph": 149,
+              "_showGlyph": false,
+              "Layout/Number of columns": 3,
+              "Layout/Number of rows": 3,
+              "Layout/Label position": "BOTTOM",
+              "_children": {
+                "0,0": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/FRONT_LEFT/Turning Encoder",
+                  "_title": "FL",
+                  "_glyph": 148,
+                  "_showGlyph": false
+                },
+                "1,0": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/FRONT_RIGHT/Turning Encoder",
+                  "_title": "FR",
+                  "_glyph": 148,
+                  "_showGlyph": false
+                },
+                "0,1": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/BACK_LEFT/Turning Encoder",
+                  "_title": "BL",
+                  "_glyph": 148,
+                  "_showGlyph": false
+                },
+                "1,1": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/BACK_RIGHT/Turning Encoder",
+                  "_title": "BR",
+                  "_glyph": 148,
+                  "_showGlyph": false
+                }
+              }
             }
           }
         }
