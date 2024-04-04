@@ -194,8 +194,8 @@ public class RobotContainer {
           launcher.startLauncher(1.0);
         }),
         Commands.waitSeconds(0.3),
-        new InstantCommand(() -> launcher.startFeeder(0.15)),
-        Commands.waitSeconds(0.1),
+        new InstantCommand(() -> launcher.startFeeder(0.1)),
+        Commands.waitSeconds(0.05),
         new InstantCommand(()->{
           System.out.println("<---  Rotating to LongShot Position...");
           superStructure.rotateToLongShot();
@@ -211,7 +211,10 @@ public class RobotContainer {
           superStructure.rotateToSpeaker();
           launcher.stop();
           intake.stopIntake();
-        }));
+        }),
+        Commands.waitSeconds(0.5),
+        new InstantCommand(()-> superStructure.stopSuperStructure())
+        );
 
       SmartDashboard.putData(longShotCommand);
       // bind longshot to secondary controller
