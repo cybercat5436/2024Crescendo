@@ -224,7 +224,7 @@ public class PoseUpdater extends SubsystemBase {
   public void initSendable(SendableBuilder builder) {
     // TODO Auto-generated method stub
     super.initSendable(builder);
-    builder.addDoubleArrayProperty("tx-ta", () -> new double[] {tx, ta}, null);
+    // builder.addDoubleArrayProperty("tx-ta", () -> new double[] {tx, ta}, null);
     builder.addDoubleProperty("Y Error", () -> yError, null);
     builder.addDoubleProperty("Distance Estimate", () -> distanceEstimate, null);
     builder.addBooleanProperty("isEnabled", () -> isEnabled, null);

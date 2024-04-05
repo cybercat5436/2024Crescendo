@@ -133,10 +133,10 @@ public class Climber extends SubsystemBase {
   public void initSendable(SendableBuilder builder) {
     // TODO Auto-generated method stub
     super.initSendable(builder);
-    builder.addDoubleProperty("Left Climber Position", () -> leftEncoderValue, null);
-    builder.addDoubleProperty("Right Climber Position", () -> rightEncoderValue, null);
-    builder.addBooleanProperty("isSuperStructureRaised", () -> isSuperStructureRaised, (value) -> this.isSuperStructureRaised = value);
-    builder.addDoubleProperty("encoderTrigger", () -> encoderTrigger, (value) -> this.encoderTrigger = value);
+    // builder.addDoubleProperty("Left Climber Position", () -> leftEncoderValue, null);
+    // builder.addDoubleProperty("Right Climber Position", () -> rightEncoderValue, null);
+    // builder.addBooleanProperty("isSuperStructureRaised", () -> isSuperStructureRaised, (value) -> this.isSuperStructureRaised = value);
+    // builder.addDoubleProperty("encoderTrigger", () -> encoderTrigger, (value) -> this.encoderTrigger = value);
   }
 
 }

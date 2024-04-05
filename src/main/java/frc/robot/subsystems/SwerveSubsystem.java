@@ -495,8 +495,8 @@ public class SwerveSubsystem extends SubsystemBase{
         builder.addDoubleProperty("Heading/Yaw [Deg]: ", () -> this.getHeading(), null);
         builder.addDoubleProperty("Gyro Roll Degrees", () -> getRollDegrees(), null);
         // Stream.of(this.getModulePositions()).mapToDouble(mp -> mp.distanceMeters).toArray();
-        builder.addDoubleArrayProperty("WheelPos", 
-            () -> Stream.of(this.getModulePositions()).mapToDouble(mp -> mp.distanceMeters).toArray(), null);
+        // builder.addDoubleArrayProperty("WheelPos", 
+        //     () -> Stream.of(this.getModulePositions()).mapToDouble(mp -> mp.distanceMeters).toArray(), null);
 
 
     }
