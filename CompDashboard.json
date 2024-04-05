@@ -670,7 +670,7 @@
               "Colors/Color when false": "#8B0000FF"
             }
           },
-          "4,3": {
+          "6,3": {
             "size": [
               3,
               2
@@ -705,19 +705,6 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/PoseUpdater/totalAdjustment",
               "_title": "SmartDashboard/PoseUpdater/totalAdjustment",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "5,1": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/SuperStructure/Longshot pos",
-              "_title": "/SmartDashboard/SuperStructure/Longshot pos",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -765,6 +752,19 @@
                   "_showGlyph": false
                 }
               }
+            }
+          },
+          "5,1": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/SuperStructure/Longshot pos",
+              "_title": "SmartDashboard/SuperStructure/Longshot pos",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           }
         }
