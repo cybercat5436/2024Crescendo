@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.66,
-        "y": 4.46
+        "x": 0.8338753339418218,
+        "y": 4.532093743217444
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.2943279732713326,
-        "y": 3.453429983783045
+        "x": 1.4287608639435017,
+        "y": 3.501721780566995
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Playerside start"
     },
     {
       "anchor": {
@@ -64,6 +64,40 @@
               "type": "named",
               "data": {
                 "name": "intakeFeedIn"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 1.15,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "enablePoseUpdater"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 2.0,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "disablePoseUpdater"
               }
             }
           ]

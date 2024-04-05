@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.6727105761903848,
-      "y": 4.459858150485532
+      "x": 1.4,
+      "y": 5.55
     },
-    "rotation": -63.81999999999999
+    "rotation": 0
   },
   "command": {
     "type": "sequential",
@@ -18,15 +18,21 @@
           }
         },
         {
-          "type": "path",
+          "type": "wait",
           "data": {
-            "pathName": "Playerside path 1"
+            "waitTime": 1.0
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Playerside path 1 pt2 "
+            "pathName": "MidNote1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "MidNote2"
           }
         },
         {
@@ -50,13 +56,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Playerside path 2 pt 1"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Playerside path 2 pt 2"
+            "pathName": "TopAlt"
           }
         },
         {
@@ -78,9 +78,51 @@
           }
         },
         {
+          "type": "path",
+          "data": {
+            "pathName": "BotAlt 2"
+          }
+        },
+        {
           "type": "named",
           "data": {
-            "name": "resetGyro"
+            "name": "startFeeder"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "stopShooter"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "stopIntake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Center Midfield No Vision"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "startFeeder"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "stopShooter"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "stopIntake"
           }
         }
       ]
