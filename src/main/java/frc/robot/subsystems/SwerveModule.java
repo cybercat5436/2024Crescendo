@@ -269,9 +269,9 @@ public class SwerveModule implements Sendable{
   @Override
   public void initSendable(SendableBuilder builder) {
     // TODO Auto-generated method stub
-    builder.addDoubleProperty("Drive Velocity", () -> this.getDriveVelocity(), null);
+    // builder.addDoubleProperty("Drive Velocity", () -> this.getDriveVelocity(), null);
     builder.addDoubleProperty("CANCoder Absolute", () -> cancoder.getAbsolutePosition().getValueAsDouble(),null);
-    builder.addDoubleProperty("Desired Drive Power", () -> this.getDrivePower()*DriveConstants.kPhysicalMaxSpeedMetersPerSecond, null);
+    // builder.addDoubleProperty("Desired Drive Power", () -> this.getDrivePower()*DriveConstants.kPhysicalMaxSpeedMetersPerSecond, null);
     builder.addDoubleProperty("Turning Encoder",() -> this.getTurningPosition(),null);
     // builder.addDoubleProperty("Physical Restraints", () -> DriveConstants.kPhysicalMaxAngularSpeedRadiansPerSecond, null);
   
