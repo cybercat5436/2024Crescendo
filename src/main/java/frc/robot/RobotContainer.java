@@ -223,13 +223,15 @@ public class RobotContainer {
       // move the note from intake to launcher
       secondaryController.povDown().onTrue(
         Commands.sequence(
+          new InstantCommand(() -> launcher.startLauncher(-0.2)),
           new InstantCommand(() -> intake.intakeFeedIn()),
           new InstantCommand(() -> launcher.startFeeder(0.3)),
           Commands.waitSeconds(0.75),
-          new InstantCommand(() -> launcher.startFeeder(-0.2)),
+         // new InstantCommand(() -> launcher.startFeeder(-0.2)),
           new InstantCommand(() -> intake.stopIntake()),
-          Commands.waitSeconds(0.1),
-          new InstantCommand(() -> launcher.stopFeeder())
+        //  Commands.waitSeconds(0.1),
+          new InstantCommand(() -> launcher.stopFeeder()),
+          new InstantCommand(() -> launcher.stopLauncher())
         )
       );
 
