@@ -24,23 +24,18 @@ public class AutoAlign extends Command {
   private double yScaleFactor = (DriveConstants.ykTranslateDriveMaxSpeedMetersPerSecond/DriveConstants.kTranslateDriveMaxSpeedMetersPerSecond);
   private ChassisSpeeds chassisSpeeds;
   private Timer timer;
-  private RobotContainer robotContainer;
+
 
   /** Creates a new AutoAlign. */
-  public AutoAlign(SwerveSubsystem swerveSubsystem, LimeLight limeLight, RobotContainer robotContainer) {
+  public AutoAlign(SwerveSubsystem swerveSubsystem, LimeLight limeLight) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.swerveSubsystem = swerveSubsystem;
     this.limeLight = limeLight;
-    this.robotContainer = robotContainer;
     timer = new Timer();
     System.out.println("Inside AutoAlign");
      
   }
 
-  public void getAuton (){
-        System.out.println("Name of autonomous: " + robotContainer.getAutonomousCommand().getName());
-
-  }
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
