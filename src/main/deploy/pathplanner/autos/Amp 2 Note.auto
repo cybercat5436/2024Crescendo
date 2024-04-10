@@ -52,6 +52,12 @@
           "data": {
             "name": "resetGyro"
           }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "autoAlign"
+          }
         }
       ]
     }

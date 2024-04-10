@@ -73,6 +73,7 @@ public class RobotContainer {
     private final Climber climber = new Climber(new InstantCommand(() -> superStructure.rotateToAmp()));
     private final Launcher launcher = new Launcher();
     private final Util util = new Util();
+    private final AutoAlign autoAlign = new AutoAlign(swerveSubsystem, limeLightFront);
   
 
     private SequentialCommandGroup shootCommand = new SequentialCommandGroup(
