@@ -98,6 +98,8 @@ public class RobotContainer {
       String defaultAuton = AutoBuilder.getAllAutoNames().isEmpty() ? "" : AutoBuilder.getAllAutoNames().get(0);
       autonChooser = AutoBuilder.buildAutoChooser(defaultAuton);
       SmartDashboard.putData("Auton Chooser", autonChooser);
+      AutoAlign  autoAlign = new AutoAlign(swerveSubsystem, limeLightRear, this);
+      SmartDashboard.putData(new InstantCommand(() -> autoAlign.getAuton()));
 }
   
     /**
@@ -295,7 +297,7 @@ public class RobotContainer {
   }
 
   private void registerNamedCommands(){
-    NamedCommands.registerCommand("autoAlign", new AutoAlign(swerveSubsystem, limeLightFront));
+    NamedCommands.registerCommand("autoAlign", new AutoAlign(swerveSubsystem, limeLightFront, this));
     NamedCommands.registerCommand("intakeFeedIn", new InstantCommand(()->intake.intakeFeedIn()));
     NamedCommands.registerCommand("stopIntake", new InstantCommand(()->intake.stopIntake()));
     NamedCommands.registerCommand("startLauncher", new InstantCommand(()->launcher.startLauncher(0.7)).repeatedly());

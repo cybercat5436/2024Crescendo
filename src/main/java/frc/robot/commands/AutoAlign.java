@@ -8,6 +8,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.RobotContainer;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.LimeLight;
 import frc.robot.subsystems.SwerveSubsystem;
@@ -23,15 +24,23 @@ public class AutoAlign extends Command {
   private double yScaleFactor = (DriveConstants.ykTranslateDriveMaxSpeedMetersPerSecond/DriveConstants.kTranslateDriveMaxSpeedMetersPerSecond);
   private ChassisSpeeds chassisSpeeds;
   private Timer timer;
+  private RobotContainer robotContainer;
 
   /** Creates a new AutoAlign. */
-  public AutoAlign(SwerveSubsystem swerveSubsystem, LimeLight limeLight) {
+  public AutoAlign(SwerveSubsystem swerveSubsystem, LimeLight limeLight, RobotContainer robotContainer) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.swerveSubsystem = swerveSubsystem;
     this.limeLight = limeLight;
+    this.robotContainer = robotContainer;
     timer = new Timer();
+
+
   }
 
+  public void getAuton (){
+        System.out.println("Name of autonomous: " + robotContainer.getAutonomousCommand().getName());
+
+  }
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {

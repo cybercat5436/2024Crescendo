@@ -26,9 +26,10 @@ public class SwerveJoystickCmd extends Command {
     private double kLimelightTurning =  0.1;
     private double targetHeading = 0;
     // private double superFastModeConstant = 7.5;
-    private SlewRateLimiter slewRateLimiterX = new SlewRateLimiter(DriveConstants.kPhysicalMaxSpeedMetersPerSecond * 2);
-    private SlewRateLimiter slewRateLimiterY = new SlewRateLimiter(DriveConstants.kPhysicalMaxSpeedMetersPerSecond * 2);
-    private SlewRateLimiter slewRateLimiterTheta = new SlewRateLimiter(DriveConstants.kPhysicalMaxSpeedMetersPerSecond * 2.5);
+    private double slewMultiple = 2.0;
+    private SlewRateLimiter slewRateLimiterX = new SlewRateLimiter(DriveConstants.kPhysicalMaxSpeedMetersPerSecond * slewMultiple);
+    private SlewRateLimiter slewRateLimiterY = new SlewRateLimiter(DriveConstants.kPhysicalMaxSpeedMetersPerSecond * slewMultiple);
+    private SlewRateLimiter slewRateLimiterTheta = new SlewRateLimiter(DriveConstants.kPhysicalMaxSpeedMetersPerSecond * 999);
     private double xSpeed, ySpeed, turningSpeed;
     private boolean isFastModeActive;
     //Robot is tippy in Y direction so we are decreasing yspeed
@@ -188,6 +189,13 @@ public class SwerveJoystickCmd extends Command {
         // builder.addDoubleProperty("targetHeading", () -> targetHeading, (value) -> targetHeading = value);
         builder.addDoubleProperty("x speed", () -> xSpeed, (value) -> xSpeed = value);
         builder.addDoubleProperty("Y speed", () -> ySpeed, (value) -> ySpeed = value);
+        builder.addDoubleProperty("slewMultiple", () -> slewMultiple, (value) -> {
+            this.slewMultiple = value;
+            slewRateLimiterX = new SlewRateLimiter (DriveConstants.kPhysicalMaxSpeedMetersPerSecond * slewMultiple);
+            slewRateLimiterY = new SlewRateLimiter (DriveConstants.kPhysicalMaxSpeedMetersPerSecond * slewMultiple);
+
+          });
+    
         // builder.addDoubleProperty("FPGA Clock", () -> Timer.getFPGATimestamp(), null);
         // builder.addDoubleProperty("rightTrigger.get()",() -> rightTrigger.get(), null);
 
