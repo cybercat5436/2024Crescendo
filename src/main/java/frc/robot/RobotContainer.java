@@ -136,10 +136,13 @@ public class RobotContainer {
         () -> primaryXTrigger.getAsBoolean(),
         () -> primaryController.getLeftTriggerAxis(),
         () -> primaryController.getRightTriggerAxis(),
+        () -> primaryController.getHID().getXButton(),
+        () -> primaryController.getHID().getBButton(),
         limeLightFront,
         limeLightRear));
 
-      primaryController.back().onTrue(new InstantCommand(()->swerveSubsystem.zeroHeading(0))); //Manually Zero Gyro
+      primaryController.back().onTrue(new InstantCommand(() -> swerveSubsystem.zeroHeading(0))); //Manually Zero Gyro
+
 
       // primaryXTrigger.whileTrue(new AutoAlign(swerveSubsystem, limeLight).repeatedly())
     //.onFalse(new InstantCommand(()->swerveSubsystem.stopModules()));

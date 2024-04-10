@@ -19,7 +19,7 @@ public class SwerveJoystickCmd extends Command {
     private LimeLight limeLightFront;
     private LimeLight limeLightRear;
     private Supplier <Double> xSpdFunction, ySpdFunction, turningSpdFunction, leftTrigger, rightTrigger;
-    private Supplier<Boolean> visionAdjustmentFunction;
+    private Supplier <Boolean> visionAdjustmentFunction;
     private double kLimelightHorizontal = 0.08;
     private double txFront, rx, ry, theta;
     private double kLimelightForward = 1.3;
@@ -32,6 +32,7 @@ public class SwerveJoystickCmd extends Command {
     private SlewRateLimiter slewRateLimiterTheta = new SlewRateLimiter(DriveConstants.kPhysicalMaxSpeedMetersPerSecond * 999);
     private double xSpeed, ySpeed, turningSpeed;
     private boolean isFastModeActive;
+    private Supplier <Boolean> bButtonFunction, xButtonFunction;
     //Robot is tippy in Y direction so we are decreasing yspeed
     private double yScaleFactor = (DriveConstants.ykTranslateDriveMaxSpeedMetersPerSecond/DriveConstants.kTranslateDriveMaxSpeedMetersPerSecond);
 
@@ -43,6 +44,8 @@ public class SwerveJoystickCmd extends Command {
                 Supplier<Boolean> visionAdjustmentFunction, 
                 Supplier<Double> leftTrigger,
                 Supplier<Double> rightTrigger,
+                Supplier<Boolean> xButton,
+                Supplier<Boolean> bButton,
                 LimeLight limeLightFront,
                 LimeLight limeLightRear){
         this.swerveSubsystem = swerveSubsystem;
@@ -53,6 +56,8 @@ public class SwerveJoystickCmd extends Command {
         this.leftTrigger = leftTrigger;
         this.rightTrigger = rightTrigger;
         this.limeLightFront = limeLightFront;
+        this.bButtonFunction = bButton;
+        this.xButtonFunction = xButton;
 
         this.addRequirements(swerveSubsystem);
 
@@ -60,6 +65,11 @@ public class SwerveJoystickCmd extends Command {
         // Register the sendable to LiveWindow and SmartDashboard
         SendableRegistry.addLW(this, this.getClass().getSimpleName(), this.getClass().getSimpleName());
         SmartDashboard.putData(this);
+    }
+    public void setSlewMultiple(double value){
+         this.slewMultiple = value;
+            slewRateLimiterX = new SlewRateLimiter (DriveConstants.kPhysicalMaxSpeedMetersPerSecond * slewMultiple);
+            slewRateLimiterY = new SlewRateLimiter (DriveConstants.kPhysicalMaxSpeedMetersPerSecond * slewMultiple);
     }
 
    
@@ -132,6 +142,12 @@ public class SwerveJoystickCmd extends Command {
 
         // }
         
+        if(xButtonFunction.get() && slewMultiple != 2.0) {
+            setSlewMultiple(2);
+        }
+        if(bButtonFunction.get() && slewMultiple != 6.0) {
+            setSlewMultiple(6);
+        }
     }
 
     /**
