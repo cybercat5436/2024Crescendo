@@ -24,6 +24,10 @@ public class Robot extends TimedRobot {
 
   public static Robot robot;
 
+  public static String autonSelected;
+
+
+
   private Timer timer = new Timer();
 
   private NetworkTableInstance networkTable = NetworkTableInstance.getDefault();
@@ -83,6 +87,15 @@ public class Robot extends TimedRobot {
 
     // check if starting pose is provided
     m_robotContainer.setStartingPoseIfMissing(m_autonomousCommand.getName());
+
+    //Check if the string contains "player" in the selected autonomous(ignores case)
+     if (m_autonomousCommand.getName().toLowerCase().contains("player")){
+       autonSelected = "player";
+     }
+    //Check if the string contains "amp" in the selected autonomous(ignores case)
+     if (m_autonomousCommand.getName().toLowerCase().contains("amp")){
+       autonSelected = "amp";
+     }
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {

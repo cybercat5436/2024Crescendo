@@ -8,7 +8,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.RobotContainer;
+import frc.robot.Robot;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.LimeLight;
 import frc.robot.subsystems.SwerveSubsystem;
@@ -33,8 +33,8 @@ public class AutoAlign extends Command {
     this.limeLight = limeLight;
     this.robotContainer = robotContainer;
     timer = new Timer();
-
-
+    System.out.println("Inside AutoAlign");
+     
   }
 
   public void getAuton (){
@@ -58,6 +58,9 @@ public class AutoAlign extends Command {
     chassisSpeeds.vyMetersPerSecond *= yScaleFactor;
     SwerveModuleState[] moduleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
     swerveSubsystem.setModuleStates(moduleStates);
+    System.out.println("inside execute");
+    System.out.println("The auton selected is: " + Robot.autonSelected);
+   
   }
 
   // Called once the command ends or is interrupted.
