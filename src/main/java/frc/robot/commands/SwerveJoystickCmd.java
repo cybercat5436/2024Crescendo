@@ -21,7 +21,7 @@ public class SwerveJoystickCmd extends Command {
     private Supplier <Double> xSpdFunction, ySpdFunction, turningSpdFunction, leftTrigger, rightTrigger;
     private Supplier <Boolean> visionAdjustmentFunction;
     private double kLimelightHorizontal = 0.08;
-    private double txFront, rx, ry, theta;
+    private double txRear, rx, ry, theta;
     private double kLimelightForward = 1.3;
     private double kLimelightTurning =  0.1;
     private double targetHeading = 0;
@@ -82,7 +82,7 @@ public class SwerveJoystickCmd extends Command {
 
         boolean targetInView = limeLightFront.getVisionTargetStatus();
         boolean isAutoVisionActive = visionAdjustmentFunction.get();
-
+        
         // Read in the robot xSpeed from controller
         xSpeed = processRawDriveSignal(xSpdFunction.get());
         xSpeed = applySpeedScaleToDrive(xSpeed);
@@ -112,10 +112,10 @@ public class SwerveJoystickCmd extends Command {
             // ySpeed = -limeLightGrid.getVisionTargetHorizontalError() * kLimelightHorizontal;
             //theta = swerveSubsystem.getHeading() - Math.atan2(xSpdFunction.get(), ySpdFunction.get())*(180.0/Math.PI);
 
-            txFront = limeLightFront.getVisionTargetHorizontalError();
-            rx = (ySpeed*Math.sin(swerveSubsystem.getHeading()*(Math.PI/180.0))+xSpeed*(Math.cos(swerveSubsystem.getHeading()*(Math.PI/180.0))));
+            txRear = limeLightRear.getVisionTargetHorizontalError();
+            // rx = (ySpeed*Math.sin(swerveSubsystem.getHeading()*(Math.PI/180.0))+xSpeed*(Math.cos(swerveSubsystem.getHeading()*(Math.PI/180.0))));
             // ry = -1*txFront * kLimelightHorizontal; //translational
-            turningSpeed = -1*txFront*kLimelightTurning;//rotational
+            turningSpeed = -1*txRear*kLimelightTurning;//rotational
 
         }
 
@@ -124,12 +124,12 @@ public class SwerveJoystickCmd extends Command {
         
         // convert speeds to reference frames
         ChassisSpeeds chassisSpeeds;
-        if(isAutoVisionActive){
-            chassisSpeeds = new ChassisSpeeds(rx, ry, 0.0);
-        }else {
+        // if(isAutoVisionActive){
+        //     chassisSpeeds = new ChassisSpeeds(rx, ry, 0.0);
+        // }else {
             //need to define in constants.java
-            chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, turningSpeed, swerveSubsystem.getRotation2d());
-        }
+        chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, turningSpeed, swerveSubsystem.getRotation2d());
+        // }
             
         chassisSpeeds.vyMetersPerSecond *= yScaleFactor;
 

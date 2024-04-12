@@ -6,6 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -24,7 +25,7 @@ public class Robot extends TimedRobot {
 
   public static Robot robot;
 
-  public static String autonSelected;
+  public static String autonSelected = "amp";
 
 
 
@@ -116,6 +117,15 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    double headingDegrees = m_robotContainer.getSwerveSubsystem().getOdometry().getPoseMeters().getRotation().getDegrees();
+    System.out.println(headingDegrees);
+    var alliance = DriverStation.getAlliance();
+    if(alliance.isPresent()){
+      if(alliance.get()==DriverStation.Alliance.Red){
+        headingDegrees+=180;
+      }
+    }
+    m_robotContainer.getSwerveSubsystem().zeroHeading(headingDegrees);
   }
 
   /** This function is called periodically during operator control. */

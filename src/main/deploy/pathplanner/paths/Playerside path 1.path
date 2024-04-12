@@ -32,16 +32,16 @@
     },
     {
       "anchor": {
-        "x": 8.684668138567046,
-        "y": 0.7597545964322702
+        "x": 8.715268329252778,
+        "y": 0.7612043754757987
       },
       "prevControl": {
-        "x": 8.584668138567045,
-        "y": 0.7597545964322702
+        "x": 8.615268329252777,
+        "y": 0.7612043754757987
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Playerside midfied note"
     }
   ],
   "rotationTargets": [
@@ -71,8 +71,8 @@
       }
     },
     {
-      "name": "New Event Marker",
-      "waypointRelativePos": 1.15,
+      "name": "Enable Pose Updater",
+      "waypointRelativePos": 1.0,
       "command": {
         "type": "parallel",
         "data": {
@@ -88,7 +88,7 @@
       }
     },
     {
-      "name": "New Event Marker",
+      "name": "Disable Pose Updater",
       "waypointRelativePos": 2.0,
       "command": {
         "type": "parallel",
@@ -106,8 +106,8 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 4.0,
-    "maxAcceleration": 4.0,
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
@@ -122,5 +122,5 @@
     "rotation": -60.0,
     "velocity": 0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

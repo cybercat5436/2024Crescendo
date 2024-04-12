@@ -157,6 +157,9 @@ public class LimeLight extends SubsystemBase {
   public double getVisionTargetAreaError(){
     return 0.9-taLocal.getDouble(0);
   }
+  public double getVisionArea(){
+    return taLocal.getDouble(0.0);
+  }
 
 public double getVisionTargetVerticalError(){
   return tyLocal.getDouble(0);

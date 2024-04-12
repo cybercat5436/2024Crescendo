@@ -125,7 +125,7 @@ public class RobotContainer {
       Trigger primaryStart = new Trigger(()-> primaryController.getHID().getStartButton());
       Trigger primaryYTrigger = new Trigger(() -> primaryController.getHID().getYButton());
       Trigger primaryXTrigger = new Trigger(() -> primaryController.getHID().getXButton());
-      
+      Trigger primaryATrigger = new Trigger(() -> primaryController.getHID().getAButton());
 
       //Swerve Bindings
       swerveSubsystem.setDefaultCommand(new SwerveJoystickCmd(
@@ -133,7 +133,7 @@ public class RobotContainer {
         () -> -primaryController.getLeftY(),
         () -> -primaryController.getLeftX(),
         () -> -primaryController.getRightX(),
-        () -> primaryXTrigger.getAsBoolean(),
+        () -> primaryATrigger.getAsBoolean(),
         () -> primaryController.getLeftTriggerAxis(),
         () -> primaryController.getRightTriggerAxis(),
         () -> primaryController.getHID().getXButton(),
@@ -144,7 +144,7 @@ public class RobotContainer {
       primaryController.back().onTrue(new InstantCommand(() -> swerveSubsystem.zeroHeading(0))); //Manually Zero Gyro
 
 
-      // primaryXTrigger.whileTrue(new AutoAlign(swerveSubsystem, limeLight).repeatedly())
+      primaryYTrigger.whileTrue(new AutoAlign(swerveSubsystem, limeLightRear));
     //.onFalse(new InstantCommand(()->swerveSubsystem.stopModules()));
     // primaryController.setRumble(GenericHID.RumbleType.kRightRumble, 1.0);
     //  primaryController.a().onTrue(new Command(primaryController.setRumble(RumbleType.kLeftRumble, 1.0)));
