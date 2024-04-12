@@ -27,7 +27,7 @@ public class AutoAlign extends Command {
   private double kRobotY = 0.08;
   private double kRobotX = 0.08;
   private double targetArea = 0.5;
-  private double kPTheta = 0.05;
+  private double kPTheta = 0.1;
   private ChassisSpeeds chassisSpeeds;
   // private Timer timer;
   private String autonSelected;

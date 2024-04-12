@@ -23,7 +23,7 @@ public class SwerveJoystickCmd extends Command {
     private double kLimelightHorizontal = 0.08;
     private double txRear, rx, ry, theta;
     private double kLimelightForward = 1.3;
-    private double kLimelightTurning =  0.1;
+    private double kLimelightTurning =  1;
     private double targetHeading = 0;
     // private double superFastModeConstant = 7.5;
     private double slewMultiple = 2.0;
@@ -82,7 +82,7 @@ public class SwerveJoystickCmd extends Command {
 
         boolean targetInView = limeLightFront.getVisionTargetStatus();
         boolean isAutoVisionActive = visionAdjustmentFunction.get();
-        
+
         // Read in the robot xSpeed from controller
         xSpeed = processRawDriveSignal(xSpdFunction.get());
         xSpeed = applySpeedScaleToDrive(xSpeed);
