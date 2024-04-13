@@ -745,14 +745,66 @@
               "_glyph": 148,
               "_showGlyph": false
             }
+          },
+          "11,1": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/SwerveJoystickCmd/kturning",
+              "_title": "/SmartDashboard/SwerveJoystickCmd/kturning",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "11,2": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/AutoAlign/kRobotX",
+              "_title": "/SmartDashboard/AutoAlign/kRobotX",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "13,2": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/AutoAlign/xSpeed",
+              "_title": "SmartDashboard/AutoAlign/xSpeed",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "13,1": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/AutoAlign/xError",
+              "_title": "SmartDashboard/AutoAlign/xError",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
           }
         }
       }
     }
   ],
   "windowGeometry": {
-    "x": -4.0,
-    "y": 0.800000011920929,
+    "x": -50.400001525878906,
+    "y": 52.0,
     "width": 1538.4000244140625,
     "height": 813.5999755859375
   }

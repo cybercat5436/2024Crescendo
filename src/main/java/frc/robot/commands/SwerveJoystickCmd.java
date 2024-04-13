@@ -23,7 +23,7 @@ public class SwerveJoystickCmd extends Command {
     private double kLimelightHorizontal = 0.08;
     private double txRear, rx, ry, theta;
     private double kLimelightForward = 1.3;
-    private double kLimelightTurning =  1;
+    private double kLimelightTurning =  0.05;
     private double targetHeading = 0;
     // private double superFastModeConstant = 7.5;
     private double slewMultiple = 2.0;
@@ -56,6 +56,7 @@ public class SwerveJoystickCmd extends Command {
         this.leftTrigger = leftTrigger;
         this.rightTrigger = rightTrigger;
         this.limeLightFront = limeLightFront;
+        this.limeLightRear = limeLightRear;
         this.bButtonFunction = bButton;
         this.xButtonFunction = xButton;
 
@@ -80,7 +81,7 @@ public class SwerveJoystickCmd extends Command {
 
         isFastModeActive = rightTrigger.get() > 0.2;
 
-        boolean targetInView = limeLightFront.getVisionTargetStatus();
+        boolean targetInView = limeLightRear.getVisionTargetStatus();
         boolean isAutoVisionActive = visionAdjustmentFunction.get();
 
         // Read in the robot xSpeed from controller
@@ -116,6 +117,7 @@ public class SwerveJoystickCmd extends Command {
             // rx = (ySpeed*Math.sin(swerveSubsystem.getHeading()*(Math.PI/180.0))+xSpeed*(Math.cos(swerveSubsystem.getHeading()*(Math.PI/180.0))));
             // ry = -1*txFront * kLimelightHorizontal; //translational
             turningSpeed = -1*txRear*kLimelightTurning;//rotational
+            // System.out.println("turningSpeed: " + turningSpeed);
 
         }
 
@@ -211,6 +213,7 @@ public class SwerveJoystickCmd extends Command {
             slewRateLimiterY = new SlewRateLimiter (DriveConstants.kPhysicalMaxSpeedMetersPerSecond * slewMultiple);
 
           });
+        builder.addDoubleProperty("kturning", () -> kLimelightTurning, (value) -> kLimelightTurning = value);
     
         // builder.addDoubleProperty("FPGA Clock", () -> Timer.getFPGATimestamp(), null);
         // builder.addDoubleProperty("rightTrigger.get()",() -> rightTrigger.get(), null);

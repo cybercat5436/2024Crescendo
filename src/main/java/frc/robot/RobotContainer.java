@@ -73,7 +73,7 @@ public class RobotContainer {
     private final Climber climber = new Climber(new InstantCommand(() -> superStructure.rotateToAmp()));
     private final Launcher launcher = new Launcher();
     private final Util util = new Util();
-    private final AutoAlign autoAlign = new AutoAlign(swerveSubsystem, limeLightFront);
+    // private final AutoAlign autoAlign = new AutoAlign(swerveSubsystem, limeLightFront);
   
 
     private SequentialCommandGroup shootCommand = new SequentialCommandGroup(
@@ -99,7 +99,7 @@ public class RobotContainer {
       String defaultAuton = AutoBuilder.getAllAutoNames().isEmpty() ? "" : AutoBuilder.getAllAutoNames().get(0);
       autonChooser = AutoBuilder.buildAutoChooser(defaultAuton);
       SmartDashboard.putData("Auton Chooser", autonChooser);
-      AutoAlign  autoAlign = new AutoAlign(swerveSubsystem, limeLightRear);
+      // AutoAlign  autoAlign = new AutoAlign(swerveSubsystem, limeLightRear);
 }
   
     /**
