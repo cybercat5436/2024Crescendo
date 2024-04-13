@@ -36,12 +36,6 @@
                       "data": {
                         "name": "autoAlign"
                       }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "startFeeder"
-                      }
                     }
                   ]
                 }
@@ -53,6 +47,12 @@
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "startFeeder"
           }
         },
         {

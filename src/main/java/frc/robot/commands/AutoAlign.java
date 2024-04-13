@@ -59,14 +59,18 @@ public class AutoAlign extends Command {
     // timer.start();
     // tx for Amp side: 7.06
     // ta for amp side: 0.619
+    //ta for player : 0.58
+    //tx for player: -6.21
     autonSelected = Robot.autonSelected;
     System.out.println("The auton selected is: " + autonSelected);
     if(autonSelected.equals("amp")){
       targetHeading = 60;
-      targetArea = 0.619;
+      targetArea = 0.59;
       targetTx = 7.06;
     }else if(autonSelected.equals("player")){
       targetHeading = -60;
+      targetArea = 0.58;
+      targetTx = -6.21;
     }
     targetHeading += DriverStation.getAlliance().get()==DriverStation.Alliance.Red ? 180 : 0; 
   }
@@ -74,7 +78,8 @@ public class AutoAlign extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double thetaError = targetHeading - swerveSubsystem.getRotation2d().getDegrees();
+    // double thetaError = targetHeading - swerveSubsystem.getRotation2d().getDegrees();
+    double thetaError = targetHeading - swerveSubsystem.getOdometry().getPoseMeters().getRotation().getDegrees();
     boolean isTargetVisible = limeLight.getVisionTargetStatus();
     yError = isTargetVisible ? limeLight.getVisionTargetHorizontalError() - targetTx : 0.0;
     xError = isTargetVisible ? limeLight.getVisionArea() - targetArea : 0.0;

@@ -3,12 +3,12 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.857297007033385,
+        "x": 0.8807186801249481,
         "y": 6.5463576290918635
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.159806911665012,
+        "x": 1.1832285847565749,
         "y": 7.070320153706658
       },
       "isLocked": false,
@@ -16,32 +16,32 @@
     },
     {
       "anchor": {
-        "x": 2.8598500563620233,
-        "y": 7.694019610578451
+        "x": 2.7661633639957715,
+        "y": 7.448092043117039
       },
       "prevControl": {
-        "x": 1.8598500563620233,
-        "y": 7.694019610578451
+        "x": 1.7661633639957715,
+        "y": 7.448092043117039
       },
       "nextControl": {
-        "x": 3.8598500563620233,
-        "y": 7.694019610578451
+        "x": 3.7661633639957715,
+        "y": 7.448092043117039
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 8.58,
-        "y": 7.448092043117039
+        "x": 8.481051598337148,
+        "y": 7.284140331476098
       },
       "prevControl": {
-        "x": 6.888377828110863,
-        "y": 7.401248696933913
+        "x": 6.78942942644801,
+        "y": 7.237296985292972
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Amp midfield note"
     }
   ],
   "rotationTargets": [
@@ -81,6 +81,23 @@
               "type": "named",
               "data": {
                 "name": "disablePoseUpdater"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 1.75,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "intakeFeedIn"
               }
             }
           ]

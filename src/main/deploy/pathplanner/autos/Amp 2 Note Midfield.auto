@@ -36,7 +36,7 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 1.5
+                  "waitTime": 3.0
                 }
               },
               {
@@ -48,17 +48,17 @@
                       "data": {
                         "name": "autoAlign"
                       }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "startFeeder"
-                      }
                     }
                   ]
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "startFeeder"
           }
         },
         {
