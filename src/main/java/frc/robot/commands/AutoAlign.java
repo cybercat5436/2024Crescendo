@@ -30,7 +30,7 @@ public class AutoAlign extends Command {
   private double kRobotY = 0.04;
   private double kRobotX = 1.85;
   double xError, yError;
-  private double targetArea = 0.5;
+  private double targetArea = 0.59;
   private double targetTx;
   private double kPTheta = 0.1;
   private ChassisSpeeds chassisSpeeds;
@@ -52,6 +52,13 @@ public class AutoAlign extends Command {
      
   }
 
+  private boolean isRed() {
+    var alliance = DriverStation.getAlliance();
+    if (alliance.isPresent())
+        return alliance.get()==DriverStation.Alliance.Red;
+    return false;
+  }
+
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
@@ -63,16 +70,18 @@ public class AutoAlign extends Command {
     //tx for player: -6.21
     autonSelected = Robot.autonSelected;
     System.out.println("The auton selected is: " + autonSelected);
+
     if(autonSelected.equals("amp")){
-      targetHeading = 60;
-      targetArea = 0.59;
-      targetTx = 7.06;
+      targetHeading = isRed() ? 120 : 60;
+      // targetArea = 0.59;  // set when instance variable is created, same for both sides
+      targetTx = isRed() ? -6.21 : 7.06;
     }else if(autonSelected.equals("player")){
-      targetHeading = -60;
-      targetArea = 0.58;
-      targetTx = -6.21;
+      targetHeading = isRed() ? -120 : -60;
+      // targetArea = 0.58;
+      targetTx = isRed() ? 7.06 : -6.21;
     }
-    targetHeading += DriverStation.getAlliance().get()==DriverStation.Alliance.Red ? 180 : 0; 
+
+    System.out.println(String.format("Target heading is %.1f and target tx is %.2f", targetHeading, targetTx));
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -88,7 +97,7 @@ public class AutoAlign extends Command {
     ySpeed = yError * kRobotY;
     //ySpeed = limeLight.getVisionTargetHorizontalError() * kLimelightHorizontal;
     // ySpeed = 0;
-    System.out.println("ySpeed: " + ySpeed);
+    // System.out.println("ySpeed: " + ySpeed);
 
     chassisSpeeds = new ChassisSpeeds(xSpeed, ySpeed, turningSpeed);
     SwerveModuleState[] moduleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
