@@ -30,7 +30,7 @@ public class AutoAlign extends Command {
   private double kRobotY = 0.04;
   private double kRobotX = 1.85;
   double xError, yError;
-  private double targetArea = 0.59;
+  private double targetArea = 0.65;
   private double targetTx;
   private double kPTheta = 0.1;
   private ChassisSpeeds chassisSpeeds;
@@ -74,11 +74,11 @@ public class AutoAlign extends Command {
     if(autonSelected.equals("amp")){
       targetHeading = isRed() ? 120 : 60;
       // targetArea = 0.59;  // set when instance variable is created, same for both sides
-      targetTx = isRed() ? -6.21 : 7.06;
+      targetTx = isRed() ? -9.86 : 7.85;
     }else if(autonSelected.equals("player")){
       targetHeading = isRed() ? -120 : -60;
       // targetArea = 0.58;
-      targetTx = isRed() ? 7.06 : -6.21;
+      targetTx = isRed() ? 7.85 : -9.86;
     }
 
     System.out.println(String.format("Target heading is %.1f and target tx is %.2f", targetHeading, targetTx));
