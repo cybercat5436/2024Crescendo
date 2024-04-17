@@ -29,7 +29,8 @@ public class AutoAlign extends Command {
   private double turningSpeed = 0.0;
   private double kRobotY = 0.04;
   private double kRobotX = 1.85;
-  double xError, yError;
+  double xError, yError, xErrorPrevious, yErrorPrevious;
+  int nullCounter;
   private double targetArea = 0.65;
   private double targetTx;
   private double kPTheta = 0.1;
@@ -90,8 +91,17 @@ public class AutoAlign extends Command {
     // double thetaError = targetHeading - swerveSubsystem.getRotation2d().getDegrees();
     double thetaError = targetHeading - swerveSubsystem.getOdometry().getPoseMeters().getRotation().getDegrees();
     boolean isTargetVisible = limeLight.getVisionTargetStatus();
-    yError = isTargetVisible ? limeLight.getVisionTargetHorizontalError() - targetTx : 0.0;
-    xError = isTargetVisible ? limeLight.getVisionArea() - targetArea : 0.0;
+    yError = isTargetVisible ? limeLight.getVisionTargetHorizontalError() - targetTx : yErrorPrevious;
+    xError = isTargetVisible ? limeLight.getVisionArea() - targetArea : xErrorPrevious;
+    nullCounter = isTargetVisible ? 0 : nullCounter + 1;
+    if (nullCounter >= 4) {
+      yErrorPrevious = 0.0;
+      xErrorPrevious = 0.0;
+    }
+    else {
+      yErrorPrevious = yError;
+      xErrorPrevious = xError;
+    }
     turningSpeed = thetaError * kPTheta;
     xSpeed = xError * kRobotX;
     ySpeed = yError * kRobotY;
