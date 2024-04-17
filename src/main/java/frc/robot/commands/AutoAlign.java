@@ -111,7 +111,7 @@ public class AutoAlign extends Command {
   @Override
   public void end(boolean interrupted) {
     // timer.stop();
-    // swerveSubsystem.stopModules();
+    swerveSubsystem.stopModules();
   }
 
   // Returns true when the command should end.
