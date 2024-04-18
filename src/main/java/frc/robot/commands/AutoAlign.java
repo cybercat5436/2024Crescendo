@@ -32,7 +32,7 @@ public class AutoAlign extends Command {
   double xError, yError;
   private double targetArea = 0.65;
   private double targetTx;
-  private double kPTheta = 0.1;
+  private double kPTheta = 1.2;
   private ChassisSpeeds chassisSpeeds;
   // private Timer timer;
   private String autonSelected;

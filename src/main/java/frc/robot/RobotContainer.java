@@ -172,7 +172,7 @@ public class RobotContainer {
       Trigger rightTrigger = new Trigger(()->secondaryController.getRightTriggerAxis()> 0.2);
       Trigger leftTrigger = new Trigger(()->secondaryController.getLeftTriggerAxis()> 0.2);
 
-      leftTrigger.whileTrue(new InstantCommand(()-> launcher.startLauncher(0.7)).repeatedly())
+      leftTrigger.whileTrue(new InstantCommand(()-> launcher.startLauncher(1.0)).repeatedly())
         .onFalse(new InstantCommand(()-> launcher.stopLauncher()));
 
       rightTrigger.onTrue(new InstantCommand(()-> launcher.startFeeder()))
