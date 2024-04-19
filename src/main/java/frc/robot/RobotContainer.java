@@ -77,9 +77,11 @@ public class RobotContainer {
   
 
     private SequentialCommandGroup shootCommand = new SequentialCommandGroup(
-    new InstantCommand(()->launcher.startLauncher(1.0)).repeatedly().withTimeout(.5))
+    new InstantCommand(() -> intake.intakeFeedIn())
+    .andThen( new InstantCommand(()->launcher.startLauncher(1.0)).repeatedly().withTimeout(.85)))
     .andThen(new InstantCommand(()->launcher.startFeeder()).repeatedly().withTimeout(0.3))
-    .andThen(new InstantCommand(()->launcher.stop()));
+    .andThen(new InstantCommand(()->launcher.stop()))
+    .andThen(new InstantCommand(() -> intake.stopIntake()));
     
     
       
