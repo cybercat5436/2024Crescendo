@@ -5,6 +5,9 @@
 package frc.robot.subsystems;
 
 
+import edu.wpi.first.util.sendable.SendableBuilder;
+import edu.wpi.first.util.sendable.SendableRegistry;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -40,7 +43,8 @@ public class Launcher extends SubsystemBase {
     config.Slot0.kD = 0.01;
     launcher.getConfigurator().apply(config, 0.050);
     // falconMotor = new TalonFX(Constants.RoboRioPortConfig.SPEAKER_FALCON_MOTOR);
-
+    SendableRegistry.addLW(this, this.getClass().getSimpleName(), this.getClass().getSimpleName());
+    SmartDashboard.putData(this);
   }
   public void startLauncher() {
     // periodic, run velocity control with slot 0 configs,
@@ -91,6 +95,15 @@ public void startLauncher(double percentage) {
   
   @Override
   public void periodic() {
+
     // This method will be called once per scheduler run
   }
+  @Override
+  public void initSendable(SendableBuilder builder) {
+    // TODO Auto-generated method stub
+    super.initSendable(builder);
+    builder.addDoubleProperty("Launcher speed", () -> launcher.getVelocity().getValueAsDouble(), null);
+  }
+  
 }
+

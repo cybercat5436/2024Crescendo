@@ -54,6 +54,9 @@
   },
   "NetworkTables": {
     "transitory": {
+      "LiveWindow": {
+        "open": true
+      },
       "SmartDashboard": {
         "SwerveSubsystem": {
           "Heading": {

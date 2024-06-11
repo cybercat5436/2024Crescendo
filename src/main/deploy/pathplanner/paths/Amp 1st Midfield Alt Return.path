@@ -3,45 +3,45 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.58,
-        "y": 7.45
+        "x": 8.481051598337148,
+        "y": 7.284140331476098
       },
       "prevControl": null,
       "nextControl": {
-        "x": 9.58,
-        "y": 7.45
+        "x": 7.481051598337148,
+        "y": 7.284140331476098
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Amp midfield note"
     },
     {
       "anchor": {
-        "x": 2.9301150756367127,
-        "y": 7.7408629567615765
+        "x": 2.8715608929078047,
+        "y": 7.284140331476098
       },
       "prevControl": {
-        "x": 3.6796086145667295,
-        "y": 7.775995466398923
+        "x": 3.6210544318378215,
+        "y": 7.3192728411134444
       },
       "nextControl": {
-        "x": 2.1111720968075858,
-        "y": 7.702475004628959
+        "x": 2.0526179140786778,
+        "y": 7.245752379343481
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 0.63,
-        "y": 6.64
+        "x": 0.8807186801249481,
+        "y": 6.5463576290918635
       },
       "prevControl": {
-        "x": 0.8924295166707298,
-        "y": 7.06163443710625
+        "x": 1.143148196795678,
+        "y": 6.967992066198113
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Amp Start"
     }
   ],
   "rotationTargets": [
@@ -52,10 +52,28 @@
     }
   ],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.95,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "startLauncher"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
-    "maxVelocity": 4.0,
-    "maxAcceleration": 4.0,
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
@@ -70,5 +88,5 @@
     "rotation": 0,
     "velocity": 0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

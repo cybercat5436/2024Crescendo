@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.6582127857550991,
-      "y": 4.461828723942754
+      "x": 0.86,
+      "y": 6.55
     },
-    "rotation": -60.0
+    "rotation": 60.0
   },
   "command": {
     "type": "sequential",
@@ -20,13 +20,39 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Right Side First Note and Second"
+            "pathName": "Amp 1st Midfield Alt"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "PlayerRightNoteReturn"
+            "pathName": "Amp 1st Midfield Alt Return"
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 3.0
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "autoAlign"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
           }
         },
         {
@@ -51,12 +77,6 @@
           "type": "named",
           "data": {
             "name": "resetGyro"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "autoAlign"
           }
         }
       ]

@@ -6,6 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -23,6 +24,10 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
 
   public static Robot robot;
+
+  public static String autonSelected = "amp";
+
+
 
   private Timer timer = new Timer();
 
@@ -84,6 +89,15 @@ public class Robot extends TimedRobot {
     // check if starting pose is provided
     m_robotContainer.setStartingPoseIfMissing(m_autonomousCommand.getName());
 
+    //Check if the string contains "player" in the selected autonomous(ignores case)
+     if (m_autonomousCommand.getName().toLowerCase().contains("player")){
+       autonSelected = "player";
+     }
+    //Check if the string contains "amp" in the selected autonomous(ignores case)
+     if (m_autonomousCommand.getName().toLowerCase().contains("amp")){
+       autonSelected = "amp";
+     }
+
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
@@ -103,6 +117,16 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    
+    // double headingDegrees = m_robotContainer.getSwerveSubsystem().getOdometry().getPoseMeters().getRotation().getDegrees();
+    // System.out.println(headingDegrees);
+    // var alliance = DriverStation.getAlliance();
+    // if(alliance.isPresent()){
+    //   if(alliance.get()==DriverStation.Alliance.Red){
+    //     headingDegrees+=180;
+    //   }
+    // }
+    // m_robotContainer.getSwerveSubsystem().zeroHeading(headingDegrees);
   }
 
   /** This function is called periodically during operator control. */

@@ -1,12 +1,6 @@
 {
   "version": 1.0,
-  "startingPose": {
-    "position": {
-      "x": 0.6582127857550991,
-      "y": 4.461828723942754
-    },
-    "rotation": -60.0
-  },
+  "startingPose": null,
   "command": {
     "type": "sequential",
     "data": {
@@ -20,13 +14,39 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Right Side First Note and Second"
+            "pathName": "Playerside path 1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "PlayerRightNoteReturn"
+            "pathName": "Playerside path 1 pt2 "
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "autoAlign"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 1.5
+                }
+              }
+            ]
           }
         },
         {
@@ -51,12 +71,6 @@
           "type": "named",
           "data": {
             "name": "resetGyro"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "autoAlign"
           }
         }
       ]

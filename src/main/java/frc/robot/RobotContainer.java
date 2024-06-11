@@ -73,12 +73,15 @@ public class RobotContainer {
     private final Climber climber = new Climber(new InstantCommand(() -> superStructure.rotateToAmp()));
     private final Launcher launcher = new Launcher();
     private final Util util = new Util();
+    // private final AutoAlign autoAlign = new AutoAlign(swerveSubsystem, limeLightFront);
   
 
     private SequentialCommandGroup shootCommand = new SequentialCommandGroup(
-    new InstantCommand(()->launcher.startLauncher(1.0)).repeatedly().withTimeout(.5))
+    new InstantCommand(() -> intake.intakeFeedIn())
+    .andThen( new InstantCommand(()->launcher.startLauncher(1.0)).repeatedly().withTimeout(.85)))
     .andThen(new InstantCommand(()->launcher.startFeeder()).repeatedly().withTimeout(0.3))
-    .andThen(new InstantCommand(()->launcher.stop()));
+    .andThen(new InstantCommand(()->launcher.stop()))
+    .andThen(new InstantCommand(() -> intake.stopIntake()));
     
     
       
@@ -98,6 +101,7 @@ public class RobotContainer {
       String defaultAuton = AutoBuilder.getAllAutoNames().isEmpty() ? "" : AutoBuilder.getAllAutoNames().get(0);
       autonChooser = AutoBuilder.buildAutoChooser(defaultAuton);
       SmartDashboard.putData("Auton Chooser", autonChooser);
+      // AutoAlign  autoAlign = new AutoAlign(swerveSubsystem, limeLightRear);
 }
   
     /**
@@ -123,7 +127,7 @@ public class RobotContainer {
       Trigger primaryStart = new Trigger(()-> primaryController.getHID().getStartButton());
       Trigger primaryYTrigger = new Trigger(() -> primaryController.getHID().getYButton());
       Trigger primaryXTrigger = new Trigger(() -> primaryController.getHID().getXButton());
-      
+      Trigger primaryATrigger = new Trigger(() -> primaryController.getHID().getAButton());
 
       //Swerve Bindings
       swerveSubsystem.setDefaultCommand(new SwerveJoystickCmd(
@@ -131,15 +135,18 @@ public class RobotContainer {
         () -> -primaryController.getLeftY(),
         () -> -primaryController.getLeftX(),
         () -> -primaryController.getRightX(),
-        () -> primaryXTrigger.getAsBoolean(),
+        () -> primaryATrigger.getAsBoolean(),
         () -> primaryController.getLeftTriggerAxis(),
         () -> primaryController.getRightTriggerAxis(),
+        () -> primaryController.getHID().getXButton(),
+        () -> primaryController.getHID().getBButton(),
         limeLightFront,
         limeLightRear));
 
-      primaryController.back().onTrue(new InstantCommand(()->swerveSubsystem.zeroHeading(0))); //Manually Zero Gyro
+      primaryController.back().onTrue(new InstantCommand(() -> swerveSubsystem.zeroHeading(0))); //Manually Zero Gyro
 
-      // primaryXTrigger.whileTrue(new AutoAlign(swerveSubsystem, limeLight).repeatedly())
+
+      primaryYTrigger.whileTrue(new AutoAlign(swerveSubsystem, limeLightRear));
     //.onFalse(new InstantCommand(()->swerveSubsystem.stopModules()));
     // primaryController.setRumble(GenericHID.RumbleType.kRightRumble, 1.0);
     //  primaryController.a().onTrue(new Command(primaryController.setRumble(RumbleType.kLeftRumble, 1.0)));
@@ -167,7 +174,7 @@ public class RobotContainer {
       Trigger rightTrigger = new Trigger(()->secondaryController.getRightTriggerAxis()> 0.2);
       Trigger leftTrigger = new Trigger(()->secondaryController.getLeftTriggerAxis()> 0.2);
 
-      leftTrigger.whileTrue(new InstantCommand(()-> launcher.startLauncher(0.7)).repeatedly())
+      leftTrigger.whileTrue(new InstantCommand(()-> launcher.startLauncher(1.0)).repeatedly())
         .onFalse(new InstantCommand(()-> launcher.stopLauncher()));
 
       rightTrigger.onTrue(new InstantCommand(()-> launcher.startFeeder()))
@@ -295,7 +302,7 @@ public class RobotContainer {
   }
 
   private void registerNamedCommands(){
-    NamedCommands.registerCommand("autoAlign", new AutoAlign(swerveSubsystem, limeLightFront));
+    NamedCommands.registerCommand("autoAlign", new AutoAlign(swerveSubsystem, limeLightRear));
     NamedCommands.registerCommand("intakeFeedIn", new InstantCommand(()->intake.intakeFeedIn()));
     NamedCommands.registerCommand("stopIntake", new InstantCommand(()->intake.stopIntake()));
     NamedCommands.registerCommand("startLauncher", new InstantCommand(()->launcher.startLauncher(0.7)).repeatedly());
